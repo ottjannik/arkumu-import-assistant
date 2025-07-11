@@ -1,7 +1,15 @@
 import streamlit as st
 import pandas as pd
 
-uploaded_file = st.file_uploader("Wählen Sie Ihre Datei aus", type=['csv', 'png', 'jpg'])
+# Page title
+st.set_page_config(page_title='KHM Archiv Dashboard', page_icon='🎫')
+st.title('🎫 KHM Archiv Dashboard')
+st.info('Info')
+
+
+
+
+uploaded_file = st.sidebar.file_uploader("Wählen Sie Ihre Datei aus", type=['csv', 'png', 'jpg'])
 if uploaded_file is not None:
     # Um die Datei als Bytes zu lesen:
     bytes_data = uploaded_file.getvalue()
