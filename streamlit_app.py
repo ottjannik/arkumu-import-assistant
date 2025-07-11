@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Page title
-st.set_page_config(page_title='KHM Archiv Dashboard', page_icon='🎫')
+st.set_page_config(page_title='KHM Archiv Dashboard', page_icon='🎫', layout="wide")
 st.title('🎫 KHM Archiv Dashboard')
 st.info('Info')
 
