@@ -6,8 +6,8 @@ st.set_page_config(page_title='KHM Archiv Dashboard', page_icon='📁', layout="
 st.title('📁 Multi-File-CSV-Upload')
 
 # Initialisiere Session-State-Zähler
-if "uploaded_count" not in st.session_state:
-    st.session_state.uploaded_count = 0
+if "uploaded_files_count" not in st.session_state:
+    st.session_state.uploaded_files_count = 0
 
 # Multi-File-Upload
 uploaded_files = st.file_uploader(
@@ -18,10 +18,10 @@ uploaded_files = st.file_uploader(
 
 if uploaded_files:
     # Success Meldung mit Zähler der hochgeladenen Dateien anzeigen
-    if len(uploaded_files) > st.session_state.uploaded_count:
-        new_files = len(uploaded_files) - st.session_state.uploaded_count
+    if len(uploaded_files) > st.session_state.uploaded_files_count:
+        new_files = len(uploaded_files) - st.session_state.uploaded_files_count
         st.toast(f"{new_files} Datei(en) erfolgreich hochgeladen!", icon="✅")
-        st.session_state.uploaded_count = len(uploaded_files)
+        st.session_state.uploaded_files_count = len(uploaded_files)
 
     # Erstelle eine Liste der Dateinamen als Auswahloptionen
     file_names = [file.name for file in uploaded_files]
@@ -44,4 +44,4 @@ if uploaded_files:
 
 # Wenn keine Dateien mehr hochgeladen werden, Zähler zurücksetzen
 else:
-    st.session_state.uploaded_count = 0
+    st.session_state.uploaded_files_count = 0
