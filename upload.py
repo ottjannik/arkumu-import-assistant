@@ -10,7 +10,7 @@ if "uploaded_files_count" not in st.session_state:
     st.session_state.uploaded_files_count = 0
 
 # Multi-File-Upload
-uploaded_files = st.file_uploader(
+uploaded_files = st.sidebar.file_uploader(
     "Choose CSV files to upload", 
     accept_multiple_files=True, 
     type='csv'
