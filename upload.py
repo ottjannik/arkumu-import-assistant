@@ -40,6 +40,17 @@ uploaded_files = st.sidebar.file_uploader(
     type='csv'
 )
 
+# Funktion zum Einlesen der CSV Dateien in dfs
+def read_csv_file(files, target_name, sep=";"):
+    for file in files:
+         if file.name == target_name:
+            try:
+                return pd.read_csv(file, sep=sep)
+            except Exception as e:
+                st.error(f"Fehler beim Lesen von '{file.name}': {e}")
+                return None
+            return None
+
 if uploaded_files:
     # Success Meldung mit Zähler der hochgeladenen Dateien anzeigen
     if len(uploaded_files) > st.session_state.uploaded_files_count:
@@ -61,63 +72,54 @@ if uploaded_files:
     else:
         st.sidebar.success("Alle erforderlichen Dateien wurden hochgeladen", icon="✅")
 
-    # Funktion zum Einlesen der CSV Dateien in dfs
-    def read_csv_file(files, target_name, sep=";"):
-        for file in files:
-            if file.name == target_name:
-                try:
-                    return pd.read_csv(file, sep=sep)
-                except Exception as e:
-                    st.error(f"Fehler beim Lesen von '{file.name}': {e}")
-                    return None
-        return None
-    
-    # Tabs definieren
-    tabs = st.tabs(["Übersicht", "Projekte", "Akteur:innen", "Keywords"])
+        # ----- DASHBOARD BEGINNT HIER ----- #
 
-    # Tab 1 – Übersicht
-    with tabs[0]:
-        st.subheader("Übersicht")
+        # Tabs definieren
+        tabs = st.tabs(["Übersicht", "Projekte", "Akteur:innen", "Keywords"])
 
-        df_projekte = read_csv_file(uploaded_files, "00_Projekte.csv")
-        df_akteurinnen = read_csv_file(uploaded_files, "03_Personen_Akteurinnen.csv")
+        # Tab 1 – Übersicht
+        with tabs[0]:
+            st.subheader("Übersicht")
 
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            st.metric("Anzahl Projekte", len(df_projekte.drop_duplicates()))
-        with col2:
-            st.metric("Anzahl Akteur:innen", len(df_akteurinnen.drop_duplicates()))
-        
+            df_projekte = read_csv_file(uploaded_files, "00_Projekte.csv")
+            df_akteurinnen = read_csv_file(uploaded_files, "03_Personen_Akteurinnen.csv")
 
-
-        if df_projekte is not None:
-            st.metric("Anzahl Projekte", len(df_projekte.drop_duplicates()))
-        else:
-            st.info("Datei **01_Projekte.csv** nicht gefunden oder fehlerhaft.")
-
-    # Tab 2 – Akteur:innen
-    with tabs[1]:
-        st.subheader("Akteur:innen-Statistiken")
-        df_akteurinnen = read_csv_file(uploaded_files, "03_Personen_Akteurinnen.csv")
-        if df_akteurinnen is not None:
+            col1, col2, col3 = st.columns(3)
             with col1:
-                st.metric("Anzahl eindeutige Akteur:innen", len(df_akteurinnen.drop_duplicates()))
+                st.metric("Anzahl Projekte", len(df_projekte.drop_duplicates()))
             with col2:
-                st.metric("Anzahl eindeutige Akteur:innen", len(df_akteurinnen.drop_duplicates()))
-        else:
-            st.info("Datei **03_Personen_Akteurinnen.csv** nicht gefunden oder fehlerhaft.")
-
-    # Tab 3 – Keywords
-    with tabs[2]:
-        st.subheader("Keyword-Statistiken")
-        df_keywords = read_csv_file(uploaded_files, "07_Kreuz_Projekte_Keywords.csv")
-        if df_keywords is not None:
-            st.metric("Anzahl Keywords", len(df_keywords.drop_duplicates()))
-            st.metric("Anzahl Keywords", len(df_keywords.drop_duplicates()))
-        else:
-            st.info("Datei **04_Projekte_Keywords.csv** nicht gefunden oder fehlerhaft.")
+                st.metric("Anzahl Akteur:innen", len(df_akteurinnen.drop_duplicates()))
+            
 
 
+            if df_projekte is not None:
+                st.metric("Anzahl Projekte", len(df_projekte.drop_duplicates()))
+            else:
+                st.info("Datei **01_Projekte.csv** nicht gefunden oder fehlerhaft.")
+
+        # Tab 2 – Akteur:innen
+        with tabs[1]:
+            st.subheader("Akteur:innen-Statistiken")
+            df_akteurinnen = read_csv_file(uploaded_files, "03_Personen_Akteurinnen.csv")
+            if df_akteurinnen is not None:
+                with col1:
+                    st.metric("Anzahl eindeutige Akteur:innen", len(df_akteurinnen.drop_duplicates()))
+                with col2:
+                    st.metric("Anzahl eindeutige Akteur:innen", len(df_akteurinnen.drop_duplicates()))
+            else:
+                st.info("Datei **03_Personen_Akteurinnen.csv** nicht gefunden oder fehlerhaft.")
+
+        # Tab 3 – Keywords
+        with tabs[2]:
+            st.subheader("Keyword-Statistiken")
+            df_keywords = read_csv_file(uploaded_files, "07_Kreuz_Projekte_Keywords.csv")
+            if df_keywords is not None:
+                st.metric("Anzahl Keywords", len(df_keywords.drop_duplicates()))
+                st.metric("Anzahl Keywords", len(df_keywords.drop_duplicates()))
+            else:
+                st.info("Datei **04_Projekte_Keywords.csv** nicht gefunden oder fehlerhaft.")
+
+             # ----- DASHBOARD ENDE ----- #
 
 else:
     st.session_state.uploaded_files_count = 0
