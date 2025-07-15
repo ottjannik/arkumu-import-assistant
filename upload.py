@@ -3,8 +3,8 @@ import pandas as pd
 import time
 
 # Page title
-st.set_page_config(page_title='KHM Archiv Dashboard', page_icon='📁', layout="wide")
-st.title('📁 KHM –> arkumu.nrw')
+st.set_page_config(page_title='KHM → arkumu.nrw', page_icon='📁', layout="wide")
+st.title('📁 KHM → arkumu.nrw')
 
 # Liste benötigter Dateien, die hochgeladen werden müssen um alle Funktionen des Dashboards zu nutzen
 required_files = [
@@ -62,9 +62,9 @@ def check_required_columns(df, required_columns, filename):
             if missing_count > 0:
                 missing_report[col] = f"{missing_count} fehlende(r) Wert(e)"
     if missing_report:
-        st.warning(f"🚩 Pflichtfeldprüfung für **{filename}**:")
-        for col, msg in missing_report.items():
-            st.write(f"- **{col}**: {msg}")
+        with st.expander(f"🚩 Fehlende Werte bei Pflichtfeldern in **{filename}**:", expanded=True):
+            for col, msg in missing_report.items():
+                st.write(f"- **{col}**: {msg}")
     else:
         st.success(f"✅ Alle Pflichtfelder in **{filename}** sind vollständig.")
 
@@ -87,7 +87,7 @@ if uploaded_files:
         for missing in sorted(missing_files):
             st.sidebar.write(f"- {missing}")
     else:
-        alert_all_upload_success = st.sidebar.success("Alle erforderlichen Dateien wurden erfolgreich hochgeladen", icon="✅")
+        alert_all_upload_success = st.sidebar.success("Alle erforderlichen Dateien wurden hochgeladen", icon="👍")
         time.sleep(1.5)
         alert_all_upload_success.empty()
 
@@ -112,6 +112,10 @@ if uploaded_files:
                 st.metric("Anzahl Akteur:innen", len(df_akteurinnen))
             with col3:
                 st.metric("Anzahl Dateien", len(df_media))
+
+            st.subheader("Pflichtfelder")
+            required_columns_projekte = ["Originaltitel", "Originaltitel_Sprache", "Projektart_calc", "Projektkategorien_arkumu"]
+            check_required_columns(df_projekte, required_columns_projekte, "00_Projekte.csv")
             
         # Tab 2 - Projekte
         with tabs[1]:
