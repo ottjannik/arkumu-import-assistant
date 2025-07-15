@@ -50,14 +50,14 @@ if uploaded_files:
         time.sleep(1.5)
         alert.empty()
 
-    # Falls Dateien fehlen liste diese sortiert auf
+    # Falls benötigte Dateien fehlen liste diese sortiert auf
     uploaded_names = [file.name for file in uploaded_files]
     missing_files = set(required_files) - set(uploaded_names)
 
     if missing_files:
-        st.sidebar.error(f"❗ Es fehlen {len(missing_files)} Datei(en):")
-        for missing in sorted(missing_files):
-            st.sidebar.write(f"- {missing}")
+        with st.sidebar.expander(f"❗ Es fehlen {len(missing_files)} Datei(en):", expanded=True):
+            st.markdown("\n".join([f"- {missing}" for missing in sorted(missing_files)]))
+
     else:
         alert_all_upload_success = st.sidebar.success("Alle erforderlichen Dateien wurden hochgeladen", icon="🎉")
         time.sleep(1.5)
@@ -104,10 +104,10 @@ if uploaded_files:
         # Tab 3 – Keywords
         with tabs[3]:
             st.subheader("Keyword-Statistiken")
-
-
          # ----- DASHBOARD ENDE ----- #
 
 else:
     st.session_state.uploaded_files_count = 0
-    st.info("Bitte lade die CSV-Dateien hoch.")
+    st.info("Bitte lade die benötigten CSV-Dateien hoch")
+    with st.sidebar.expander("📄 Benötigte CSV-Dateien", expanded=False):
+        st.markdown("\n".join([f"- {file}" for file in sorted(required_files)]))
