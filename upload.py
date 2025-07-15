@@ -4,7 +4,7 @@ import time
 
 # Page title
 st.set_page_config(page_title='KHM Archiv Dashboard', page_icon='📁', layout="wide")
-st.title('📁 Multi-File-CSV-Upload')
+st.title('📁 KHM –> arkumu.nrw')
 
 # Liste benötigter Dateien, die hochgeladen werden müssen um alle Funktionen des Dashboards zu nutzen
 required_files = [
@@ -50,6 +50,23 @@ def read_csv_file(files, target_name, sep=";"):
                 st.error(f"Fehler beim Lesen von '{file.name}': {e}")
                 return None
             return None
+         
+# Funktion zur Pflichtfeldprüfung
+def check_required_columns(df, required_columns, filename):
+    missing_report = {}
+    for col in required_columns:
+        if col not in df.columns:
+            missing_report[col] = "Spalte fehlt"
+        else:
+            missing_count = df[col].isnull().sum() + (df[col] == "").sum()
+            if missing_count > 0:
+                missing_report[col] = f"{missing_count} fehlende(r) Wert(e)"
+    if missing_report:
+        st.warning(f"🚩 Pflichtfeldprüfung für **{filename}**:")
+        for col, msg in missing_report.items():
+            st.write(f"- **{col}**: {msg}")
+    else:
+        st.success(f"✅ Alle Pflichtfelder in **{filename}** sind vollständig.")
 
 if uploaded_files:
     # Success Meldung mit Zähler der hochgeladenen Dateien anzeigen
@@ -70,67 +87,51 @@ if uploaded_files:
         for missing in sorted(missing_files):
             st.sidebar.write(f"- {missing}")
     else:
-        st.sidebar.success("Alle erforderlichen Dateien wurden hochgeladen", icon="✅")
+        alert_all_upload_success = st.sidebar.success("Alle erforderlichen Dateien wurden erfolgreich hochgeladen", icon="✅")
+        time.sleep(1.5)
+        alert_all_upload_success.empty()
+
+        # Dataframes aus CSV Dateien
+        df_projekte = read_csv_file(uploaded_files, "00_Projekte.csv")
+        df_ereignisse = read_csv_file(uploaded_files, "01_Grundereignis.csv")
+        df_akteurinnen = read_csv_file(uploaded_files, "03_Personen_Akteurinnen.csv")
+        df_keywords = read_csv_file(uploaded_files, "07_Kreuz_Projekte_Keywords.csv")
+        df_media = read_csv_file(uploaded_files, "12_Media_DigitaleObjekte.csv")
 
         # ----- DASHBOARD BEGINNT HIER ----- #
-
         # Tabs definieren
         tabs = st.tabs(["Übersicht", "Projekte", "Akteur:innen", "Keywords"])
 
         # Tab 1 – Übersicht
         with tabs[0]:
             st.subheader("Übersicht")
-
-            df_projekte = read_csv_file(uploaded_files, "00_Projekte.csv")
-            df_akteurinnen = read_csv_file(uploaded_files, "03_Personen_Akteurinnen.csv")
-
             col1, col2, col3 = st.columns(3)
             with col1:
-                st.metric("Anzahl Projekte", len(df_projekte.drop_duplicates()))
+                st.metric("Anzahl Projekte", len(df_projekte))
             with col2:
-                st.metric("Anzahl Akteur:innen", len(df_akteurinnen.drop_duplicates()))
+                st.metric("Anzahl Akteur:innen", len(df_akteurinnen))
+            with col3:
+                st.metric("Anzahl Dateien", len(df_media))
             
-
-
-            if df_projekte is not None:
-                st.metric("Anzahl Projekte", len(df_projekte.drop_duplicates()))
-            else:
-                st.info("Datei **01_Projekte.csv** nicht gefunden oder fehlerhaft.")
-
-        # Tab 2 – Akteur:innen
+        # Tab 2 - Projekte
         with tabs[1]:
+            st.subheader("Projekte")
+            required_columns_projekte = ["Originaltitel", "Originaltitel_Sprache", "Projektart_calc", "Projektkategorien_arkumu"]
+            check_required_columns(df_projekte, required_columns_projekte, "00_Projekte.csv")
+
+
+        # Tab 3 – Akteur:innen
+        with tabs[2]:
             st.subheader("Akteur:innen-Statistiken")
-            df_akteurinnen = read_csv_file(uploaded_files, "03_Personen_Akteurinnen.csv")
-            if df_akteurinnen is not None:
-                with col1:
-                    st.metric("Anzahl eindeutige Akteur:innen", len(df_akteurinnen.drop_duplicates()))
-                with col2:
-                    st.metric("Anzahl eindeutige Akteur:innen", len(df_akteurinnen.drop_duplicates()))
-            else:
-                st.info("Datei **03_Personen_Akteurinnen.csv** nicht gefunden oder fehlerhaft.")
+
 
         # Tab 3 – Keywords
-        with tabs[2]:
+        with tabs[3]:
             st.subheader("Keyword-Statistiken")
-            df_keywords = read_csv_file(uploaded_files, "07_Kreuz_Projekte_Keywords.csv")
-            if df_keywords is not None:
-                st.metric("Anzahl Keywords", len(df_keywords.drop_duplicates()))
-                st.metric("Anzahl Keywords", len(df_keywords.drop_duplicates()))
-            else:
-                st.info("Datei **04_Projekte_Keywords.csv** nicht gefunden oder fehlerhaft.")
 
-             # ----- DASHBOARD ENDE ----- #
+
+         # ----- DASHBOARD ENDE ----- #
 
 else:
     st.session_state.uploaded_files_count = 0
     st.info("Bitte lade die CSV-Dateien hoch.")
-
-
-
-
-
-
-
-
-
-
