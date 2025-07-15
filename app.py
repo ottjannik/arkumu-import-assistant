@@ -104,10 +104,11 @@ if uploaded_files:
         # Tab 3 – Keywords
         with tabs[3]:
             st.subheader("Keyword-Statistiken")
+            
          # ----- DASHBOARD ENDE ----- #
 
 else:
     st.session_state.uploaded_files_count = 0
-    st.info("Bitte lade die benötigten CSV-Dateien hoch")
+    st.info("Bitte lade die benötigten CSV-Dateien hoch.")
     with st.sidebar.expander("📄 Benötigte CSV-Dateien", expanded=False):
         st.markdown("\n".join([f"- {file}" for file in sorted(required_files)]))
