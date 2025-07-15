@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import time
-from utils import read_csv_file, check_required_columns
+from utils import read_csv_file, check_required_columns, check_required_columns_short
 
 # Page title
 st.set_page_config(page_title='KHM → arkumu.nrw', page_icon='📁', layout="wide")
@@ -47,7 +47,7 @@ if uploaded_files:
         new_files = len(uploaded_files) - st.session_state.uploaded_files_count
         alert = st.sidebar.success(f"{new_files} Datei(en) erfolgreich hochgeladen!", icon="✅")
         st.session_state.uploaded_files_count = len(uploaded_files)
-        time.sleep(1.5)
+        time.sleep(2)
         alert.empty()
 
     # Falls benötigte Dateien fehlen liste diese sortiert auf
@@ -59,9 +59,9 @@ if uploaded_files:
             st.markdown("\n".join([f"- {missing}" for missing in sorted(missing_files)]))
 
     else:
-        alert_all_upload_success = st.sidebar.success("Alle erforderlichen Dateien wurden hochgeladen", icon="🎉")
-        time.sleep(1.5)
-        alert_all_upload_success.empty()
+        # alert_all_upload_success = st.sidebar.success("Alle erforderlichen Dateien wurden hochgeladen", icon="🎉")
+        # time.sleep(1.5)
+        # alert_all_upload_success.empty()
 
         # Dataframes aus CSV Dateien
         df_projekte = read_csv_file(uploaded_files, "00_Projekte.csv")
@@ -79,15 +79,15 @@ if uploaded_files:
             st.subheader("Übersicht")
             col1, col2, col3 = st.columns(3)
             with col1:
-                st.metric("Anzahl Projekte", len(df_projekte))
+                st.metric("Anzahl Projekte", len(df_projekte), border=True)
             with col2:
-                st.metric("Anzahl Akteur:innen", len(df_akteurinnen))
+                st.metric("Anzahl Akteur:innen", len(df_akteurinnen), border=True)
             with col3:
-                st.metric("Anzahl Dateien", len(df_media))
+                st.metric("Anzahl Dateien", len(df_media), border=True)
 
             st.subheader("Pflichtfelder")
             required_columns_projekte = ["Originaltitel", "Originaltitel_Sprache", "Projektart_calc", "Projektkategorien_arkumu"]
-            check_required_columns(df_projekte, required_columns_projekte, "00_Projekte.csv")
+            check_required_columns_short(df_projekte, required_columns_projekte, "00_Projekte.csv")
             
         # Tab 2 - Projekte
         with tabs[1]:
