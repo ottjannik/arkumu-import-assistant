@@ -25,8 +25,18 @@ required_files = [
 
 # Prüfe auf Angaben in Spaten, die verpflichtend benötigt werden
 required_columns = {
-    "projekte": ["Projekt_ID", "Originaltitel", "Originaltitel_Sprache", "Projektart_calc", "Projektkategorien_arkumu"],
-    "grundereignis": ["arkumu_Typ_Grundereignis", "Entstehungsjahr", "Entstehungsland"]
+    "projekte": [
+        "Projekt_ID",
+        "Originaltitel",
+        "Originaltitel_Sprache",
+        "Projektart_calc",
+        "Projektkategorien_arkumu",
+    ],
+    "grundereignis": [
+        "arkumu_Typ_Grundereignis",
+        "Entstehungsjahr",
+        "Entstehungsland",
+    ],
 }
 
 # Prüfe auf Angaben in Spalten, die basierend auf der Existenz anderer Spalten verpflichtend benötigt werden

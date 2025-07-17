@@ -85,8 +85,6 @@ if uploaded_files:
             #    for col, msg in missing_conditional.items():
             #        st.write(f"- {col}: {msg}")"""
             
-
-
         # Tab 3 – Akteur:innen
         with tabs[2]:
             st.subheader("Akteur:innen-Statistiken")
