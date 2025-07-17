@@ -9,8 +9,6 @@ from validation import check_required_columns_short, check_required_columns_deta
 st.set_page_config(page_title='KHM → arkumu.nrw', page_icon='📁', layout="wide")
 st.title('📁 KHM → arkumu.nrw')
 
-
-
 # Initialisiere Session-State-Zähler für hochgeladene Dateien
 if "uploaded_files_count" not in st.session_state:
     st.session_state.uploaded_files_count = 0
@@ -37,13 +35,11 @@ if uploaded_files:
 
     if missing_files:
         with st.sidebar.expander(f"❗ Es fehlen {len(missing_files)} Datei(en):", expanded=True):
-            st.markdown("\n".join([f"- {missing}" for missing in sorted(missing_files)]))
+            for missing in sorted(missing_files):
+                st.markdown(f"- {missing}")
 
     else:
-        # alert_all_upload_success = st.sidebar.success("Alle erforderlichen Dateien wurden hochgeladen", icon="🎉")
-        # time.sleep(1.5)
-        # alert_all_upload_success.empty()
-
+ 
         # Dataframes aus CSV Dateien
         df_projekte = read_csv_file(uploaded_files, "00_Projekte.csv")
         df_grundereignis = read_csv_file(uploaded_files, "01_Grundereignis.csv")
@@ -100,4 +96,5 @@ else:
     st.session_state.uploaded_files_count = 0
     st.info("Bitte lade die benötigten CSV-Dateien hoch.")
     with st.sidebar.expander("📄 Benötigte CSV-Dateien", expanded=True):
-        st.markdown("\n".join([f"- {file}" for file in sorted(required_files)]))
+        for file in sorted(required_files):
+            st.markdown(f"- {file}")
