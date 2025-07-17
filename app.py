@@ -1,18 +1,15 @@
 import streamlit as st
 import pandas as pd
 import time
-from config import required_files
+from config import required_files, required_columns, conditional_required_columns
 from utils import read_csv_file
-from validators import (
-    check_required_columns,
-    check_conditional_required_columns,
-    required_columns,
-    conditional_required_columns
-)
+from validation import check_required_columns, check_conditional_required_columns
 
 # Page title
 st.set_page_config(page_title='KHM → arkumu.nrw', page_icon='📁', layout="wide")
 st.title('📁 KHM → arkumu.nrw')
+
+
 
 # Initialisiere Session-State-Zähler für hochgeladene Dateien
 if "uploaded_files_count" not in st.session_state:
@@ -63,21 +60,11 @@ if uploaded_files:
             st.subheader("Übersicht")
             col1, col2, col3 = st.columns(3)
             with col1:
-                gesamtanzahl = len(df_projekte)
-                anzahl_mit_projekt_nr = df_projekte["Projekt_Nr"].notnull() & (df_projekte["Projekt_Nr"] != "")
-                anzahl_mit_projekt_nr = anzahl_mit_projekt_nr.sum()
-                
-
-                
-                st.metric(
-                    label="Anzahl Projekte",
-                    value=gesamtanzahl,
-                    border=True,
-                    delta=f"{anzahl_mit_projekt_nr} mit Projektnummer",
-                    delta_color="off"
-                )
-            with col2:
+                st.metric("Anzahl Projekte", len(df_projekte), border=True)
                 st.metric("Anzahl Akteur:innen", len(df_akteurinnen), border=True)
+            with col2:
+                projekte_mit_projekt_nr = ((df_projekte["Projekt_Nr"].notnull()) & (df_projekte["Projekt_Nr"] != "")).sum()
+                st.metric("Anzahl Projektnummern", projekte_mit_projekt_nr, border=True)
             with col3:
                 st.metric("Anzahl Dateien", len(df_media), border=True)
 

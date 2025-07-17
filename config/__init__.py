@@ -1,1 +1,0 @@
-from .file_config import required_files
