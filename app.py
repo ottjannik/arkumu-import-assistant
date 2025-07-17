@@ -63,7 +63,19 @@ if uploaded_files:
             st.subheader("Übersicht")
             col1, col2, col3 = st.columns(3)
             with col1:
-                st.metric("Anzahl Projekte", len(df_projekte), border=True)
+                gesamtanzahl = len(df_projekte)
+                anzahl_mit_projekt_nr = df_projekte["Projekt_Nr"].notnull() & (df_projekte["Projekt_Nr"] != "")
+                anzahl_mit_projekt_nr = anzahl_mit_projekt_nr.sum()
+                
+
+                
+                st.metric(
+                    label="Anzahl Projekte",
+                    value=gesamtanzahl,
+                    border=True,
+                    delta=f"{anzahl_mit_projekt_nr} mit Projektnummer",
+                    delta_color="off"
+                )
             with col2:
                 st.metric("Anzahl Akteur:innen", len(df_akteurinnen), border=True)
             with col3:
@@ -81,11 +93,11 @@ if uploaded_files:
             check_required_columns(df_grundereignis, required_columns["grundereignis"], "01_Grundereignis.csv")
 
 
-            missing_conditional = check_conditional_required_columns(df_projekte, conditional_required_columns["projekte"])
-            if missing_conditional:
-                st.error("Es fehlen bedingte Pflichtfelder:")
-                for col, msg in missing_conditional.items():
-                    st.write(f"- {col}: {msg}")
+            #'missing_conditional = check_conditional_required_columns(df_projekte, conditional_required_columns["projekte"])
+            #if missing_conditional:
+            #    st.error("Es fehlen bedingte Pflichtfelder:")
+            #    for col, msg in missing_conditional.items():
+            #        st.write(f"- {col}: {msg}")"""
             
 
 
