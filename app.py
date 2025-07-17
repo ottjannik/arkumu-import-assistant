@@ -1,34 +1,18 @@
 import streamlit as st
 import pandas as pd
 import time
-from utils import read_csv_file, check_required_columns, check_required_columns_short
+from config import required_files
+from utils import read_csv_file
+from validators import (
+    check_required_columns,
+    check_conditional_required_columns,
+    required_columns,
+    conditional_required_columns
+)
 
 # Page title
 st.set_page_config(page_title='KHM → arkumu.nrw', page_icon='📁', layout="wide")
 st.title('📁 KHM → arkumu.nrw')
-
-# Liste benötigter Dateien, die hochgeladen werden müssen um alle Funktionen des Dashboards zu nutzen
-required_files = [
-    "00_Projekte.csv",
-    "01_Grundereignis.csv",
-    "02_Kreuz_Projekte_Personen.csv",
-    "03_Personen_Akteurinnen.csv",
-    "04_Kreuz_Betreuende_Projekte.csv",
-    "05_PersonenBetreuende.csv",
-    "06_Auszeichnungen_Projekte.csv",
-    "07_Kreuz_Projekte_Keywords.csv",
-    "08_Keywords.csv",
-    "09_Kreuz_Projekte_Informationsträger.csv",
-    "10_PhysMedien_Informationstraeger.csv",
-    "11_Kreuz_DigitaleObjekte_Proj.csv",
-    "12_Media_DigitaleObjekte.csv",
-    "16_Kreuz_Events_Projekte.csv",
-    "17_Events_weitereEreignisse.csv",
-    "18_Kreuz_Projekte_EquipmentSoftware.csv",
-    "19_Equipment_und_Software.csv",
-    "20_Equipmentart.csv",
-    "21_PhysischesObjekt.csv"
-]
 
 # Initialisiere Session-State-Zähler für hochgeladene Dateien
 if "uploaded_files_count" not in st.session_state:
@@ -65,14 +49,14 @@ if uploaded_files:
 
         # Dataframes aus CSV Dateien
         df_projekte = read_csv_file(uploaded_files, "00_Projekte.csv")
-        df_ereignisse = read_csv_file(uploaded_files, "01_Grundereignis.csv")
+        df_grundereignis = read_csv_file(uploaded_files, "01_Grundereignis.csv")
         df_akteurinnen = read_csv_file(uploaded_files, "03_Personen_Akteurinnen.csv")
         df_keywords = read_csv_file(uploaded_files, "07_Kreuz_Projekte_Keywords.csv")
         df_media = read_csv_file(uploaded_files, "12_Media_DigitaleObjekte.csv")
 
         # ----- DASHBOARD BEGINNT HIER ----- #
         # Tabs definieren
-        tabs = st.tabs(["Übersicht", "Projekte", "Akteur:innen", "Keywords"])
+        tabs = st.tabs(["Übersicht", "Pflichtfeldprüfung", "Akteur:innen", "Keywords"])
 
         # Tab 1 – Übersicht
         with tabs[0]:
@@ -86,14 +70,21 @@ if uploaded_files:
                 st.metric("Anzahl Dateien", len(df_media), border=True)
 
             st.subheader("Pflichtfelder")
-            required_columns_projekte = ["Originaltitel", "Originaltitel_Sprache", "Projektart_calc", "Projektkategorien_arkumu"]
-            check_required_columns_short(df_projekte, required_columns_projekte, "00_Projekte.csv")
+            check_required_columns(df_projekte, required_columns["projekte"], "00_Projekte.csv")
+            check_required_columns(df_grundereignis, required_columns["grundereignis"], "01_Grundereignis.csv")
             
-        # Tab 2 - Projekte
+        # Tab 2 - Pflichtfeldprüfung
         with tabs[1]:
-            st.subheader("Projekte")
-            required_columns_projekte = ["Originaltitel", "Originaltitel_Sprache", "Projektart_calc", "Projektkategorien_arkumu"]
-            check_required_columns(df_projekte, required_columns_projekte, "00_Projekte.csv")
+            st.subheader("Pflichtfeldprüfung")
+            st.subheader("00_Projekte.csv")
+            check_required_columns(df_projekte, required_columns["projekte"], "00_Projekte.csv")
+
+            missing_conditional = check_conditional_required_columns(df_projekte, conditional_required_columns["projekte"])
+            if missing_conditional:
+                st.error("Es fehlen bedingte Pflichtfelder:")
+                for col, msg in missing_conditional.items():
+                    st.write(f"- {col}: {msg}")
+            
 
 
         # Tab 3 – Akteur:innen
@@ -110,5 +101,5 @@ if uploaded_files:
 else:
     st.session_state.uploaded_files_count = 0
     st.info("Bitte lade die benötigten CSV-Dateien hoch.")
-    with st.sidebar.expander("📄 Benötigte CSV-Dateien", expanded=False):
+    with st.sidebar.expander("📄 Benötigte CSV-Dateien", expanded=True):
         st.markdown("\n".join([f"- {file}" for file in sorted(required_files)]))
