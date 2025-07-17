@@ -17,19 +17,3 @@ def check_required_columns(df, required_columns, filename):
             st.write(f"- **{col}**: {msg}")
     else:
         st.success(f"🎉 Alle Pflichtfelder in **{filename}** sind vollständig.")
-
-
-
-def check_required_columns_short(df, required_columns, filename):
-    missing_report = {}
-    for col in required_columns:
-        if col not in df.columns:
-            missing_report[col] = "Spalte fehlt"
-        else:
-            missing_count = df[col].isnull().sum() + (df[col] == "").sum()
-            if missing_count > 0:
-                missing_report[col] = f"{missing_count} fehlende(r) Wert(e)"
-    if missing_report:
-        st.error(f"**{filename}** enthält fehlende Werte bei Pflichtfeldern.")
-    else:
-        st.success(f"🎉 Alle Pflichtfelder in **{filename}** sind vollständig.")

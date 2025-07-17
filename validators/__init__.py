@@ -1,3 +1,3 @@
 from .required_checks import check_required_columns
 from .conditional_checks import check_conditional_required_columns
-from .rules import required_columns, conditional_required_columns
+from .conditions import required_columns, conditional_required_columns

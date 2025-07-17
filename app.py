@@ -78,6 +78,8 @@ if uploaded_files:
             st.subheader("Pflichtfeldprüfung")
             st.subheader("00_Projekte.csv")
             check_required_columns(df_projekte, required_columns["projekte"], "00_Projekte.csv")
+            check_required_columns(df_grundereignis, required_columns["grundereignis"], "01_Grundereignis.csv")
+
 
             missing_conditional = check_conditional_required_columns(df_projekte, conditional_required_columns["projekte"])
             if missing_conditional:
