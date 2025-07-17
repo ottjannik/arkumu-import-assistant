@@ -13,3 +13,13 @@ def read_csv_file(files, target_name, sep=";"):
                 return None
             return None
 
+st.write(
+    """
+    <style>
+    [data-testid="stMetricDelta"] svg {
+        display: none;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)

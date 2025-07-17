@@ -56,10 +56,10 @@ if uploaded_files:
             st.subheader("Übersicht")
             col1, col2, col3 = st.columns(3)
             with col1:
-                st.metric("Anzahl Projekte", len(df_projekte), border=True)
+                projekte_mit_projekt_nr = ((df_projekte["Projekt_Nr"].notnull()) & (df_projekte["Projekt_Nr"] != "")).sum()
+                st.metric("Anzahl Projekte", len(df_projekte), border=True, delta=f"{projekte_mit_projekt_nr} mit Projektnummer", delta_color="inverse")
                 st.metric("Anzahl Akteur:innen", len(df_akteurinnen), border=True)
             with col2:
-                projekte_mit_projekt_nr = ((df_projekte["Projekt_Nr"].notnull()) & (df_projekte["Projekt_Nr"] != "")).sum()
                 st.metric("Anzahl Projektnummern", projekte_mit_projekt_nr, border=True)
             with col3:
                 st.metric("Anzahl Dateien", len(df_media), border=True)
