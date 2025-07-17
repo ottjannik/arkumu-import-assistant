@@ -23,11 +23,13 @@ required_files = [
     "21_PhysischesObjekt.csv"
 ]
 
+# Prüfe auf Angaben in Spaten, die verpflichtend benötigt werden
 required_columns = {
     "projekte": ["Projekt_ID", "Originaltitel", "Originaltitel_Sprache", "Projektart_calc", "Projektkategorien_arkumu"],
     "grundereignis": ["arkumu_Typ_Grundereignis", "Entstehungsjahr", "Entstehungsland"]
 }
 
+# Prüfe auf Angaben in Spalten, die basierend auf der Existenz anderer Spalten verpflichtend benötigt werden
 conditional_required_columns = {
     "projekte": [
         {"if_filled": "Untertitel", "then_required": "Untertitel_Sprache"},

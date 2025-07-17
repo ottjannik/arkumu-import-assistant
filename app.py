@@ -3,7 +3,7 @@ import pandas as pd
 import time
 from config import required_files, required_columns, conditional_required_columns
 from utils import read_csv_file
-from validation import check_required_columns, check_conditional_required_columns
+from validation import check_required_columns_short, check_required_columns_detailed, check_conditional_required_columns
 
 # Page title
 st.set_page_config(page_title='KHM → arkumu.nrw', page_icon='📁', layout="wide")
@@ -69,15 +69,14 @@ if uploaded_files:
                 st.metric("Anzahl Dateien", len(df_media), border=True)
 
             st.subheader("Pflichtfelder")
-            check_required_columns(df_projekte, required_columns["projekte"], "00_Projekte.csv")
-            check_required_columns(df_grundereignis, required_columns["grundereignis"], "01_Grundereignis.csv")
+            check_required_columns_short(df_projekte, required_columns["projekte"], "00_Projekte.csv")
+            check_required_columns_short(df_grundereignis, required_columns["grundereignis"], "01_Grundereignis.csv")
             
         # Tab 2 - Pflichtfeldprüfung
         with tabs[1]:
             st.subheader("Pflichtfeldprüfung")
-            st.subheader("00_Projekte.csv")
-            check_required_columns(df_projekte, required_columns["projekte"], "00_Projekte.csv")
-            check_required_columns(df_grundereignis, required_columns["grundereignis"], "01_Grundereignis.csv")
+            check_required_columns_detailed(df_projekte, required_columns["projekte"], "00_Projekte.csv")
+            check_required_columns_detailed(df_grundereignis, required_columns["grundereignis"], "01_Grundereignis.csv")
 
 
             #'missing_conditional = check_conditional_required_columns(df_projekte, conditional_required_columns["projekte"])

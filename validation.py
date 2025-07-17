@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 
 # Funktion zur Pflichtfeldprüfung, welche leere Felder wie NaN oder None durchsucht, aber auch leere Strings ("")
-def check_required_columns(df, required_columns, filename):
+def check_required_columns_short(df, required_columns, filename):
     missing_report = {}
     for col in required_columns:
         if col not in df.columns:
@@ -13,11 +13,36 @@ def check_required_columns(df, required_columns, filename):
             if missing_count > 0:
                 missing_report[col] = f"{missing_count} fehlende(r) Wert(e)"
     if missing_report:
-        st.error(f"Fehlende Werte bei Pflichtfeldern in **{filename}**:")
-        for col, msg in missing_report.items():
-            st.write(f"- **{col}**: {msg}")
+        st.error(f"Fehlende Werte bei Pflichtfeldern in **{filename}**")
     else:
-        st.success(f"🎉 Alle Pflichtfelder in **{filename}** sind vollständig.")
+        st.success(f"Alle Pflichtfelder in **{filename}** sind vollständig.")
+
+
+def check_required_columns_detailed(df, required_columns, filename):
+    missing_entries = []
+
+    if "Projekt_ID" not in df.columns:
+        st.error(f"Die Spalte 'Projekt_ID' fehlt in **{filename}** — Prüfung abgebrochen.")
+        return
+
+    for col in required_columns:
+        if col not in df.columns:
+            missing_entries.append({"Projekt_ID": None, "Fehlende_Spalte": col, "Status": "Spalte fehlt"})
+        else:
+            missing_rows = df[df[col].isnull() | (df[col] == "")]
+            for _, row in missing_rows.iterrows():
+                missing_entries.append({
+                    "Projekt_ID": row["Projekt_ID"],
+                    "Fehlende_Spalte": col,
+                    "Status": "Wert fehlt"
+                })
+
+    if missing_entries:
+        st.error(f"Fehlende Werte bei Pflichtfeldern in **{filename}**")
+        with st.expander("Details anzeigen", expanded=True):
+            st.dataframe(pd.DataFrame(missing_entries))
+    else:
+        st.success(f"Alle Pflichtfelder in **{filename}** sind vollständig.")
 
 def check_conditional_required_columns(df, conditional_rules):
     report = {}
