@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import time
 from config import required_files, required_columns, conditional_required_columns
-from utils import read_csv_file
+from utils import read_csv_file, load_all_dataframes
 from validation import check_required_columns_short, check_required_columns_detailed, check_conditional_required_columns
 
 # Page title
@@ -39,13 +39,13 @@ if uploaded_files:
                 st.markdown(f"- {missing}")
 
     else:
- 
-        # Dataframes aus CSV Dateien
-        df_projekte = read_csv_file(uploaded_files, "00_Projekte.csv")
-        df_grundereignis = read_csv_file(uploaded_files, "01_Grundereignis.csv")
-        df_akteurinnen = read_csv_file(uploaded_files, "03_Personen_Akteurinnen.csv")
-        df_keywords = read_csv_file(uploaded_files, "07_Kreuz_Projekte_Keywords.csv")
-        df_media = read_csv_file(uploaded_files, "12_Media_DigitaleObjekte.csv")
+        # Dataframes aus CSV Dateien laden
+        dfs = load_all_dataframes(uploaded_files, required_files)
+        df_projekte = dfs.get("00_Projekte.csv")
+        df_grundereignis = dfs.get("01_Grundereignis.csv")
+        df_akteurinnen = dfs.get("03_Personen_Akteurinnen.csv")
+        df_keywords = dfs.get("07_Kreuz_Projekte_Keywords.csv")
+        df_media = dfs.get("12_Media_DigitaleObjekte.csv")
 
         # ----- DASHBOARD BEGINNT HIER ----- #
         # Tabs definieren
@@ -63,6 +63,7 @@ if uploaded_files:
                 st.metric("Anzahl Projektnummern", projekte_mit_projekt_nr, border=True)
             with col3:
                 st.metric("Anzahl Dateien", len(df_media), border=True)
+
 
             st.subheader("Pflichtfelder")
             check_required_columns_short(df_projekte, required_columns["projekte"], "00_Projekte.csv")
