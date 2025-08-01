@@ -37,6 +37,22 @@ required_columns = {
         "Entstehungsjahr",
         "Entstehungsland",
     ],
+    "akteurinnen": [
+        "Name_gesamt_natürlicheReihenfolge",
+    ],
+    "betreuende": [
+        "Name_gesamt_natürlicheReihenfolge",
+    ],
+    "auszeichnungen": [
+        "Ausz_Proj_ID",
+        "Ereignistyp",
+        "Ausz_Anfang",
+    ],
+    "keywords": [
+        "Wikidata_QID",
+        "Keyword_eng",
+        "Keyword_deu",
+    ],
 }
 
 # Prüfe auf Angaben in Spalten, die basierend auf der Existenz anderer Spalten verpflichtend benötigt werden

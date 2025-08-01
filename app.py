@@ -4,6 +4,8 @@ import time
 from config import required_files, required_columns, conditional_required_columns
 from utils import read_csv_file, load_all_dataframes
 from validation import check_required_columns_short, check_required_columns_detailed, check_conditional_required_columns
+from stats import count_projects_with_number
+
 
 # Page title
 st.set_page_config(page_title='KHM → arkumu.nrw', page_icon='📁', layout="wide")
@@ -49,18 +51,16 @@ if uploaded_files:
 
         # ----- DASHBOARD BEGINNT HIER ----- #
         # Tabs definieren
-        tabs = st.tabs(["Übersicht", "Pflichtfeldprüfung", "Akteur:innen", "Keywords"])
+        tabs = st.tabs(["Übersicht", "Pflichtfeldprüfung", "Stats", "Keywords"])
 
         # Tab 1 – Übersicht
         with tabs[0]:
             st.subheader("Übersicht")
             col1, col2, col3 = st.columns(3)
             with col1:
-                projekte_mit_projekt_nr = ((df_projekte["Projekt_Nr"].notnull()) & (df_projekte["Projekt_Nr"] != "")).sum()
-                st.metric("Anzahl Projekte", len(df_projekte), border=True, delta=f"{projekte_mit_projekt_nr} mit Projektnummer", delta_color="inverse")
-                st.metric("Anzahl Akteur:innen", len(df_akteurinnen), border=True)
+                st.metric("Anzahl Projekte", len(df_projekte), border=True)
             with col2:
-                st.metric("Anzahl Projektnummern", projekte_mit_projekt_nr, border=True)
+                st.metric("Anzahl Akteur:innen", len(df_akteurinnen), border=True)
             with col3:
                 st.metric("Anzahl Dateien", len(df_media), border=True)
 
@@ -68,6 +68,7 @@ if uploaded_files:
             st.subheader("Pflichtfelder")
             check_required_columns_short(df_projekte, required_columns["projekte"], "00_Projekte.csv")
             check_required_columns_short(df_grundereignis, required_columns["grundereignis"], "01_Grundereignis.csv")
+            check_required_columns_short(df_akteurinnen, required_columns["akteurinnen"], "03_Personen_Akteurinnen.csv")
             
         # Tab 2 - Pflichtfeldprüfung
         with tabs[1]:
@@ -82,9 +83,18 @@ if uploaded_files:
             #    for col, msg in missing_conditional.items():
             #        st.write(f"- {col}: {msg}")"""
             
-        # Tab 3 – Akteur:innen
+        # Tab 3 – Sats
         with tabs[2]:
-            st.subheader("Akteur:innen-Statistiken")
+            st.subheader("Stats")
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                st.metric("Anzahl Projekte", len(df_projekte), border=True)
+                st.metric("Anzahl Akteur:innen", len(df_akteurinnen), border=True)
+            with col2:
+                projects_with_number = count_projects_with_number(df_projekte)
+                st.metric("Anzahl Projektnummern", projects_with_number, border=True)
+            with col3:
+                st.metric("Anzahl Dateien", len(df_media), border=True)
 
 
         # Tab 3 – Keywords
