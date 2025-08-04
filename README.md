@@ -1,5 +1,7 @@
 # zbiw-projektarbeit
 
+Kurze Beschreibung des Projekts.
+
 ## Installation
 ```bash
 # Repository klonen
@@ -39,3 +41,4 @@ streamlit run app.py
 - 19_Equipment_und_Software.csv
 - 20_Equipmentart.csv
 - 21_PhysischesObjekt.csv
+```
