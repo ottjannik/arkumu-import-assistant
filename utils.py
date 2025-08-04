@@ -20,14 +20,3 @@ def load_all_dataframes(uploaded_files, required_files):
         if df is not None:
             dfs[file_name] = df
     return dfs
-
-st.write(
-    """
-    <style>
-    [data-testid="stMetricDelta"] svg {
-        display: none;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)

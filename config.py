@@ -1,6 +1,7 @@
 # Alle globalen Konstanten, required files, Spaltenlisten
+# Diese Datei enthält Konfigurationen, die in der gesamten Anwendung verwendet werden
+# Sie wird in anderen Modulen importiert, um die Konfiguration zentral zu halten    
 
-# Liste benötigter Dateien, die hochgeladen werden müssen um alle Funktionen des Dashboards zu nutzen
 required_files = [
     "00_Projekte.csv",
     "01_Grundereignis.csv",
@@ -23,7 +24,11 @@ required_files = [
     "21_PhysischesObjekt.csv"
 ]
 
-# Prüfe auf Angaben in Spaten, die verpflichtend benötigt werden
+# Diese Spalten sind in den jeweiligen Dateien Pflichtfelder
+# Sie werden in den Validierungsfunktionen verwendet, um die Pflichtfeldprüfung durchzuführen
+# Die Spaltennamen sollten exakt mit denen in den CSV-Dateien übereinstimmen
+# Diese Listen können erweitert werden, wenn neue Dateien oder Spalten hinzukommen
+# Sie dienen der Validierung der hochgeladenen CSV-Dateien
 required_columns = {
     "projekte": [
         "Projekt_ID",
@@ -55,16 +60,58 @@ required_columns = {
     ],
 }
 
-# Prüfe auf Angaben in Spalten, die basierend auf der Existenz anderer Spalten verpflichtend benötigt werden
+# Conditional required columns
+# Diese Regeln definieren, welche Spalten abhängig von anderen Spalten erforderlich sind
+# Beispiel: Wenn "Untertitel" gefüllt ist, muss auch "Untertitel_Sprache" gefüllt sein
+# "if_filled" ist die Spalte, die gefüllt sein muss, und "then_required" ist eine Liste von Spalten, die dann ebenfalls gefüllt sein
 conditional_required_columns = {
     "projekte": [
-        {"if_filled": "Untertitel", "then_required": "Untertitel_Sprache"},
-        {"if_filled": "Titel_erster_alternativer_Titel", "then_required": "Titel_erster_alternativer_Titel_Sprache"},
-        {"if_filled": "Titel_erster_alternativer_Untertitel", "then_required": "Titel_erster_alternativer_Untertitel_Sprache"},
-        {"if_filled": "Titel_zweiter_alternativer_Titel", "then_required": "Titel_zweiter_alternativer_Titel_Sprache"},
-        {"if_filled": "Titel_zweiter_alternativer_Untertitel", "then_required": "Titel_zweiter_alternativer_Untertitel_Sprache"},
+        {"if_filled": "Untertitel", "then_required": ["Untertitel_Sprache"]},
+        {"if_filled": "Titel_erster_alternativer_Titel", "then_required": ["Titel_erster_alternativer_Titel_Sprache"]},
+        {"if_filled": "Titel_erster_alternativer_Untertitel", "then_required": ["Titel_erster_alternativer_Untertitel_Sprache"]},
+        {"if_filled": "Titel_zweiter_alternativer_Titel", "then_required": ["Titel_zweiter_alternativer_Titel_Sprache"]},
+        {"if_filled": "Titel_zweiter_alternativer_Untertitel", "then_required": ["Titel_zweiter_alternativer_Untertitel_Sprache"]},
     ],
     "grundereignis": [
-        {"if_filled": "Entstehungsland", "then_required": "Entstehungs_und_Produktionsland_verkettet"}
+        {"if_filled": "Entstehungsland", "then_required": ["Entstehungs_und_Produktionsland_verkettet"]}
     ]
 }
+
+validation_targets = [
+    {
+        "filename": "00_Projekte.csv",
+        "df_key": "projekte",
+        "rule_key": "projekte",
+        "checks": ["required", "conditional"]
+    },
+    {
+        "filename": "01_Grundereignis.csv",
+        "df_key": "grundereignis",
+        "rule_key": "grundereignis",
+        "checks": ["required", "conditional"]
+    },
+    {
+        "filename": "03_Personen_Akteurinnen.csv",
+        "df_key": "akteurinnen",
+        "rule_key": "akteurinnen",
+        "checks": ["required"]
+    },
+    {
+        "filename": "04_Kreuz_Betreuende_Projekte.csv",
+        "df_key": "betreuende",
+        "rule_key": "betreuende",
+        "checks": ["required"]
+    },
+    {
+        "filename": "06_Auszeichnungen_Projekte.csv",
+        "df_key": "auszeichnungen",
+        "rule_key": "auszeichnungen",
+        "checks": ["required"]
+    },
+    {
+        "filename": "08_Keywords.csv",
+        "df_key": "keywords",
+        "rule_key": "keywords",
+        "checks": ["required"]
+    },
+]

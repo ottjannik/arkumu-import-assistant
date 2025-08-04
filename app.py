@@ -1,11 +1,9 @@
 import streamlit as st
 import pandas as pd
 import time
-from config import required_files, required_columns, conditional_required_columns
+from config import required_files, required_columns, conditional_required_columns, validation_targets
 from utils import read_csv_file, load_all_dataframes
 from validation import check_required_columns_short, check_required_columns_detailed, check_conditional_required_columns
-from stats import count_projects_with_number
-
 
 # Page title
 st.set_page_config(page_title='KHM → arkumu.nrw', page_icon='📁', layout="wide")
@@ -73,15 +71,27 @@ if uploaded_files:
         # Tab 2 - Pflichtfeldprüfung
         with tabs[1]:
             st.subheader("Pflichtfeldprüfung")
-            check_required_columns_detailed(df_projekte, required_columns["projekte"], "00_Projekte.csv")
-            check_required_columns_detailed(df_grundereignis, required_columns["grundereignis"], "01_Grundereignis.csv")
+            st.write("Hier kannst du die Pflichtfelder der hochgeladenen Dateien überprüfen.")
 
+            # Prüfe alle Dateien auf Pflichtfelder
+            for target in validation_targets:
+                df = dfs.get(target["filename"])
+                rule_key = target["rule_key"]
 
-            #'missing_conditional = check_conditional_required_columns(df_projekte, conditional_required_columns["projekte"])
-            #if missing_conditional:
-            #    st.error("Es fehlen bedingte Pflichtfelder:")
-            #    for col, msg in missing_conditional.items():
-            #        st.write(f"- {col}: {msg}")"""
+                # Required checks
+                if "required" in target["checks"]:
+                    check_required_columns_detailed(df, required_columns[rule_key], target["filename"])
+               
+                # Conditional checks
+                if "conditional" in target["checks"]:
+                    check_conditional_required_columns(df, conditional_required_columns[rule_key], target["filename"])
+               
+
+               
+                # Uncomment if you have an 'either_or' check
+#                if "either_or" in target["checks"]:
+#                    check_either_or_columns(df, either_or_required_columns[rule_key], target["filename"])
+
             
         # Tab 3 – Sats
         with tabs[2]:
@@ -91,8 +101,7 @@ if uploaded_files:
                 st.metric("Anzahl Projekte", len(df_projekte), border=True)
                 st.metric("Anzahl Akteur:innen", len(df_akteurinnen), border=True)
             with col2:
-                projects_with_number = count_projects_with_number(df_projekte)
-                st.metric("Anzahl Projektnummern", projects_with_number, border=True)
+                st.metric("Anzahl Dateien", len(df_media), border=True)
             with col3:
                 st.metric("Anzahl Dateien", len(df_media), border=True)
 

@@ -21,10 +21,6 @@ def check_required_columns_short(df, required_columns, filename):
 def check_required_columns_detailed(df, required_columns, filename):
     missing_entries = []
 
-    if "Projekt_ID" not in df.columns:
-        st.error(f"Die Spalte 'Projekt_ID' fehlt in **{filename}** — Prüfung abgebrochen.")
-        return
-
     for col in required_columns:
         if col not in df.columns:
             missing_entries.append({"Projekt_ID": None, "Fehlende_Spalte": col, "Status": "Spalte fehlt"})
@@ -44,29 +40,35 @@ def check_required_columns_detailed(df, required_columns, filename):
     else:
         st.success(f"Alle Pflichtfelder in **{filename}** sind vollständig.")
 
-def check_conditional_required_columns(df, conditional_rules):
-    report = {}
+def check_conditional_required_columns(df, conditional_rules, filename):
+    """
+    Prüft für jedes 'if_filled' Feld, ob bei Befüllung auch alle zugehörigen 'then_required' Felder vorhanden sind.
 
+    Args:
+        df (pd.DataFrame): Das zu prüfende DataFrame.
+        conditional_rules (list): Liste von Regeln mit 'if_filled' und 'then_required' (Liste!).
+        filename (str): Dateiname für Kontext im Reporting.
+
+    Gibt bei Fehlern eine Streamlit-Warnung mit den betroffenen Zeilen aus.
+    """
     for rule in conditional_rules:
         if_col = rule.get("if_filled")
         then_cols = rule.get("then_required", [])
 
         if if_col not in df.columns:
-            report[if_col] = "Spalte fehlt für Bedingungsprüfung"
+            st.warning(f"Spalte '{if_col}' fehlt in {filename}.")
             continue
 
         for then_col in then_cols:
             if then_col not in df.columns:
-                report[then_col] = "Spalte fehlt als Pflichtfeld"
+                st.warning(f"Spalte '{then_col}' fehlt in {filename}.")
                 continue
 
-            # Zeilen finden, bei denen Bedingung verletzt wird
             missing_rows = df[
-                (df[if_col].notnull()) & (df[if_col] != "") &  # if_filled ist befüllt
-                ((df[then_col].isnull()) | (df[then_col] == ""))  # then_required fehlt
+                df[if_col].notna() & (df[if_col].astype(str).str.strip() != "") &
+                (df[then_col].isna() | (df[then_col].astype(str).str.strip() == ""))
             ]
 
             if not missing_rows.empty:
-                report[f"{then_col} (wenn {if_col} gesetzt)"] = len(missing_rows)
-
-    return report
+                with st.expander(f"'{then_col}' fehlt, wenn '{if_col}' gesetzt ist ({filename}, {len(missing_rows)} Zeilen)"):
+                    st.dataframe(missing_rows[[if_col, then_col]])
