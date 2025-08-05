@@ -65,7 +65,7 @@ if uploaded_files:
                 st.metric("Anzahl Akteur:innen", len(df_akteurinnen), border=True)
             with col3:
                 st.metric("Anzahl Dateien", len(df_media), border=True)
-
+            st.divider()
 
             st.subheader("Pflichtfelder")
             check_required_columns_short(df_projekte, required_columns["projekte"], "00_Projekte.csv")
@@ -108,6 +108,8 @@ if uploaded_files:
                 st.metric("Anzahl Dateien", len(df_media), border=True)
             with col3:
                 st.metric("Anzahl Dateien", len(df_media), border=True)
+
+            st.divider()
             plot_file_extension_distribution(df_media)
 
 
