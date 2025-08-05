@@ -1,9 +1,13 @@
+# app.py
+
 import streamlit as st
 import pandas as pd
 import time
 from config import required_files, required_columns, conditional_required_columns, validation_targets
 from utils import read_csv_file, load_all_dataframes
 from validation import check_required_columns_short, check_required_columns_detailed, check_conditional_required_columns
+from views import plot_file_extension_distribution
+
 
 # Page title
 st.set_page_config(page_title='KHM → arkumu.nrw', page_icon='📁', layout="wide")
@@ -104,6 +108,7 @@ if uploaded_files:
                 st.metric("Anzahl Dateien", len(df_media), border=True)
             with col3:
                 st.metric("Anzahl Dateien", len(df_media), border=True)
+            plot_file_extension_distribution(df_media)
 
 
         # Tab 3 – Keywords

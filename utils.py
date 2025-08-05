@@ -1,4 +1,6 @@
-# Helferfunktionen
+# utils.py
+# Diese Datei enthält Hilfsfunktionen, die in verschiedenen Teilen der Anwendung verwendet werden   
+
 import pandas as pd
 import streamlit as st
 

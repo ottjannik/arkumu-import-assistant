@@ -1,4 +1,4 @@
-# Alle globalen Konstanten, required files, Spaltenlisten
+# config.py
 # Diese Datei enthält Konfigurationen, die in der gesamten Anwendung verwendet werden
 # Sie wird in anderen Modulen importiert, um die Konfiguration zentral zu halten    
 
