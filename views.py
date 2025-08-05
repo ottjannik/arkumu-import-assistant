@@ -15,6 +15,9 @@ from config import (
     conditional_required_columns, 
     validation_targets
 )
+from stats import plot_projekt_nr_donut
+
+
 
 
 def render_overview_tab(df_projekte, df_akteurinnen, df_media, df_grundereignis):
@@ -62,6 +65,7 @@ def render_stats_tab(df_projekte, df_akteurinnen, df_media):
     with col2:
         count_projektnr = df_projekte["Projekt_Nr"].value_counts().sum()
         st.metric("Anzahl Projektnummern", count_projektnr, border=True)
+        plot_projekt_nr_donut(df_projekte)
     with col3:
         st.write("Todo: Weitere Statistiken hier einfügen")
     st.divider()
@@ -117,3 +121,5 @@ def plot_file_extension_distribution(df_media):
 
     # Balkendiagramm anzeigen
     st.bar_chart(ext_df)
+
+
