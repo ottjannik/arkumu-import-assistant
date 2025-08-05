@@ -1,5 +1,8 @@
-import pandas as pd
+# views.py
+# Diese Datei enthält die Logik für die verschiedenen Tabs der Streamlit-Anwendung
+
 import streamlit as st
+import pandas as pd
 import os
 from collections import Counter
 from validation import (
@@ -7,10 +10,16 @@ from validation import (
     check_required_columns_detailed,
     check_conditional_required_columns,
 )
-from config import required_columns, conditional_required_columns, validation_targets
+from config import (
+    required_columns, 
+    conditional_required_columns, 
+    validation_targets
+)
+
 
 def render_overview_tab(df_projekte, df_akteurinnen, df_media, df_grundereignis):
     st.subheader("Übersicht")
+    st.write("Hier findest du eine Übersicht über die hochgeladenen Metadaten.")
     col1, col2, col3 = st.columns(3)
     with col1:
         st.metric("Anzahl Projekte", len(df_projekte), border=True)
@@ -28,7 +37,7 @@ def render_overview_tab(df_projekte, df_akteurinnen, df_media, df_grundereignis)
 
 def render_validation_tab(dfs):
     st.subheader("Pflichtfeldprüfung")
-    st.write("Hier kannst du die Pflichtfelder der hochgeladenen Dateien überprüfen.")
+    st.write("Hier kannst du die Pflichtfelder der hochgeladenen Metadaten überprüfen.")
 
     for target in validation_targets:
         df = dfs.get(target["filename"])
@@ -46,24 +55,34 @@ def render_validation_tab(dfs):
 
 def render_stats_tab(df_projekte, df_akteurinnen, df_media):
     st.subheader("Stats")
+    st.write("Hier findest du verschiedene Statistiken zu den hochgeladenen Metadaten.")
     col1, col2, col3 = st.columns(3)
     with col1:
         st.metric("Anzahl Projekte", len(df_projekte), border=True)
-        st.metric("Anzahl Akteur:innen", len(df_akteurinnen), border=True)
+    with col2:
+        count_projektnr = df_projekte["Projekt_Nr"].value_counts().sum()
+        st.metric("Anzahl Projektnummern", count_projektnr, border=True)
+    with col3:
+        st.write("Todo: Weitere Statistiken hier einfügen")
+    st.divider()
+    st.subheader("Dateien")
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.metric("Anzahl Dateien", len(df_media), border=True)
     with col2:
         st.metric("Anzahl Dateien", len(df_media), border=True)
-    with col3:
-        st.metric("Anzahl Dateien", len(df_media), border=True)
-    st.divider()
 
     plot_file_extension_distribution(df_media)
+
+    st.divider()
 
 
 def render_keywords_tab():
     st.subheader("Keyword-Statistiken")
     st.info("Noch keine Visualisierung vorhanden.")
 
-#
+# Funktion zum Plotten der Dateiendungsverteilung
 def plot_file_extension_distribution(df_media):
     st.subheader("Dateiendungen")
 

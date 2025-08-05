@@ -1,9 +1,14 @@
 # app.py
+# Diese Datei ist der Einstiegspunkt für die Streamlit-Anwendung
 
 import streamlit as st
 import time
 from config import required_files
-from utils import load_all_dataframes, extract_named_dataframes, handle_file_upload
+from utils import (
+    load_all_dataframes, 
+    extract_named_dataframes, 
+    handle_file_upload
+)
 from views import (
     render_overview_tab,
     render_validation_tab,

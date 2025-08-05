@@ -45,7 +45,8 @@ def read_csv_file(files, target_name, sep=";"):
                 st.error(f"Fehler beim Lesen von '{file.name}': {e}")
                 return None
             return None
-         
+
+# Funktion zum Laden aller DataFrames aus den hochgeladenen Dateien
 def load_all_dataframes(uploaded_files, required_files):
     dfs = {}
     for file_name in required_files:
@@ -54,6 +55,7 @@ def load_all_dataframes(uploaded_files, required_files):
             dfs[file_name] = df
     return dfs
 
+# Funktion zum Extrahieren von DataFrames mit spezifischen Namen
 def extract_named_dataframes(dfs):
     return {
         "projekte": dfs.get("00_Projekte.csv"),
