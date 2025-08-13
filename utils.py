@@ -7,8 +7,9 @@ import time
 from config import required_files
 
 def handle_file_upload():
+    st.sidebar.write("2. Lade die erforderlichen CSV-Dateien hoch")
     uploaded_files = st.sidebar.file_uploader(
-        "Wähle die erforderlichen CSV-Dateien aus",
+        "CSV-Dateien:",
         accept_multiple_files=True,
         type='csv'
     )

@@ -28,8 +28,8 @@ profiles = {
 
 # Sidebar für die Auswahl des Profils
 st.sidebar.header("Metadaten-Upload")
-st.sidebar.write("Wähle eine Datenquelle aus, um die entsprechenden Konfigurationen zu laden")
-selected_profile = st.sidebar.selectbox("Datenquelle auswählen", list(profiles.keys()))
+st.sidebar.write("1. Wähle eine Datenquelle aus, um die entsprechenden Konfigurationen zu laden")
+selected_profile = st.sidebar.selectbox("Datenquelle:", list(profiles.keys()))
 profile_path = profiles[selected_profile]
 
 with open(profile_path, "r", encoding="utf-8") as f:
