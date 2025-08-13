@@ -8,7 +8,7 @@ from config import required_files
 
 def handle_file_upload():
     uploaded_files = st.sidebar.file_uploader(
-        "Choose CSV files to upload",
+        "Wähle die erforderlichen CSV-Dateien aus",
         accept_multiple_files=True,
         type='csv'
     )
@@ -31,7 +31,6 @@ def handle_file_upload():
                     st.markdown(f"- {missing}")
             return None  # unvollständig
         return uploaded_files
-
     return None
 
 
