@@ -12,8 +12,8 @@ from utils import (
 from views import (
     render_overview_tab,
     render_validation_tab,
-    render_stats_tab,
-    render_keywords_tab
+    render_projects_tab,
+    render_files_tab
 )
 
 st.set_page_config(page_title='KHM → arkumu.nrw', page_icon='📁', layout="wide")
@@ -26,7 +26,7 @@ if uploaded_files:
     dfs = load_all_dataframes(uploaded_files, required_files)
     named_dfs = extract_named_dataframes(dfs)
 
-    tabs = st.tabs(["Übersicht", "Pflichtfeldprüfung", "Stats", "Keywords"])
+    tabs = st.tabs(["Übersicht", "Projekte", "Dateien", "Pflichtfelder"])
 
     with tabs[0]:
         render_overview_tab(
@@ -37,17 +37,18 @@ if uploaded_files:
         )
 
     with tabs[1]:
-        render_validation_tab(dfs)
+        render_projects_tab(
+            named_dfs["projekte"],
+            named_dfs["akteurinnen"]
+        )
 
     with tabs[2]:
-        render_stats_tab(
-            named_dfs["projekte"],
-            named_dfs["akteurinnen"],
+        render_files_tab(
             named_dfs["media"]
         )
 
     with tabs[3]:
-        render_keywords_tab()
+        render_validation_tab(dfs)
 
 else:
     st.session_state.uploaded_files_count = 0

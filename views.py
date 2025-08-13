@@ -3,8 +3,6 @@
 
 import streamlit as st
 import pandas as pd
-import os
-from collections import Counter
 from validation import (
     check_required_columns_short,
     check_required_columns_detailed,
@@ -15,9 +13,10 @@ from config import (
     conditional_required_columns, 
     validation_targets
 )
-from stats import plot_projekt_nr_donut
-
-
+from stats import (
+    plot_projekt_nr_donut,
+    plot_file_extension_distribution
+)
 
 
 def render_overview_tab(df_projekte, df_akteurinnen, df_media, df_grundereignis):
@@ -56,19 +55,23 @@ def render_validation_tab(dfs):
         #     check_either_or_columns(df, either_or_required_columns[rule_key], target["filename"])
 
 
-def render_stats_tab(df_projekte, df_akteurinnen, df_media):
-    st.subheader("Stats")
-    st.write("Hier findest du verschiedene Statistiken zu den hochgeladenen Metadaten.")
+def render_projects_tab(df_projekte, df_akteurinnen):
+    st.subheader("Projekte")
+    st.write("Hier findest du verschiedene Statistiken zu den hochgeladenen Metadaten der Projekte.")
     col1, col2, col3 = st.columns(3)
+
     with col1:
         st.metric("Anzahl Projekte", len(df_projekte), border=True)
     with col2:
-        count_projektnr = df_projekte["Projekt_Nr"].value_counts().sum()
-        st.metric("Anzahl Projektnummern", count_projektnr, border=True)
+        projekte_mit_nr = df_projekte["Projekt_Nr"].value_counts().sum()
+        st.metric("Projekte mit Projektnummer", projekte_mit_nr, border=True)
         plot_projekt_nr_donut(df_projekte)
     with col3:
-        st.write("Todo: Weitere Statistiken hier einfügen")
-    st.divider()
+        projekte_ohne_nr = df_projekte["Projekt_Nr"].isna().sum()
+        st.metric("Projekte ohne Projektnummer", projekte_ohne_nr, border=True)
+    
+
+def render_files_tab(df_media):
     st.subheader("Dateien")
     col1, col2 = st.columns(2)
 
@@ -80,46 +83,3 @@ def render_stats_tab(df_projekte, df_akteurinnen, df_media):
     plot_file_extension_distribution(df_media)
 
     st.divider()
-
-
-def render_keywords_tab():
-    st.subheader("Keyword-Statistiken")
-    st.info("Noch keine Visualisierung vorhanden.")
-
-# Funktion zum Plotten der Dateiendungsverteilung
-def plot_file_extension_distribution(df_media):
-    st.subheader("Dateiendungen")
-
-    if "Dateipfad_absolut" not in df_media.columns:
-        st.error("Die Spalte 'Dateipfad_absolut' fehlt in der Datei.")
-        return
-
-    # Dateiendungen extrahieren
-    file_extensions = df_media["Dateipfad_absolut"].dropna().apply(
-        lambda x: os.path.splitext(x)[-1].lower().lstrip(".")
-    )
-
-    # Medienkategorien definieren
-    video_exts = {"mp4", "mov", "avi", "mkv", "wmv", "flv", "mpeg", "webm"}
-    image_exts = {"jpg", "jpeg", "png", "gif", "tiff", "bmp", "webp"}
-
-    # Filteroption
-    filter_option = st.selectbox("Medien-Typ filtern", ["Alle", "Nur Videos", "Nur Bilder"])
-
-    if filter_option == "Nur Videos":
-        file_extensions = file_extensions[file_extensions.isin(video_exts)]
-    elif filter_option == "Nur Bilder":
-        file_extensions = file_extensions[file_extensions.isin(image_exts)]
-
-    # Häufigkeit zählen
-    extension_counts = Counter(file_extensions)
-    if not extension_counts:
-        st.warning("Keine Dateien für den gewählten Filter gefunden.")
-        return
-
-    ext_df = pd.DataFrame.from_dict(extension_counts, orient="index", columns=["Anzahl"])
-
-    # Balkendiagramm anzeigen
-    st.bar_chart(ext_df)
-
-
