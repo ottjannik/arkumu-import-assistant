@@ -3,6 +3,7 @@
 
 import streamlit as st
 import time
+import json
 from config import required_files
 from utils import (
     load_all_dataframes, 
@@ -18,6 +19,22 @@ from views import (
 
 st.set_page_config(page_title='KHM → arkumu.nrw', page_icon='📁', layout="wide")
 st.title('📁 KHM → arkumu.nrw')
+
+# Lade Konfigurationen
+profiles = {
+    "KHM": "configs/khm.json",
+    "HfMT": "configs/hfmt.json"
+}
+
+selected_profile = st.sidebar.selectbox("Datenquelle auswählen", list(profiles.keys()))
+profile_path = profiles[selected_profile]
+
+with open(profile_path, "r", encoding="utf-8") as f:
+    config = json.load(f)
+
+required_files = config["required_files"]
+required_columns = config["required_columns"]
+conditional_required_columns = config.get("conditional_required_columns", {})
 
 # Upload und Prüfung
 uploaded_files = handle_file_upload()
