@@ -4,9 +4,8 @@
 import pandas as pd
 import streamlit as st
 import time
-from config import required_files
 
-def handle_file_upload():
+def handle_file_upload(required_files):
     st.sidebar.write("2. Lade die erforderlichen CSV-Dateien hoch")
     uploaded_files = st.sidebar.file_uploader(
         "CSV-Dateien:",

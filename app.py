@@ -4,7 +4,6 @@
 import streamlit as st
 import time
 import json
-from config import required_files
 from utils import (
     load_all_dataframes, 
     extract_named_dataframes, 
@@ -38,9 +37,11 @@ with open(profile_path, "r", encoding="utf-8") as f:
 required_files = config["required_files"]
 required_columns = config["required_columns"]
 conditional_required_columns = config.get("conditional_required_columns", {})
+validation_targets = config["validation_targets"]
+
 
 # Upload und Prüfung
-uploaded_files = handle_file_upload()
+uploaded_files = handle_file_upload(required_files)
 
 if uploaded_files:
     dfs = load_all_dataframes(uploaded_files, required_files)
@@ -53,7 +54,8 @@ if uploaded_files:
             named_dfs["projekte"],
             named_dfs["akteurinnen"],
             named_dfs["media"],
-            named_dfs["grundereignis"]
+            named_dfs["grundereignis"],
+            required_columns
         )
 
     with tabs[1]:
@@ -68,7 +70,12 @@ if uploaded_files:
         )
 
     with tabs[3]:
-        render_validation_tab(dfs)
+        render_validation_tab(
+            dfs,
+            required_columns,
+            conditional_required_columns,
+            validation_targets
+        )
 
 else:
     st.session_state.uploaded_files_count = 0

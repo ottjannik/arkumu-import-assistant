@@ -8,18 +8,19 @@ from validation import (
     check_required_columns_detailed,
     check_conditional_required_columns,
 )
-from config import (
-    required_columns, 
-    conditional_required_columns, 
-    validation_targets
-)
 from stats import (
     plot_projekt_nr_donut,
     plot_file_extension_distribution
 )
 
 
-def render_overview_tab(df_projekte, df_akteurinnen, df_media, df_grundereignis):
+def render_overview_tab(
+    df_projekte,
+    df_akteurinnen,
+    df_media,
+    df_grundereignis,
+    required_columns  # neu
+):
     st.subheader("Übersicht")
     st.write("Hier findest du eine Übersicht über die hochgeladenen Metadaten.")
     col1, col2, col3 = st.columns(3)
@@ -37,7 +38,12 @@ def render_overview_tab(df_projekte, df_akteurinnen, df_media, df_grundereignis)
     check_required_columns_short(df_akteurinnen, required_columns["akteurinnen"], "03_Personen_Akteurinnen.csv")
 
 
-def render_validation_tab(dfs):
+def render_validation_tab(
+    dfs,
+    required_columns,
+    conditional_required_columns,
+    validation_targets
+):
     st.subheader("Pflichtfeldprüfung")
     st.write("Hier kannst du die Pflichtfelder der hochgeladenen Metadaten überprüfen.")
 
@@ -50,10 +56,6 @@ def render_validation_tab(dfs):
 
         if "conditional" in target["checks"]:
             check_conditional_required_columns(df, conditional_required_columns[rule_key], target["filename"])
-
-        # Optional: if "either_or" in target["checks"]:
-        #     check_either_or_columns(df, either_or_required_columns[rule_key], target["filename"])
-
 
 def render_projects_tab(df_projekte, df_akteurinnen):
     st.subheader("Projekte")
