@@ -26,6 +26,7 @@ from utils import (
 
 st.set_page_config(page_title='arkumu.nrw Import Check', page_icon='📁', layout="wide")
 st.title('📁 arkumu.nrw Import Check')
+st.info("Diese Anwendung überprüft die hochgeladenen CSV-Dateien auf Vollständigkeit und Korrektheit.")
 
 # ============================================================
 # 2. Sidebar
@@ -57,7 +58,7 @@ validation_targets = config["validation_targets"]
 # 2.2 Metadaten-Upload
 # ------------------------------------------------------------
 st.sidebar.write("2. Lade die erforderlichen CSV-Dateien hoch")
-uploaded_files = handle_file_upload(required_files)
+uploaded_files = handle_file_upload(required_files, selected_profile)
 if uploaded_files:
     st.success("Alle erforderlichen Dateien wurden erfolgreich hochgeladen!")
     # dfs = load_all_dataframes(uploaded_files, required_files)
@@ -93,9 +94,5 @@ if uploaded_files:
     #         validation_targets
     #     )
 
-else:
-    st.session_state.uploaded_files_count = 0
-    st.info("Bitte lade die benötigten CSV-Dateien hoch.")
-    with st.expander(f"📄 Benötigte CSV-Dateien ({selected_profile}):", expanded=False):
-        for file in sorted(required_files):
-            st.markdown(f"- {file}")
+# else:
+#     return None

@@ -11,13 +11,14 @@ import time
 # Funktionen zum Hochladen von Dateien
 # ============================================================
 
-def handle_file_upload(required_files):
+def handle_file_upload(required_files, selected_profile):
     """Funktion zum Hochladen von Dateien über die Sidebar.
     Zeigt eine Erfolgsmeldung an, wenn Dateien hochgeladen werden,
     und überprüft, ob alle erforderlichen Dateien vorhanden sind.
 
     Args:
         required_files (list): Liste der erforderlichen Dateinamen.
+        selected_profile (str): Name des ausgewählten Profils, um spezifische Konfigurationen zu laden.
     Returns:
         list: Liste der hochgeladenen Dateien oder None, wenn nicht alle erforderlichen Dateien vorhanden
     """
@@ -26,6 +27,14 @@ def handle_file_upload(required_files):
         accept_multiple_files=True,
         type='csv'
     )
+
+    if not files:
+        st.session_state.uploaded_files_count = 0
+        st.sidebar.info("Bitte lade die benötigten CSV-Dateien hoch.")
+        with st.sidebar.expander(f"📄 Benötigte CSV-Dateien ({selected_profile}):", expanded=False):
+            for file in sorted(required_files):
+                st.markdown(f"- {file}")
+            return None
 
     if files:
         if len(files) > st.session_state.get("uploaded_files_count", 0):
@@ -38,10 +47,10 @@ def handle_file_upload(required_files):
         uploaded_names = [file.name for file in files]
         missing_files = set(required_files) - set(uploaded_names)
         if missing_files:
-            st.sidebar.error(f"❗ Es fehlen {len(missing_files)} erforderliche Datei(en):")
-            with st.sidebar.expander(f"Fehlende Datei(en):", expanded=True):
-                for missing in sorted(missing_files):
-                    st.markdown(f"{missing}")
+            st.sidebar.error(
+            "❗ Es fehlen folgende Dateien:\n" +
+            "\n".join(f"- {file}" for file in sorted(missing_files))
+            )
             return None
         return files
     return None
