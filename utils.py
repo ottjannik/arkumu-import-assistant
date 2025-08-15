@@ -5,33 +5,6 @@ import pandas as pd
 import streamlit as st
 import time
 
-def handle_file_upload(required_files):
-    st.sidebar.write("2. Lade die erforderlichen CSV-Dateien hoch")
-    uploaded_files = st.sidebar.file_uploader(
-        "CSV-Dateien:",
-        accept_multiple_files=True,
-        type='csv'
-    )
-
-    if uploaded_files:
-        # Zähler aktualisieren und Erfolgsmeldung
-        if len(uploaded_files) > st.session_state.get("uploaded_files_count", 0):
-            new_files = len(uploaded_files) - st.session_state.get("uploaded_files_count", 0)
-            alert = st.sidebar.success(f"{new_files} Datei(en) erfolgreich hochgeladen!", icon="✅")
-            st.session_state.uploaded_files_count = len(uploaded_files)
-            time.sleep(2)
-            alert.empty()
-
-        # Fehlende Dateien anzeigen
-        uploaded_names = [file.name for file in uploaded_files]
-        missing_files = set(required_files) - set(uploaded_names)
-        if missing_files:
-            with st.sidebar.expander(f"❗ Es fehlen {len(missing_files)} Datei(en):", expanded=True):
-                for missing in sorted(missing_files):
-                    st.markdown(f"- {missing}")
-            return None  # unvollständig
-        return uploaded_files
-    return None
 
 
 # Funktion zum Einlesen der CSV Dateien in Dataframes

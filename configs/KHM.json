@@ -86,42 +86,36 @@
   "validation_targets": [
     {
       "filename": "00_Projekte.csv",
-      "df_alias": "df_projekte",
       "df_key": "projekte",
       "rule_key": "projekte",
       "checks": ["required", "conditional"]
     },
     {
       "filename": "01_Grundereignis.csv",
-      "df_alias": "df_grundereignis",
       "df_key": "grundereignis",
       "rule_key": "grundereignis",
       "checks": ["required", "conditional"]
     },
     {
       "filename": "03_Personen_Akteurinnen.csv",
-      "df_alias": "df_akteurinnen",
       "df_key": "akteurinnen",
       "rule_key": "akteurinnen",
       "checks": ["required"]
     },
     {
       "filename": "04_Kreuz_Betreuende_Projekte.csv",
-      "df_alias": "df_kreuz_betreuende_projekte",
       "df_key": "betreuende",
       "rule_key": "betreuende",
       "checks": ["required"]
     },
     {
       "filename": "06_Auszeichnungen_Projekte.csv",
-      "df_alias": "df_auszeichnungen",
       "df_key": "auszeichnungen",
       "rule_key": "auszeichnungen",
       "checks": ["required"]
     },
     {
       "filename": "08_Keywords.csv",
-      "df_alias": "df_keywords",
       "df_key": "keywords",
       "rule_key": "keywords",
       "checks": ["required"]
