@@ -17,7 +17,7 @@ def check_required_columns_short(df, required_columns, filename):
     if missing_report:
         st.error(f"Fehlende Werte bei Pflichtfeldern in **{filename}**")
     else:
-        st.success(f"Alle Pflichtfelder in **{filename}** sind vollständig.")
+        st.success(f"Alle Pflichtfelder in **{filename}** sind befüllt.")
 
 
 def check_required_columns_detailed(df, required_columns, filename):
