@@ -5,15 +5,14 @@
 # und rendert die verschiedenen Tabs der Anwendung.
 # ============================================================
 
-import time
 import json
 import streamlit as st
 
-# from utils import (
+from utils import (
+    handle_file_upload,
 #     load_all_dataframes,
 #     extract_named_dataframes,
-#     handle_file_upload
-# )
+)
 # from views import (
 #     render_overview_tab,
 #     render_validation_tab,
@@ -22,11 +21,11 @@ import streamlit as st
 # )
 
 # ============================================================
-# 1. Setup der Streamlit-Anwendung
+# 1. Seitenkonfiguration und Titel
 # ============================================================
 
-st.set_page_config(page_title='arkumu.nrw Import Assistant', page_icon='📁', layout="wide")
-st.title('📁 arkumu.nrw Import Assistant')
+st.set_page_config(page_title='arkumu.nrw Import Check', page_icon='📁', layout="wide")
+st.title('📁 arkumu.nrw Import Check')
 
 # ============================================================
 # 2. Sidebar
@@ -58,41 +57,9 @@ validation_targets = config["validation_targets"]
 # 2.2 Metadaten-Upload
 # ------------------------------------------------------------
 st.sidebar.write("2. Lade die erforderlichen CSV-Dateien hoch")
-
-def handle_file_upload(required_files):
-    uploaded_files = st.sidebar.file_uploader(
-        "CSV-Dateien:",
-        accept_multiple_files=True,
-        type='csv'
-    )
-
-    if uploaded_files:
-        # Zähler aktualisieren und Erfolgsmeldung
-        if len(uploaded_files) > st.session_state.get("uploaded_files_count", 0):
-            new_files = len(uploaded_files) - st.session_state.get("uploaded_files_count", 0)
-            alert = st.sidebar.success(f"{new_files} Datei(en) erfolgreich hochgeladen!", icon="✅")
-            st.session_state.uploaded_files_count = len(uploaded_files)
-            time.sleep(2)
-            alert.empty()
-
-        # Fehlende Dateien anzeigen
-        uploaded_names = [file.name for file in uploaded_files]
-        missing_files = set(required_files) - set(uploaded_names)
-        if missing_files:
-            with st.sidebar.expander(f"❗ Es fehlen {len(missing_files)} Datei(en):", expanded=True):
-                for missing in sorted(missing_files):
-                    st.markdown(f"- {missing}")
-            return None  # unvollständig
-        return uploaded_files
-    return None
-
-
-
-
-# uploaded_files = handle_file_upload(required_files)
-
+uploaded_files = handle_file_upload(required_files)
 if uploaded_files:
-    pass
+    st.success("Alle erforderlichen Dateien wurden erfolgreich hochgeladen!")
     # dfs = load_all_dataframes(uploaded_files, required_files)
     # named_dfs = extract_named_dataframes(dfs)
 
@@ -127,8 +94,8 @@ if uploaded_files:
     #     )
 
 else:
-    # st.session_state.uploaded_files_count = 0
+    st.session_state.uploaded_files_count = 0
     st.info("Bitte lade die benötigten CSV-Dateien hoch.")
-    with st.sidebar.expander("📄 Benötigte CSV-Dateien", expanded=False):
+    with st.expander(f"📄 Benötigte CSV-Dateien ({selected_profile}):", expanded=False):
         for file in sorted(required_files):
-            st.markdown(f"{file}")
+            st.markdown(f"- {file}")
