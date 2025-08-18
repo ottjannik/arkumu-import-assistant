@@ -1,41 +1,56 @@
+# ============================================================
 # views.py
-# Diese Datei enthält die Logik für die verschiedenen Tabs der Streamlit-Anwendung
+# Diese Datei enthält die Logik für die verschiedenen Tabs der Streamlit-Anwendung und rendert die entsprechenden Inhalte.
+# ============================================================
 
 import streamlit as st
 import pandas as pd
-from validation import (
-    check_required_columns_short,
-    check_required_columns_detailed,
-    check_conditional_required_columns,
-)
-from stats import (
-    plot_projekt_nr_donut,
-    plot_file_extension_distribution
-)
+
+# from validation import (
+#     check_required_columns_short,
+#     check_required_columns_detailed,
+#     check_conditional_required_columns,
+# )
+# from stats import (
+#     plot_projekt_nr_donut,
+#     plot_file_extension_distribution
+# )
 
 
-def render_overview_tab(
-    df_projekte,
-    df_akteurinnen,
-    df_media,
-    df_grundereignis,
-    required_columns  # neu
-):
+def render_overview_tab(named_dfs, required_columns):
+    """Rendert den Übersichts-Tab der Anwendung mit grundlegenden Statistiken und Metriken.
+    Args:
+        named_dfs (dict): Dictionary mit DataFrames für die verschiedenen Metadaten.
+        required_columns (dict): Dictionary mit erforderlichen Spalten für die Validierung.
+    Returns:
+            None
+    """    
     st.subheader("Übersicht")
     st.write("Hier findest du eine Übersicht über die hochgeladenen Metadaten.")
+
+    df_projekte = named_dfs.get("projekte")
+    df_akteurinnen = named_dfs.get("akteurinnen")
+    df_media = named_dfs.get("media_digitale_objekte")
+    df_auszeichnungen = named_dfs.get("auszeichnungen")
+    df_keywords = named_dfs.get("keywords")
+    df_informationstraeger = named_dfs.get("physmedien_informationstraeger")
+
     col1, col2, col3 = st.columns(3)
     with col1:
         st.metric("Anzahl Projekte", len(df_projekte), border=True)
+        st.metric("Anazhl Auszeichnungen", len(df_auszeichnungen), border=True)
     with col2:
         st.metric("Anzahl Akteur:innen", len(df_akteurinnen), border=True)
+        st.metric("Anzahl Keywords", len(df_keywords), border=True)
     with col3:
         st.metric("Anzahl Dateien", len(df_media), border=True)
+        st.metric("Anzahl Informationsträger", len(df_informationstraeger), border=True)
+
     st.divider()
 
-    st.subheader("Pflichtfelder")
-    check_required_columns_short(df_projekte, required_columns["projekte"], "00_Projekte.csv")
-    check_required_columns_short(df_grundereignis, required_columns["grundereignis"], "01_Grundereignis.csv")
-    check_required_columns_short(df_akteurinnen, required_columns["akteurinnen"], "03_Personen_Akteurinnen.csv")
+    # st.subheader("Pflichtfelder")
+    # check_required_columns_short(df_projekte, required_columns["projekte"], "00_Projekte.csv")
+    # check_required_columns_short(df_akteurinnen, required_columns["akteurinnen"], "03_Personen_Akteurinnen.csv")
 
 
 def render_validation_tab(

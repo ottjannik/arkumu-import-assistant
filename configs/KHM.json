@@ -27,7 +27,11 @@
     "kreuz_projekte_akteurinnen": [],
     "akteurinnen": [],
     "betreuende": [],
-    "auszeichnungen": [],
+    "auszeichnungen": [
+      "Ausz_Proj_ID",
+      "_Exportvariablen_arkumu::Ereignistyp",
+      "Ausz_Name"
+    ],
     "keywords": [],
     "kreuz_projekte_informationstraeger": [],
     "physmedien_informationstraeger": [],
@@ -114,7 +118,7 @@
       "filename": "06_Auszeichnungen_Projekte.csv",
       "df_key": "auszeichnungen",
       "rule_key": "",
-      "checks": []
+      "checks": ["required"]
     },
     {
       "filename": "07_Kreuz_Projekte_Keywords.csv",
