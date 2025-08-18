@@ -1,12 +1,14 @@
-# zbiw-projektarbeit
+# arkumu.nrw Import Assistant
 
-Kurze Beschreibung des Projekts.
+arkumu.nrw Import Assistant ist eine Streamlit-Webanwendung, die Institutionen dabei unterstützt, ihre Metadaten vor dem Import auf die Plattform arkumu.nrw zu überprüfen.
+
+Die App stellt sicher, dass exportierte Metadaten vollständig, konsistent und valide sind, bevor sie auf arkumu.nrw hochgeladen werden.
 
 ## Installation
 ```bash
 # Repository klonen
-git clone https://github.com/ottjannik/zbiw-projektarbeit
-cd zbiw-projektarbeit
+git clone https://github.com/ottjannik/arkumu-import-assistant
+cd arkumu-import-assistant
 
 # Virtuelle Umgebung (empfohlen)
 python -m venv venv
