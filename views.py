@@ -30,22 +30,30 @@ def render_overview_tab(named_dfs, required_columns, conditional_required_column
     st.write("Hier findest du eine Übersicht über die hochgeladenen Metadaten.")
 
     df_projekte = named_dfs.get("projekte")
+    df_grundereignis = named_dfs.get("grundereignis")
     df_akteurinnen = named_dfs.get("akteurinnen")
     df_media = named_dfs.get("media_digitale_objekte")
     df_auszeichnungen = named_dfs.get("auszeichnungen")
     df_keywords = named_dfs.get("keywords")
     df_informationstraeger = named_dfs.get("physmedien_informationstraeger")
+    df_events = named_dfs.get("events")
+    df_equipment_software = named_dfs.get("equipmentundsoftware")
+    df_physobjekte = named_dfs.get("physischesobjekt")
 
     col1, col2, col3 = st.columns(3)
     with col1:
         st.metric("Projekte", len(df_projekte), border=True)
         st.metric("Auszeichnungen", len(df_auszeichnungen), border=True)
+        ereignisse = len(df_events) + len(df_grundereignis)
+        st.metric("Ereignisse (Grundereignis + Events)", ereignisse, border=True)
     with col2:
         st.metric("Akteur:innen", len(df_akteurinnen), border=True)
         st.metric("Keywords", len(df_keywords), border=True)
+        st.metric("Equipment & Software", len(df_equipment_software), border=True)
     with col3:
         st.metric("Digitale Objekte", len(df_media), border=True)
         st.metric("Informationsträger", len(df_informationstraeger), border=True)
+        st.metric("Physische Objekte", len(df_physobjekte), border=True)
 
     st.divider()
 
