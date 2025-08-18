@@ -1,12 +1,12 @@
-# zbiw-projektarbeit
+# arkumu.nrw Import Assistant
 
 Kurze Beschreibung des Projekts.
 
 ## Installation
 ```bash
 # Repository klonen
-git clone https://github.com/ottjannik/zbiw-projektarbeit
-cd zbiw-projektarbeit
+git clone https://github.com/ottjannik/arkumu-import-assistant
+cd arkumu-import-assistant
 
 # Virtuelle Umgebung (empfohlen)
 python -m venv venv
