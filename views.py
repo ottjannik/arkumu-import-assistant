@@ -37,14 +37,14 @@ def render_overview_tab(named_dfs, required_columns):
 
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.metric("Anzahl Projekte", len(df_projekte), border=True)
-        st.metric("Anazhl Auszeichnungen", len(df_auszeichnungen), border=True)
+        st.metric("Projekte", len(df_projekte), border=True)
+        st.metric("Auszeichnungen", len(df_auszeichnungen), border=True)
     with col2:
-        st.metric("Anzahl Akteur:innen", len(df_akteurinnen), border=True)
-        st.metric("Anzahl Keywords", len(df_keywords), border=True)
+        st.metric("Akteur:innen", len(df_akteurinnen), border=True)
+        st.metric("Keywords", len(df_keywords), border=True)
     with col3:
-        st.metric("Anzahl Dateien", len(df_media), border=True)
-        st.metric("Anzahl Informationsträger", len(df_informationstraeger), border=True)
+        st.metric("Dateien", len(df_media), border=True)
+        st.metric("Informationsträger", len(df_informationstraeger), border=True)
 
     st.divider()
 
