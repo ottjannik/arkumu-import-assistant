@@ -7,7 +7,6 @@
 
 import json
 import streamlit as st
-import time
 
 from utils import (
     handle_file_upload,
@@ -62,9 +61,6 @@ st.sidebar.write("2. Lade die erforderlichen CSV-Dateien hoch")
 uploaded_files = handle_file_upload(required_files, selected_profile)
 
 if uploaded_files:
-    alert = st.sidebar.success("Alle erforderlichen Dateien wurden erfolgreich hochgeladen!")
-    time.sleep(2)
-    alert.empty()
     dfs = load_all_dataframes(uploaded_files, required_files)
     named_dfs = extract_named_dataframes(dfs, validation_targets)
 
@@ -79,7 +75,7 @@ if uploaded_files:
     # ------------------------------------------------------------
 
     with tabs[0]:
-        render_overview_tab(named_dfs, required_columns)
+        render_overview_tab(named_dfs, required_columns, conditional_required_columns)
 
     # ------------------------------------------------------------
     # 3.2 Projekte-Tab (views.py / render_projects_tab)
