@@ -2,7 +2,7 @@
 # app.py
 # Diese Datei ist der Einstiegspunkt für die Streamlit-Anwendung
 # Sie lädt die Konfigurationen, verarbeitet die hochgeladenen Dateien
-# und rendert die verschiedenen Tabs der Anwendung.
+# und zeigt die gerenderten Tabs der Anwendung an.
 # ============================================================
 
 import json
@@ -13,12 +13,12 @@ from utils import (
     load_all_dataframes,
     extract_named_dataframes,
 )
-# from views import (
-#     render_overview_tab,
+from views import (
+    render_overview_tab,
 #     render_validation_tab,
 #     render_projects_tab,
 #     render_files_tab
-# )
+)
 
 # ============================================================
 # 1. Seitenkonfiguration und Titel
@@ -58,29 +58,26 @@ validation_targets = config["validation_targets"]
 # ------------------------------------------------------------
 st.sidebar.write("2. Lade die erforderlichen CSV-Dateien hoch")
 uploaded_files = handle_file_upload(required_files, selected_profile)
+
 if uploaded_files:
     st.success("Alle erforderlichen Dateien wurden erfolgreich hochgeladen!")
     dfs = load_all_dataframes(uploaded_files, required_files)
     named_dfs = extract_named_dataframes(dfs, validation_targets)
 
+# ============================================================
+# 3. Tabs und deren Inhalte
+# ============================================================
 
-    for name, df in named_dfs.items():
-        st.subheader(f"📄 DataFrame: {name}")
-        if df is not None:
-            st.dataframe(df)
-        else:
-            st.warning(f"⚠️ Kein DataFrame für '{name}' geladen.")
+    tabs = st.tabs(["Übersicht", "Projekte", "Dateien", "Pflichtfelder"])
 
-    # tabs = st.tabs(["Übersicht", "Projekte", "Dateien", "Pflichtfelder"])
-
-    # with tabs[0]:
-    #     render_overview_tab(
-    #         named_dfs["projekte"],
-    #         named_dfs["akteurinnen"],
-    #         named_dfs["media"],
-    #         named_dfs["grundereignis"],
-    #         required_columns
-    #     )
+    with tabs[0]:
+        render_overview_tab(
+            named_dfs["projekte"],
+            named_dfs["akteurinnen"],
+            named_dfs["media_digitale_objekte"],
+            named_dfs["grundereignis"],
+            required_columns
+        )
 
     # with tabs[1]:
     #     render_projects_tab(
@@ -101,5 +98,5 @@ if uploaded_files:
     #         validation_targets
     #     )
 
-    else:
-        st.info("Diese Anwendung überprüft die hochgeladenen CSV-Dateien auf Vollständigkeit und Korrektheit.")
+    # else:
+    #     st.info("Diese Anwendung überprüft die hochgeladenen CSV-Dateien auf Vollständigkeit und Korrektheit.")
