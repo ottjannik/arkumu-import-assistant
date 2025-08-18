@@ -1,15 +1,12 @@
 # =============================================================
 # utils.py
-# Diese Datei enthält Hilfsfunktionen, die in verschiedenen Teilen der Anwendung verwendet werden
+# Diese Datei enthält Hilfsfunktionen, die in verschiedenen Teilen der Anwendung zum Laden
+# von Konfigurationen, Verarbeiten von Dateiuploads und Extrahieren von DataFrames benutzt werden.
 # =============================================================
 
 import streamlit as st
 import time
 import pandas as pd
-
-# ============================================================
-# Funktionen zum Hochladen von Dateien in korrekt benannte DataFrames
-# ============================================================
 
 def handle_file_upload(required_files, selected_profile):
     """Funktion zum Hochladen von Dateien über die Sidebar.
@@ -91,7 +88,7 @@ def load_all_dataframes(uploaded_files, required_files):
             dfs[file_name] = df
     return dfs
 
-# Funktion zum Extrahieren von DataFrames mit spezifischen Namen
+
 def extract_named_dataframes(dfs, validation_targets):
     """Funktion zum Extrahieren und Benennen von DataFrames basierend auf den Validierungszielen,
     welche in den configs definiert sind.

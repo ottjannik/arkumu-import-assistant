@@ -75,14 +75,14 @@ if uploaded_files:
     tabs = st.tabs(["Übersicht", "Projekte", "Dateien", "Pflichtfelder"])
 
     # ------------------------------------------------------------
-    # 3.1 Übersichts-Tab
+    # 3.1 Übersichts-Tab (views.py / render_overview_tab)
     # ------------------------------------------------------------
 
     with tabs[0]:
         render_overview_tab(named_dfs, required_columns)
 
     # ------------------------------------------------------------
-    # 3.2 Projekte-Tab
+    # 3.2 Projekte-Tab (views.py / render_projects_tab)
     # ------------------------------------------------------------
 
     # with tabs[1]:

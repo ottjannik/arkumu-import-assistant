@@ -53,50 +53,50 @@ def render_overview_tab(named_dfs, required_columns):
     # check_required_columns_short(df_akteurinnen, required_columns["akteurinnen"], "03_Personen_Akteurinnen.csv")
 
 
-def render_validation_tab(
-    dfs,
-    required_columns,
-    conditional_required_columns,
-    validation_targets
-):
-    st.subheader("Pflichtfeldprüfung")
-    st.write("Hier kannst du die Pflichtfelder der hochgeladenen Metadaten überprüfen.")
+# def render_validation_tab(
+#     dfs,
+#     required_columns,
+#     conditional_required_columns,
+#     validation_targets
+# ):
+#     st.subheader("Pflichtfeldprüfung")
+#     st.write("Hier kannst du die Pflichtfelder der hochgeladenen Metadaten überprüfen.")
 
-    for target in validation_targets:
-        df = dfs.get(target["filename"])
-        rule_key = target["rule_key"]
+#     for target in validation_targets:
+#         df = dfs.get(target["filename"])
+#         rule_key = target["rule_key"]
 
-        if "required" in target["checks"]:
-            check_required_columns_detailed(df, required_columns[rule_key], target["filename"])
+#         if "required" in target["checks"]:
+#             check_required_columns_detailed(df, required_columns[rule_key], target["filename"])
 
-        if "conditional" in target["checks"]:
-            check_conditional_required_columns(df, conditional_required_columns[rule_key], target["filename"])
+#         if "conditional" in target["checks"]:
+#             check_conditional_required_columns(df, conditional_required_columns[rule_key], target["filename"])
 
-def render_projects_tab(df_projekte, df_akteurinnen):
-    st.subheader("Projekte")
-    st.write("Hier findest du verschiedene Statistiken zu den hochgeladenen Metadaten der Projekte.")
-    col1, col2, col3 = st.columns(3)
+# def render_projects_tab(df_projekte, df_akteurinnen):
+#     st.subheader("Projekte")
+#     st.write("Hier findest du verschiedene Statistiken zu den hochgeladenen Metadaten der Projekte.")
+#     col1, col2, col3 = st.columns(3)
 
-    with col1:
-        st.metric("Anzahl Projekte", len(df_projekte), border=True)
-    with col2:
-        projekte_mit_nr = df_projekte["Projekt_Nr"].value_counts().sum()
-        st.metric("Projekte mit Projektnummer", projekte_mit_nr, border=True)
-        plot_projekt_nr_donut(df_projekte)
-    with col3:
-        projekte_ohne_nr = df_projekte["Projekt_Nr"].isna().sum()
-        st.metric("Projekte ohne Projektnummer", projekte_ohne_nr, border=True)
+#     with col1:
+#         st.metric("Anzahl Projekte", len(df_projekte), border=True)
+#     with col2:
+#         projekte_mit_nr = df_projekte["Projekt_Nr"].value_counts().sum()
+#         st.metric("Projekte mit Projektnummer", projekte_mit_nr, border=True)
+#         plot_projekt_nr_donut(df_projekte)
+#     with col3:
+#         projekte_ohne_nr = df_projekte["Projekt_Nr"].isna().sum()
+#         st.metric("Projekte ohne Projektnummer", projekte_ohne_nr, border=True)
     
 
-def render_files_tab(df_media):
-    st.subheader("Dateien")
-    col1, col2 = st.columns(2)
+# def render_files_tab(df_media):
+#     st.subheader("Dateien")
+#     col1, col2 = st.columns(2)
 
-    with col1:
-        st.metric("Anzahl Dateien", len(df_media), border=True)
-    with col2:
-        st.metric("Anzahl Dateien", len(df_media), border=True)
+#     with col1:
+#         st.metric("Anzahl Dateien", len(df_media), border=True)
+#     with col2:
+#         st.metric("Anzahl Dateien", len(df_media), border=True)
 
-    plot_file_extension_distribution(df_media)
+#     plot_file_extension_distribution(df_media)
 
-    st.divider()
+#     st.divider()
