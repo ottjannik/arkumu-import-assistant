@@ -37,12 +37,24 @@ st.title('📁 arkumu.nrw Import Assistant')
 
 profiles = {
     "KHM": "configs/khm.json",
-    "HfMT": "configs/hfmt.json"
+    "HfMT (nicht verfügbar)": "configs/hfmt.json"
 }
 
 st.sidebar.header("Metadaten-Upload")
 st.sidebar.write("1. Wähle eine Datenquelle aus, um die entsprechenden Konfigurationen zu laden")
-selected_profile = st.sidebar.selectbox("Datenquelle:", list(profiles.keys()))
+
+available_profiles = [p for p in profiles.keys() if "nicht verfügbar" not in p]
+
+selected_profile = st.sidebar.selectbox(
+    "Datenquelle:",
+    options=profiles.keys(),
+    index=0,
+    help="HfMT wird angezeigt, ist aber aktuell nicht auswählbar"
+)
+
+if selected_profile not in available_profiles:
+    st.warning("Dieses Profil ist aktuell nicht verfügbar. Bitte wähle ein anderes Profil.")
+    st.stop()  # verhindert weiteres Ausführen
 profile_path = profiles[selected_profile]
 
 with open(profile_path, "r", encoding="utf-8") as f:
