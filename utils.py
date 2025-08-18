@@ -5,10 +5,10 @@
 
 import streamlit as st
 import time
-# import pandas as pd
+import pandas as pd
 
 # ============================================================
-# Funktionen zum Hochladen von Dateien
+# Funktionen zum Hochladen von Dateien in korrekt benannte DataFrames
 # ============================================================
 
 def handle_file_upload(required_files, selected_profile):
@@ -30,7 +30,7 @@ def handle_file_upload(required_files, selected_profile):
 
     if not files:
         st.session_state.uploaded_files_count = 0
-        st.sidebar.info("Bitte lade die benötigten CSV-Dateien hoch.")
+        st.info("Bitte lade alle erforderlichen Dateien hoch, um fortzufahren.")
         with st.sidebar.expander(f"📄 Benötigte CSV-Dateien ({selected_profile}):", expanded=False):
             for file in sorted(required_files):
                 st.markdown(f"- {file}")
@@ -47,6 +47,7 @@ def handle_file_upload(required_files, selected_profile):
         uploaded_names = [file.name for file in files]
         missing_files = set(required_files) - set(uploaded_names)
         if missing_files:
+            st.info("Bitte lade alle erforderlichen Dateien hoch, um fortzufahren.")
             st.sidebar.error(
             "❗ Es fehlen folgende Dateien:\n" +
             "\n".join(f"- {file}" for file in sorted(missing_files))
@@ -56,32 +57,54 @@ def handle_file_upload(required_files, selected_profile):
     return None
 
 
-# # Funktion zum Einlesen der CSV Dateien in Dataframes
-# def read_csv_file(files, target_name, sep=";"):
-#     for file in files:
-#          if file.name == target_name:
-#             try:
-#                 return pd.read_csv(file, sep=sep)
-#             except Exception as e:
-#                 st.error(f"Fehler beim Lesen von '{file.name}': {e}")
-#                 return None
-#             return None
+def read_csv_file(files, target_name, sep=";"):
+    """Funktion zum Lesen einer CSV-Datei aus den hochgeladenen Dateien.
+    Args:
+        files (list): Liste der hochgeladenen Dateien.
+        target_name (str): Name der zu lesenden Datei.
+        sep (str): Trennzeichen für die CSV-Datei, Standard ist ';'.
+    Returns:
+        pd.DataFrame: DataFrame der gelesenen CSV-Datei oder None, wenn die Datei nicht gefunden wurde oder ein Fehler auftrat.
+    """
+    for file in files:
+         if file.name == target_name:
+            try:
+                return pd.read_csv(file, sep=sep)
+            except Exception as e:
+                st.error(f"Fehler beim Lesen von '{file.name}': {e}")
+                return None
+            return None
 
-# # Funktion zum Laden aller DataFrames aus den hochgeladenen Dateien
-# def load_all_dataframes(uploaded_files, required_files):
-#     dfs = {}
-#     for file_name in required_files:
-#         df = read_csv_file(uploaded_files, file_name)
-#         if df is not None:
-#             dfs[file_name] = df
-#     return dfs
 
-# # Funktion zum Extrahieren von DataFrames mit spezifischen Namen
-# def extract_named_dataframes(dfs):
-#     return {
-#         "projekte": dfs.get("00_Projekte.csv"),
-#         "grundereignis": dfs.get("01_Grundereignis.csv"),
-#         "akteurinnen": dfs.get("03_Personen_Akteurinnen.csv"),
-#         "keywords": dfs.get("07_Kreuz_Projekte_Keywords.csv"),
-#         "media": dfs.get("12_Media_DigitaleObjekte.csv"),
-#     }
+def load_all_dataframes(uploaded_files, required_files):
+    """Funktion zum Laden aller erforderlichen DataFrames aus den hochgeladenen Dateien.
+    Args:
+        uploaded_files (list): Liste der hochgeladenen Dateien.
+        required_files (list): Liste der erforderlichen Dateinamen.
+    Returns:
+        dict: Dictionary mit DataFrames, wobei die Schlüssel die Dateinamen sind.
+    """
+    dfs = {}
+    for file_name in required_files:
+        df = read_csv_file(uploaded_files, file_name)
+        if df is not None:
+            dfs[file_name] = df
+    return dfs
+
+# Funktion zum Extrahieren von DataFrames mit spezifischen Namen
+def extract_named_dataframes(dfs, validation_targets):
+    """Funktion zum Extrahieren und Benennen von DataFrames basierend auf den Validierungszielen,
+    welche in den configs definiert sind.
+    Args:
+        dfs (dict): Dictionary mit DataFrames, wobei die Schlüssel die Dateinamen sind.
+        validation_targets (list): Liste der Validierungsziele, die die DataFrame-Schlüssel enthalten.
+    Returns:
+        dict: Dictionary mit benannten DataFrames, wobei die Schlüssel die DataFrame-Schlüssel sind.
+    """
+    named_dfs = {}
+    for target in validation_targets:
+        df_key = target["df_key"]     # z.B. "projekte"
+        filename = target["filename"] # z.B. "00_Projekte.csv"
+        if filename in dfs:
+            named_dfs[df_key] = dfs[filename]
+    return named_dfs

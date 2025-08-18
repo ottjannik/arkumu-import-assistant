@@ -10,8 +10,8 @@ import streamlit as st
 
 from utils import (
     handle_file_upload,
-#     load_all_dataframes,
-#     extract_named_dataframes,
+    load_all_dataframes,
+    extract_named_dataframes,
 )
 # from views import (
 #     render_overview_tab,
@@ -24,9 +24,8 @@ from utils import (
 # 1. Seitenkonfiguration und Titel
 # ============================================================
 
-st.set_page_config(page_title='arkumu.nrw Import Check', page_icon='📁', layout="wide")
-st.title('📁 arkumu.nrw Import Check')
-st.info("Diese Anwendung überprüft die hochgeladenen CSV-Dateien auf Vollständigkeit und Korrektheit.")
+st.set_page_config(page_title='arkumu.nrw Import Assistant', page_icon='📁', layout="wide")
+st.title('📁 arkumu.nrw Import Assistant')
 
 # ============================================================
 # 2. Sidebar
@@ -61,8 +60,16 @@ st.sidebar.write("2. Lade die erforderlichen CSV-Dateien hoch")
 uploaded_files = handle_file_upload(required_files, selected_profile)
 if uploaded_files:
     st.success("Alle erforderlichen Dateien wurden erfolgreich hochgeladen!")
-    # dfs = load_all_dataframes(uploaded_files, required_files)
-    # named_dfs = extract_named_dataframes(dfs)
+    dfs = load_all_dataframes(uploaded_files, required_files)
+    named_dfs = extract_named_dataframes(dfs, validation_targets)
+
+
+    for name, df in named_dfs.items():
+        st.subheader(f"📄 DataFrame: {name}")
+        if df is not None:
+            st.dataframe(df)
+        else:
+            st.warning(f"⚠️ Kein DataFrame für '{name}' geladen.")
 
     # tabs = st.tabs(["Übersicht", "Projekte", "Dateien", "Pflichtfelder"])
 
@@ -94,5 +101,5 @@ if uploaded_files:
     #         validation_targets
     #     )
 
-# else:
-#     return None
+    else:
+        st.info("Diese Anwendung überprüft die hochgeladenen CSV-Dateien auf Vollständigkeit und Korrektheit.")
