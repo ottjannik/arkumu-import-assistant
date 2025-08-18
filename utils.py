@@ -28,7 +28,7 @@ def handle_file_upload(required_files, selected_profile):
     if not files:
         st.session_state.uploaded_files_count = 0
         st.info("Bitte lade alle erforderlichen Dateien hoch, um fortzufahren.")
-        with st.sidebar.expander(f"📄 Benötigte CSV-Dateien ({selected_profile}):", expanded=False):
+        with st.sidebar.expander(f"📄 Erforderliche CSV-Dateien ({selected_profile}):", expanded=False):
             for file in sorted(required_files):
                 st.markdown(f"- {file}")
             return None
