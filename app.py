@@ -25,6 +25,7 @@ from views import (
 # ============================================================
 
 st.set_page_config(page_title='arkumu.nrw Import Assistant', page_icon='📁', layout="wide")
+st.logo("static/images/arkumu-logo-blue.svg", size="large", link=None, icon_image=None)
 st.title('📁 arkumu.nrw Import Assistant')
 
 # ============================================================
