@@ -31,9 +31,9 @@ st.title('📁 arkumu.nrw Import Assistant')
 # 2. Sidebar
 # ============================================================
 
-    # ------------------------------------------------------------
-    # 2.1 Profile laden, um Konfigurationen zu definieren
-    # ------------------------------------------------------------
+# ------------------------------------------------------------
+# 2.1 Profile laden, um Konfigurationen zu definieren
+# ------------------------------------------------------------
 
 profiles = {
     "KHM": "configs/khm.json",
@@ -65,9 +65,9 @@ required_columns = config["required_columns"]
 conditional_required_columns = config.get("conditional_required_columns", {})
 validation_targets = config["validation_targets"]
 
-    # ------------------------------------------------------------
-    # 2.2 Metadaten-Upload
-    # ------------------------------------------------------------
+# ------------------------------------------------------------
+# 2.2 Metadaten-Upload
+# ------------------------------------------------------------
 
 st.sidebar.write("2. Lade die erforderlichen CSV-Dateien hoch")
 uploaded_files = handle_file_upload(required_files, selected_profile)
@@ -82,16 +82,16 @@ if uploaded_files:
 
     tabs = st.tabs(["Übersicht", "Projekte", "Dateien", "Pflichtfelder"])
 
-    # ------------------------------------------------------------
-    # 3.1 Übersichts-Tab (views.py / render_overview_tab)
-    # ------------------------------------------------------------
+# ------------------------------------------------------------
+# 3.1 Übersichts-Tab (views.py / render_overview_tab)
+# ------------------------------------------------------------
 
     with tabs[0]:
         render_overview_tab(named_dfs, required_columns, conditional_required_columns)
 
-    # ------------------------------------------------------------
-    # 3.2 Projekte-Tab (views.py / render_projects_tab)
-    # ------------------------------------------------------------
+# ------------------------------------------------------------
+# 3.2 Projekte-Tab (views.py / render_projects_tab)
+# ------------------------------------------------------------
 
     # with tabs[1]:
     #     render_projects_tab(

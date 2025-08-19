@@ -19,7 +19,8 @@ import pandas as pd
 
 
 def render_overview_tab(named_dfs, required_columns, conditional_required_columns):
-    """Rendert den Übersichts-Tab der Anwendung mit grundlegenden Statistiken und Metriken.
+    """Rendert den Übersichts-Tab der Anwendung mit grundlegenden Statistiken, Metriken
+    und einer Kurzversion der Pflichtfeldprüfung.
     Args:
         named_dfs (dict): Dictionary mit DataFrames für die verschiedenen Metadaten.
         required_columns (dict): Dictionary mit erforderlichen Spalten für die Validierung.

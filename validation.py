@@ -1,5 +1,7 @@
+# =============================================================
 # validation.py
 # Diese Datei enthält die Validierungslogik für die verschiedenen CSV-Dateien
+# =============================================================
 
 import streamlit as st
 import pandas as pd
