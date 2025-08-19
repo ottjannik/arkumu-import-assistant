@@ -25,7 +25,7 @@ from views import (
 # ============================================================
 
 st.set_page_config(page_title='arkumu.nrw Import Assistant', page_icon='📁', layout="wide")
-st.logo("static/images/arkumu-logo-blue.svg", size="large", link=None, icon_image=None)
+# st.logo("static/images/arkumu-logo-blue.svg", size="large", link=None, icon_image=None)
 st.title('📁 arkumu.nrw Import Assistant')
 
 # ============================================================
@@ -95,6 +95,8 @@ if uploaded_files:
 
     with tabs[0]:
         render_overview_tab(named_dfs, validation_targets, required_columns, conditional_required_columns)
+
+
 
 # ------------------------------------------------------------
 # 3.2 Projekte-Tab (views.py / render_projects_tab)

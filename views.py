@@ -47,11 +47,12 @@ def render_overview_tab(named_dfs, validation_targets, required_columns, conditi
 
     st.divider()
 
+    # Liste der hochgeladenen Dateien
     st.subheader("CSV-Dateien")
-    
+    st.write("Hier findest du eine Übersicht über die hochgeladenen CSV-Dateien und deren Inhalt.")
     for df_key, df in named_dfs.items():
         filename = validation_targets[df_key]["filename"]
-        with st.expander(f"{filename} ({len(df)} Zeilen, {len(df.columns)} Spalten)", expanded=False):
+        with st.expander(f"**{filename}** ({len(df)} Zeilen, {len(df.columns)} Spalten)", expanded=False):
             st.dataframe(df)
 
     # Todo: Kurze Ausgabe der Pflichtfeldprüfung. Keine detaillierte Prüfung hier, nur Info in welchen Dateien die Prüfung erfolgreich war/fehler aufgetraten sind.
