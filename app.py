@@ -93,9 +93,7 @@ if uploaded_files:
 # ------------------------------------------------------------
 
     with tabs[0]:
-        render_overview_tab(named_dfs, required_columns, conditional_required_columns)
-
-        st.subheader("Validierung der Pflichtfelder")
+        render_overview_tab(named_dfs, validation_targets, required_columns, conditional_required_columns)
 
 # ------------------------------------------------------------
 # 3.2 Projekte-Tab (views.py / render_projects_tab)

@@ -18,7 +18,7 @@ import pandas as pd
 # #)
 
 
-def render_overview_tab(named_dfs, required_columns, conditional_required_columns):
+def render_overview_tab(named_dfs, validation_targets, required_columns, conditional_required_columns):
     """Rendert den Übersichts-Tab der Anwendung mit grundlegenden Statistiken, Metriken
     und einer Kurzversion der Pflichtfeldprüfung.
     Args:
@@ -47,8 +47,13 @@ def render_overview_tab(named_dfs, required_columns, conditional_required_column
 
     st.divider()
 
-    st.subheader("Pflichtfelder")
-    st.write("Hier kannst du die Pflichtfelder der hochgeladenen Metadaten überprüfen.")
+    st.subheader("CSV-Dateien")
+    
+    for df_key, df in named_dfs.items():
+        filename = validation_targets[df_key]["filename"]
+        with st.expander(f"{filename} ({len(df)} Zeilen, {len(df.columns)} Spalten)", expanded=False):
+            st.dataframe(df)
+
     # Todo: Kurze Ausgabe der Pflichtfeldprüfung. Keine detaillierte Prüfung hier, nur Info in welchen Dateien die Prüfung erfolgreich war/fehler aufgetraten sind.
 
 
