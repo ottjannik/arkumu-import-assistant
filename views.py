@@ -6,28 +6,27 @@
 import streamlit as st
 import pandas as pd
 
-# from validation import (
-#     validate_required_columns
-# #     check_required_columns_short,
-# #     check_required_columns_detailed,
-# #     check_conditional_required_columns,
-# )
+from validation import (
+    validate_dataframe
+)
+
 # # from stats import (
 #     # plot_projekt_nr_donut,
 # #     plot_file_extension_distribution
 # #)
 
 
-def render_overview_tab(named_dfs, validation_targets, required_columns, conditional_required_columns, either_or_columns):
-    """Rendert den Übersichts-Tab der Anwendung mit grundlegenden Statistiken, Metriken
-    und einer Kurzversion der Pflichtfeldprüfung.
+import streamlit as st
+
+def render_overview_tab(named_dfs, validation_targets):
+    """Rendert den Übersichts-Tab der Anwendung mit grundlegenden Statistiken
+    und einer Kurzversion der hochgeladenen CSV-Dateien.
+
     Args:
         named_dfs (dict): Dictionary mit DataFrames für die verschiedenen Metadaten.
-        required_columns (dict): Dictionary mit erforderlichen Spalten für die Validierung.
-    Returns:
-            None
-    """    
-    st.subheader("Übersicht")
+        validation_targets (dict): Dictionary mit den Validierungszielen, enthält z.B. Dateinamen.
+    """
+    st.header("Übersicht")
     st.write("Hier findest du eine Übersicht über den Inhalt der hochgeladenen Metadaten.")
 
     col1, col2, col3 = st.columns(3)
@@ -47,7 +46,7 @@ def render_overview_tab(named_dfs, validation_targets, required_columns, conditi
 
     st.divider()
 
-    # Liste der hochgeladenen Dateien
+    # Übersicht der hochgeladenen Dateien
     st.subheader("CSV-Dateien")
     st.write("Hier findest du eine Übersicht über die hochgeladenen CSV-Dateien und deren Inhalt.")
     for df_key, df in named_dfs.items():
@@ -55,30 +54,53 @@ def render_overview_tab(named_dfs, validation_targets, required_columns, conditi
         with st.expander(f"**{filename}** ({len(df)} Zeilen, {len(df.columns)} Spalten)", expanded=False):
             st.dataframe(df)
 
-    # Todo: Kurze Ausgabe der Pflichtfeldprüfung. Keine detaillierte Prüfung hier, nur Info in welchen Dateien die Prüfung erfolgreich war/fehler aufgetraten sind.
+def render_validation_tab(named_dfs, validation_targets):
+    """
+    Rendert den Tab für die Pflichtfeldprüfung.
+    Nutzt die Validierungsregeln aus der Config und zeigt Ergebnisse in Expandern.
+    """
 
+    st.header("Pflichtfeldprüfung")
 
-# def render_validation_tab(
-#     dfs,
-#     required_columns,
-#     conditional_required_columns,
-#     validation_targets
-# ):
-#     st.subheader("Pflichtfeldprüfung")
-#     st.write("Hier kannst du die Pflichtfelder der hochgeladenen Metadaten überprüfen.")
+    validation_results = {}
 
-#     for target in validation_targets:
-#         df = dfs.get(target["filename"])
-#         rule_key = target["rule_key"]
+    # Schleife über alle DataFrames und deren Regeln
+    for df_key, df in named_dfs.items():
+        rules = validation_targets[df_key]
+        validation_results[df_key] = validate_dataframe(df, rules)
 
-#         if "required" in target["checks"]:
-#             check_required_columns_detailed(df, required_columns[rule_key], target["filename"])
+    # Ergebnisse pro Datei darstellen
+    for df_key, result in validation_results.items():
+        filename = validation_targets[df_key]["filename"]
 
-#         if "conditional" in target["checks"]:
-#             check_conditional_required_columns(df, conditional_required_columns[rule_key], target["filename"])
+        overall_ok = all([
+            result["required"]["ok"],
+            result["conditional"]["ok"],
+            result["either_or"]["ok"]
+        ])
+        status_icon = "✅" if overall_ok else "❌"
 
-    
+        with st.expander(f"{status_icon} {filename}", expanded=False):
+            # Required
+            if result["required"]["ok"]:
+                st.success("Alle Pflichtspalten erfüllt ✅")
+            else:
+                st.error("Fehler bei Pflichtspalten ❌")
+                st.dataframe(result["required"]["errors"])
 
+            # Conditional
+            if result["conditional"]["ok"]:
+                st.success("Alle Conditional-Regeln erfüllt ✅")
+            else:
+                st.error("Fehler bei Conditional-Regeln ❌")
+                st.dataframe(result["conditional"]["errors"])
+
+            # Either/Or
+            if result["either_or"]["ok"]:
+                st.success("Alle Either/Or-Regeln erfüllt ✅")
+            else:
+                st.error("Fehler bei Either/Or-Regeln ❌")
+                st.dataframe(result["either_or"]["errors"])
   
 
 

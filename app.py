@@ -15,7 +15,7 @@ from utils import (
 )
 from views import (
     render_overview_tab,
-#    render_validation_tab,
+    render_validation_tab,
 #     render_projects_tab,
 #     render_files_tab
 )
@@ -88,56 +88,23 @@ if uploaded_files:
 # 3. Tabs und deren Inhalte
 # ============================================================
 
-    tabs = st.tabs(["Übersicht", "Projekte", "Dateien", "Pflichtfelder"])
+    tabs = st.tabs(["Übersicht", "Pflichtfeldprüfung", "XX", "XX"])
 
 # ------------------------------------------------------------
 # 3.1 Übersichts-Tab (views.py / render_overview_tab)
 # ------------------------------------------------------------
 
     with tabs[0]:
-        render_overview_tab(named_dfs, validation_targets, required_columns, conditional_required_columns, either_or_columns)
+        render_overview_tab(named_dfs, validation_targets)
 
 
 
 # ------------------------------------------------------------
-# 3.2 Validationsprüfung-Tab (views.py / )
+# 3.2 Validationsprüfung-Tab (views.py / render_validation_tab)
 # ------------------------------------------------------------
 
     with tabs[1]:
-        validation_results = {}
-        for df_key, df in named_dfs.items():
-            rules = validation_targets[df_key]
-            validation_results[df_key] = validate_dataframe(df, rules)
-
-        for df_key, result in validation_results.items():
-            filename = validation_targets[df_key]["filename"]
-
-            overall_ok = all([
-                result["required"]["ok"],
-                result["conditional"]["ok"],
-                result["either_or"]["ok"]
-            ])
-            status_icon = "✅" if overall_ok else "❌"
-
-            with st.expander(f"{status_icon} {filename}"):
-                if result["required"]["ok"]:
-                    st.success("Alle Pflichtspalten erfüllt ✅")
-                else:
-                    st.error("Fehler bei Pflichtspalten ❌")
-                    st.dataframe(result["required"]["errors"])
-
-                if result["conditional"]["ok"]:
-                    st.success("Alle Conditional-Regeln erfüllt ✅")
-                else:
-                    st.error("Fehler bei Conditional-Regeln ❌")
-                    st.dataframe(result["conditional"]["errors"])
-
-                if result["either_or"]["ok"]:
-                    st.success("Alle Either/Or-Regeln erfüllt ✅")
-                else:
-                    st.error("Fehler bei Either/Or-Regeln ❌")
-                    st.dataframe(result["either_or"]["errors"])
-
+        render_validation_tab(named_dfs, validation_targets)
 
 
 

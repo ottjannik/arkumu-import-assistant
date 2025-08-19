@@ -6,149 +6,86 @@
 import streamlit as st
 import pandas as pd
 
-import pandas as pd
-
-import pandas as pd
-
 def validate_dataframe(df: pd.DataFrame, rules: dict) -> dict:
     """
-    Prüft ein DataFrame anhand der Regeln aus validation_targets.
-    Gibt Dict mit Fehlermeldungs-DataFrames zurück.
+    Validiert ein DataFrame nach Required, Conditional und Either/Or Regeln.
+    Gibt ein Dictionary mit OK-Status und Fehler-DataFrames zurück.
+    Zusätzlich wird eine Spalte 'Fehlerbeschreibung' hinzugefügt.
     """
-
-    results = {
+    result = {
         "required": {"ok": True, "errors": pd.DataFrame()},
         "conditional": {"ok": True, "errors": pd.DataFrame()},
-        "either_or": {"ok": True, "errors": pd.DataFrame()},
+        "either_or": {"ok": True, "errors": pd.DataFrame()}
     }
 
-    # 1. Required Columns
-    error_rows = []
-    for col in rules.get("required_columns", []):
-        if col in df.columns:
-            mask = df[col].isna() | (df[col] == "")
-            if mask.any():
-                results["required"]["ok"] = False
-                error_rows.append(df.loc[mask].assign(fehlende_spalte=col))
+    # Hilfsfunktion: betroffene Spalten + ID extrahieren + Fehlerbeschreibung
+    def extract_error_rows(rows_df, cols, description):
+        error_df = rows_df.copy()
+        if "Projekt_ID" in df.columns:
+            error_df = error_df[["Projekt_ID"] + cols]
         else:
-            results["required"]["ok"] = False
-            error_rows.append(pd.DataFrame({
-                "fehlende_spalte": [col],
-                "hinweis": ["Spalte nicht vorhanden"]
-            }))
-    if error_rows:
-        results["required"]["errors"] = pd.concat(error_rows, ignore_index=True)
+            error_df = error_df[cols]
+        error_df["Fehlerbeschreibung"] = description
+        return error_df
 
-    # 2. Conditional Columns
-    error_rows = []
-    for cond in rules.get("conditional", []):
-        if_col = cond["if_filled"]
-        then_cols = cond["then_required"]
+    # -------------------
+    # Required prüfen
+    # -------------------
+    required_cols = rules.get("required", [])
+    missing_entries = []
+    for col in required_cols:
+        if col not in df.columns:
+            missing_entries.append(pd.DataFrame({"Fehlende_Spalte": [col], "Fehlerbeschreibung": ["Spalte fehlt"]}))
+        else:
+            missing_rows = df[df[col].isnull() | (df[col] == "")]
+            if not missing_rows.empty:
+                missing_entries.append(extract_error_rows(missing_rows, [col], f"{col} fehlt"))
 
+    if missing_entries:
+        result["required"]["ok"] = False
+        result["required"]["errors"] = pd.concat(missing_entries, ignore_index=True)
+
+    # -------------------
+    # Conditional prüfen
+    # -------------------
+    conditional_rules = rules.get("conditional", [])
+    conditional_errors = []
+    for rule in conditional_rules:
+        if_col = rule.get("if_filled")
+        then_cols = rule.get("then_required", [])
         if if_col in df.columns:
-            mask = df[if_col].notna() & (df[if_col] != "")
-            for col in then_cols:
-                if col in df.columns:
-                    submask = mask & (df[col].isna() | (df[col] == ""))
-                    if submask.any():
-                        results["conditional"]["ok"] = False
-                        error_rows.append(df.loc[submask, [if_col, col]].assign(fehlende_spalte=col))
-                else:
-                    results["conditional"]["ok"] = False
-                    error_rows.append(pd.DataFrame({
-                        if_col: ["Wert vorhanden"],
-                        "fehlende_spalte": [col],
-                        "hinweis": ["Spalte nicht vorhanden"]
-                    }))
-    if error_rows:
-        results["conditional"]["errors"] = pd.concat(error_rows, ignore_index=True)
+            for then_col in then_cols:
+                if then_col not in df.columns:
+                    conditional_errors.append(pd.DataFrame({"Fehlende_Spalte": [then_col], "Fehlerbeschreibung": ["Spalte fehlt"]}))
+                    continue
+                missing_rows = df[
+                    df[if_col].notna() & (df[if_col].astype(str).str.strip() != "") &
+                    (df[then_col].isna() | (df[then_col].astype(str).str.strip() == ""))
+                ]
+                if not missing_rows.empty:
+                    conditional_errors.append(extract_error_rows(
+                        missing_rows, [if_col, then_col],
+                        f"Wenn {if_col} ausgefüllt ist, muss {then_col} ebenfalls ausgefüllt sein"
+                    ))
+    if conditional_errors:
+        result["conditional"]["ok"] = False
+        result["conditional"]["errors"] = pd.concat(conditional_errors, ignore_index=True)
 
-    # 3. Either/Or
-    error_rows = []
-    for group in rules.get("either_or", []):
-        mask = pd.Series(True, index=df.index)
-        for col in group:
-            if col in df.columns:
-                mask = mask & (df[col].isna() | (df[col] == ""))
-            else:
-                mask = mask & True  # Spalte fehlt = automatisch leer
+    # -------------------
+    # Either/Or prüfen
+    # -------------------
+    either_or_rules = rules.get("either_or", [])
+    either_or_errors = []
+    for rule in either_or_rules:
+        cols = rule.get("columns", [])
+        missing_rows = df[df[cols].isnull().all(axis=1)]
+        if not missing_rows.empty:
+            either_or_errors.append(extract_error_rows(
+                missing_rows, cols,
+                f"Mindestens eine der Spalten {', '.join(cols)} muss ausgefüllt sein"
+            ))
+    if either_or_errors:
+        result["either_or"]["ok"] = False
+        result["either_or"]["errors"] = pd.concat(either_or_errors, ignore_index=True)
 
-        if mask.any():
-            results["either_or"]["ok"] = False
-            error_rows.append(df.loc[mask, group].assign(fehlende_gruppe=str(group)))
-
-    if error_rows:
-        results["either_or"]["errors"] = pd.concat(error_rows, ignore_index=True)
-
-    return results
-
-# # Funktion zur Pflichtfeldprüfung, welche leere Felder wie NaN oder None durchsucht, aber auch leere Strings ("")
-# def check_required_columns_short(df, required_columns, filename):
-#     missing_report = {}
-#     for col in required_columns:
-#         if col not in df.columns:
-#             missing_report[col] = "Spalte fehlt"
-#         else:
-#             missing_count = df[col].isnull().sum() + (df[col] == "").sum()
-#             if missing_count > 0:
-#                 missing_report[col] = f"{missing_count} fehlende(r) Wert(e)"
-#     if missing_report:
-#         st.error(f"Fehlende Werte bei Pflichtfeldern in **{filename}**")
-#     else:
-#         st.success(f"Alle Pflichtfelder in **{filename}** sind befüllt.")
-
-
-# def check_required_columns_detailed(df, required_columns, filename):
-#     missing_entries = []
-
-#     for col in required_columns:
-#         if col not in df.columns:
-#             missing_entries.append({"Projekt_ID": None, "Fehlende_Spalte": col, "Status": "Spalte fehlt"})
-#         else:
-#             missing_rows = df[df[col].isnull() | (df[col] == "")]
-#             for _, row in missing_rows.iterrows():
-#                 missing_entries.append({
-#                     "Projekt_ID": row["Projekt_ID"],
-#                     "Fehlende_Spalte": col,
-#                     "Status": "Wert fehlt"
-#                 })
-
-#     if missing_entries:
-#         st.error(f"Fehlende Werte bei Pflichtfeldern in **{filename}**")
-#         with st.expander("Details anzeigen", expanded=True):
-#             st.dataframe(pd.DataFrame(missing_entries))
-#     else:
-#         st.success(f"Alle Pflichtfelder in **{filename}** sind vollständig.")
-
-# def check_conditional_required_columns(df, conditional_rules, filename):
-#     """
-#     Prüft für jedes 'if_filled' Feld, ob bei Befüllung auch alle zugehörigen 'then_required' Felder vorhanden sind.
-
-#     Args:
-#         df (pd.DataFrame): Das zu prüfende DataFrame.
-#         conditional_rules (list): Liste von Regeln mit 'if_filled' und 'then_required' (Liste!).
-#         filename (str): Dateiname für Kontext im Reporting.
-
-#     Gibt bei Fehlern eine Streamlit-Warnung mit den betroffenen Zeilen aus.
-#     """
-#     for rule in conditional_rules:
-#         if_col = rule.get("if_filled")
-#         then_cols = rule.get("then_required", [])
-
-#         if if_col not in df.columns:
-#             st.warning(f"Spalte '{if_col}' fehlt in {filename}.")
-#             continue
-
-#         for then_col in then_cols:
-#             if then_col not in df.columns:
-#                 st.warning(f"Spalte '{then_col}' fehlt in {filename}.")
-#                 continue
-
-#             missing_rows = df[
-#                 df[if_col].notna() & (df[if_col].astype(str).str.strip() != "") &
-#                 (df[then_col].isna() | (df[then_col].astype(str).str.strip() == ""))
-#             ]
-
-#             if not missing_rows.empty:
-#                 with st.expander(f"'{then_col}' fehlt, wenn '{if_col}' gesetzt ist ({filename}, {len(missing_rows)} Zeilen)"):
-#                     st.dataframe(missing_rows[[if_col, then_col]])
+    return result
