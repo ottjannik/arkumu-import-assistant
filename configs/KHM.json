@@ -1,7 +1,7 @@
 {
   "required_files": [
     "00_Projekte.csv",
-    "01_Grundereignis.csv",
+    "01b_Grundereignis.csv",
     "02_Kreuz_Projekte_Personen.csv",
     "03_Personen_Akteurinnen.csv",
     "04_Kreuz_Betreuende_Projekte.csv",
@@ -24,7 +24,7 @@
   "validation_targets": {
     "projekte": {
       "filename": "00_Projekte.csv",
-      "required": [],
+      "required": ["Untertitel"],
       "conditional": [
         {
           "if_filled": "Untertitel",
@@ -50,7 +50,7 @@
       "either_or": []
     },
     "grundereignis": {
-      "filename": "01_Grundereignis.csv",
+      "filename": "01b_Grundereignis.csv",
       "required": [],
       "conditional": [
         {

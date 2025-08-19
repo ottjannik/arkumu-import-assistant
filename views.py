@@ -18,7 +18,7 @@ import pandas as pd
 # #)
 
 
-def render_overview_tab(named_dfs, validation_targets, required_columns, conditional_required_columns):
+def render_overview_tab(named_dfs, validation_targets, required_columns, conditional_required_columns, either_or_columns):
     """Rendert den Übersichts-Tab der Anwendung mit grundlegenden Statistiken, Metriken
     und einer Kurzversion der Pflichtfeldprüfung.
     Args:
@@ -58,6 +58,26 @@ def render_overview_tab(named_dfs, validation_targets, required_columns, conditi
     # Todo: Kurze Ausgabe der Pflichtfeldprüfung. Keine detaillierte Prüfung hier, nur Info in welchen Dateien die Prüfung erfolgreich war/fehler aufgetraten sind.
 
 
+# def render_validation_tab(
+#     dfs,
+#     required_columns,
+#     conditional_required_columns,
+#     validation_targets
+# ):
+#     st.subheader("Pflichtfeldprüfung")
+#     st.write("Hier kannst du die Pflichtfelder der hochgeladenen Metadaten überprüfen.")
+
+#     for target in validation_targets:
+#         df = dfs.get(target["filename"])
+#         rule_key = target["rule_key"]
+
+#         if "required" in target["checks"]:
+#             check_required_columns_detailed(df, required_columns[rule_key], target["filename"])
+
+#         if "conditional" in target["checks"]:
+#             check_conditional_required_columns(df, conditional_required_columns[rule_key], target["filename"])
+
+    
 
   
 
@@ -86,26 +106,7 @@ def render_overview_tab(named_dfs, validation_targets, required_columns, conditi
 
 
 
-# def render_validation_tab(
-#     dfs,
-#     required_columns,
-#     conditional_required_columns,
-#     validation_targets
-# ):
-#     st.subheader("Pflichtfeldprüfung")
-#     st.write("Hier kannst du die Pflichtfelder der hochgeladenen Metadaten überprüfen.")
 
-#     for target in validation_targets:
-#         df = dfs.get(target["filename"])
-#         rule_key = target["rule_key"]
-
-#         if "required" in target["checks"]:
-#             check_required_columns_detailed(df, required_columns[rule_key], target["filename"])
-
-#         if "conditional" in target["checks"]:
-#             check_conditional_required_columns(df, conditional_required_columns[rule_key], target["filename"])
-
-    
 
 # def render_files_tab(df_media):
 #     st.subheader("Dateien")
