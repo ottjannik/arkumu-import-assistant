@@ -40,7 +40,7 @@ profiles = {
     "HfMT (nicht verfügbar)": "configs/hfmt.json"
 }
 
-st.sidebar.header("Metadaten-Upload")
+st.sidebar.header("📤 Metadaten-Upload")
 st.sidebar.write("1. Wähle eine Datenquelle aus, um die entsprechenden Konfigurationen zu laden")
 
 available_profiles = [p for p in profiles.keys() if "nicht verfügbar" not in p]
