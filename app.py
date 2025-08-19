@@ -61,9 +61,15 @@ with open(profile_path, "r", encoding="utf-8") as f:
     config = json.load(f)
 
 required_files = config["required_files"]
-required_columns = config["required_columns"]
-conditional_required_columns = config.get("conditional_required_columns", {})
 validation_targets = config["validation_targets"]
+validation_targets_list = [
+    {"df_key": key, "filename": val["filename"]}
+    for key, val in validation_targets.items()
+]
+required_columns = {key: val.get("required", []) for key, val in validation_targets.items()}
+conditional_required_columns = {key: val.get("conditional", []) for key, val in validation_targets.items()}
+either_or_columns = {key: val.get("either_or", []) for key, val in validation_targets.items()}
+
 
 # ------------------------------------------------------------
 # 2.2 Metadaten-Upload
@@ -74,7 +80,7 @@ uploaded_files = handle_file_upload(required_files, selected_profile)
 
 if uploaded_files:
     dfs = load_all_dataframes(uploaded_files, required_files)
-    named_dfs = extract_named_dataframes(dfs, validation_targets)
+    named_dfs = extract_named_dataframes(dfs, validation_targets_list)
 
 # ============================================================
 # 3. Tabs und deren Inhalte
@@ -88,6 +94,8 @@ if uploaded_files:
 
     with tabs[0]:
         render_overview_tab(named_dfs, required_columns, conditional_required_columns)
+
+        st.subheader("Validierung der Pflichtfelder")
 
 # ------------------------------------------------------------
 # 3.2 Projekte-Tab (views.py / render_projects_tab)
