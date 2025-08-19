@@ -13,6 +13,8 @@
     "10_PhysMedien_Informationstraeger.csv",
     "11_Kreuz_DigitaleObjekte_Proj.csv",
     "12_Media_DigitaleObjekte.csv",
+    "13_Kreuz_Projekte_Media.csv",
+    "15_Kreuz_Projekte_Events.csv",
     "16_Kreuz_Events_Projekte.csv",
     "17_Events_weitereEreignisse.csv",
     "18_Kreuz_Projekte_EquipmentSoftware.csv",
@@ -21,188 +23,162 @@
     "21_PhysischesObjekt.csv"
   ],
 
-  "required_columns": {
-    "projekte": [],
-    "grundereignis": [],
-    "kreuz_projekte_akteurinnen": [],
-    "akteurinnen": [],
-    "betreuende": [],
-    "auszeichnungen": [
-      "Ausz_Proj_ID",
-      "_Exportvariablen_arkumu::Ereignistyp",
-      "Ausz_Name"
-    ],
-    "keywords": [],
-    "kreuz_projekte_informationstraeger": [],
-    "physmedien_informationstraeger": [],
-    "kreuz_digitale_objekte_proj": [],
-    "media_digitale_objekte": [],
-    "kreuz_projekte_media": [],
-    "kreuz_projekte_events": [],
-    "kreuz_events_projekte": [],
-    "events_weitereereignisse": [],
-    "kreuz_projekte_equipmentsoftware": [],
-    "equipmentundsoftware": [],
-    "physisches_objekt": []
-  },
-
-  "conditional_required_columns": {
-    "projekte": [
-      {
-        "if_filled": "Untertitel",
-        "then_required": ["Untertitel_Sprache"]
-      },
-      {
-        "if_filled": "Titel_erster_alternativer_Titel",
-        "then_required": ["Titel_erster_alternativer_Titel_Sprache"]
-      },
-      {
-        "if_filled": "Titel_erster_alternativer_Untertitel",
-        "then_required": ["Titel_erster_alternativer_Untertitel_Sprache"]
-      },
-      {
-        "if_filled": "Titel_zweiter_alternativer_Titel",
-        "then_required": ["Titel_zweiter_alternativer_Titel_Sprache"]
-      },
-      {
-        "if_filled": "Titel_zweiter_alternativer_Untertitel",
-        "then_required": ["Titel_zweiter_alternativer_Untertitel_Sprache"]
-      }
-    ],
-    "grundereignis": [
-      {
-        "if_filled": "Entstehungsland",
-        "then_required": ["Entstehungs_und_Produktionsland_verkettet"]
-      }
-    ]
-  },
-
-  "validation_targets": [
-    {
+  "validation_targets": {
+    "projekte": {
       "filename": "00_Projekte.csv",
-      "df_key": "projekte",
-      "rule_key": "projekte",
-      "checks": ["required", "conditional"]
+      "required": [],
+      "conditional": [
+        {
+          "if_filled": "Untertitel",
+          "then_required": ["Untertitel_Sprache"]
+        },
+        {
+          "if_filled": "Titel_erster_alternativer_Titel",
+          "then_required": ["Titel_erster_alternativer_Titel_Sprache"]
+        },
+        {
+          "if_filled": "Titel_erster_alternativer_Untertitel",
+          "then_required": ["Titel_erster_alternativer_Untertitel_Sprache"]
+        },
+        {
+          "if_filled": "Titel_zweiter_alternativer_Titel",
+          "then_required": ["Titel_zweiter_alternativer_Titel_Sprache"]
+        },
+        {
+          "if_filled": "Titel_zweiter_alternativer_Untertitel",
+          "then_required": ["Titel_zweiter_alternativer_Untertitel_Sprache"]
+        }
+      ],
+      "either_or": []
     },
-    {
+    "grundereignis": {
       "filename": "01_Grundereignis.csv",
-      "df_key": "grundereignis",
-      "rule_key": "grundereignis",
-      "checks": ["required", "conditional"]
+      "required": [],
+      "conditional": [
+        {
+          "if_filled": "Entstehungsland",
+          "then_required": ["Entstehungs_und_Produktionsland_verkettet"]
+        }
+      ],
+      "either_or": []
     },
-    {
+    "kreuz_projekte_akteurinnen": {
       "filename": "02_Kreuz_Projekte_Personen.csv",
-      "df_key": "kreuz_projekte_akteurinnen",
-      "rule_key": "",
-      "checks": []
+      "required": [],
+      "conditional": [],
+      "either_or": []
     },
-    {
+    "akteurinnen": {
       "filename": "03_Personen_Akteurinnen.csv",
-      "df_key": "akteurinnen",
-      "rule_key": "",
-      "checks": []
+      "required": [],
+      "conditional": [],
+      "either_or": []
     },
-    {
+    "kreuz_betreuende_projekte": {
       "filename": "04_Kreuz_Betreuende_Projekte.csv",
-      "df_key": "kreuz_betreuende_projekte",
-      "rule_key": "",
-      "checks": []
+      "required": [],
+      "conditional": [],
+      "either_or": []
     },
-    {
+    "betreuende": {
       "filename": "05_PersonenBetreuende.csv",
-      "df_key": "betreuende",
-      "rule_key": "",
-      "checks": []
+      "required": [],
+      "conditional": [],
+      "either_or": []
     },
-    {
+    "auszeichnungen": {
       "filename": "06_Auszeichnungen_Projekte.csv",
-      "df_key": "auszeichnungen",
-      "rule_key": "",
-      "checks": ["required"]
+      "required": [
+        "Ausz_Proj_ID",
+        "_Exportvariablen_arkumu::Ereignistyp",
+        "Ausz_Name"
+      ],
+      "conditional": [],
+      "either_or": []
     },
-    {
+    "kreuz_projekte_keywords": {
       "filename": "07_Kreuz_Projekte_Keywords.csv",
-      "df_key": "kreuz_projekte_keywords",
-      "rule_key": "",
-      "checks": []
+      "required": [],
+      "conditional": [],
+      "either_or": []
     },
-    {
+    "keywords": {
       "filename": "08_Keywords.csv",
-      "df_key": "keywords",
-      "rule_key": "",
-      "checks": []
+      "required": [],
+      "conditional": [],
+      "either_or": []
     },
-    {
+    "kreuz_projekte_informationstraeger": {
       "filename": "09_Kreuz_Projekte_Informationsträger.csv",
-      "df_key": "kreuz_projekte_informationstraeger",
-      "rule_key": "",
-      "checks": []
+      "required": [],
+      "conditional": [],
+      "either_or": []
     },
-    {
+    "physmedien_informationstraeger": {
       "filename": "10_PhysMedien_Informationstraeger.csv",
-      "df_key": "physmedien_informationstraeger",
-      "rule_key": "",
-      "checks": []
+      "required": [],
+      "conditional": [],
+      "either_or": []
     },
-    {
+    "kreuz_digitale_objekte_proj": {
       "filename": "11_Kreuz_DigitaleObjekte_Proj.csv",
-      "df_key": "kreuz_digitale_objekte_proj",
-      "rule_key": "",
-      "checks": []
+      "required": [],
+      "conditional": [],
+      "either_or": []
     },
-    {
+    "media_digitale_objekte": {
       "filename": "12_Media_DigitaleObjekte.csv",
-      "df_key": "media_digitale_objekte",
-      "rule_key": "",
-      "checks": []
+      "required": [],
+      "conditional": [],
+      "either_or": []
     },
-    {    
+    "kreuz_projekte_media": {
       "filename": "13_Kreuz_Projekte_Media.csv",
-      "df_key": "kreuz_projekte_media",
-      "rule_key": "",
-      "checks": []
+      "required": [],
+      "conditional": [],
+      "either_or": []
     },
-    {
+    "kreuz_projekte_events": {
       "filename": "15_Kreuz_Projekte_Events.csv",
-      "df_key": "kreuz_projekte_events",
-      "rule_key": "",
-      "checks": []
+      "required": [],
+      "conditional": [],
+      "either_or": []
     },
-    {
+    "kreuz_events_projekte": {
       "filename": "16_Kreuz_Events_Projekte.csv",
-      "df_key": "kreuz_events_projekte",
-      "rule_key": "",
-      "checks": []
+      "required": [],
+      "conditional": [],
+      "either_or": []
     },
-    {
+    "events": {
       "filename": "17_Events_weitereEreignisse.csv",
-      "df_key": "events",
-      "rule_key": "",
-      "checks": []
+      "required": [],
+      "conditional": [],
+      "either_or": []
     },
-    {
+    "kreuz_projekte_equipmentsoftware": {
       "filename": "18_Kreuz_Projekte_EquipmentSoftware.csv",
-      "df_key": "kreuz_projekte_equipmentsoftware",
-      "rule_key": "",
-      "checks": []
+      "required": [],
+      "conditional": [],
+      "either_or": []
     },
-    {
+    "equipmentundsoftware": {
       "filename": "19_Equipment_und_Software.csv",
-      "df_key": "equipmentundsoftware",
-      "rule_key": "",
-      "checks": []
+      "required": [],
+      "conditional": [],
+      "either_or": []
     },
-    {
+    "equipmentart": {
       "filename": "20_Equipmentart.csv",
-      "df_key": "equipmentart",
-      "rule_key": "",
-      "checks": []
+      "required": [],
+      "conditional": [],
+      "either_or": []
     },
-    {
+    "physischesobjekt": {
       "filename": "21_PhysischesObjekt.csv",
-      "df_key": "physischesobjekt",
-      "rule_key": "",
-      "checks": []
+      "required": [],
+      "conditional": [],
+      "either_or": []
     }
-  ]
+  }
 }
