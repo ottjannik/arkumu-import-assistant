@@ -67,16 +67,20 @@ def render_validation_tab(named_dfs, validation_targets):
         None
     """
 
+
     st.header("Pflichtfeldprüfung")
-    st.write("Die App prüft die hochgeladenen CSV-Dateien Kompatibilität mit den Arkumu-Importvorgaben. " \
-    "Dabei wird unterschieden zwischen:" \
-    "- Einfachen Pflichtfeldern, die immer ausgefüllt sein müssen" \
-    "- Sich bedingenden Feldern (Conditional-Regeln) (Wenn das eine Feld ausgefüllt, muss ein anderes auch ausgefüllt sein)" \
-    "- Entweder-Oder Feldern (Either-Or) (Entweder das eine oder das andere Feld muss ausgefüllt sein.")
+    st.markdown("""
+    Die App prüft die hochgeladenen CSV-Dateien auf Kompatibilität mit dem [arkumu.nrw Datenmodell](https://docs.arkumu.nrw/technische-dokumentation/datenmodell.html).  
+    Dabei wird unterschieden zwischen:
+
+    - **Einfache Pflichtfelder**
+    - **Bedingte Pflichtfelder**
+    - **Entweder-Oder Pflichtfelder**
+    """)
 
     validation_results = {}
 
-    # Schleife über alle DataFrames und deren Regeln
+    # Validation durchführen
     for df_key, df in named_dfs.items():
         rules = validation_targets[df_key]
         validation_results[df_key] = validate_dataframe(df, rules)
@@ -85,34 +89,47 @@ def render_validation_tab(named_dfs, validation_targets):
     for df_key, result in validation_results.items():
         filename = validation_targets[df_key]["filename"]
 
+        # Gesamtstatus prüfen
         overall_ok = all([
             result["required"]["ok"],
             result["conditional"]["ok"],
             result["either_or"]["ok"]
         ])
-        status_icon = "✅" if overall_ok else "❌"
+        overall_icon = "🟢" if overall_ok else "🔴"
 
-        with st.expander(f"{status_icon} {filename}", expanded=False):
-            # Required
-            if result["required"]["ok"]:
-                st.success("Alle Pflichtfelder ausgefüllt")
-            else:
-                st.error("Fehler bei Pflichtfeldern")
-                st.dataframe(result["required"]["errors"])
+        # Icons für die einzelnen Prüftypen
+        icon_required = "🟢" if result["required"]["ok"] else "🔴"
+        icon_conditional = "🟢" if result["conditional"]["ok"] else "🔴"
+        icon_either_or = "🟢" if result["either_or"]["ok"] else "🔴"
 
-            # Conditional
-            if result["conditional"]["ok"]:
-                st.success("Alle sich bedingenden Felder sind ausgefüllt")
-            else:
-                st.error("Fehler bei sich bedingenden Feldern")
-                st.dataframe(result["conditional"]["errors"])
+        with st.expander(f"{overall_icon} {filename}", expanded=False):
+            # Tabs mit Icons in den Labels
+            tab_required, tab_conditional, tab_either_or = st.tabs([
+                f"{icon_required} Pflichtfelder",
+                f"{icon_conditional} Bedingte Pflichtfelder",
+                f"{icon_either_or} Entweder-Oder Pflichtelder"
+            ])
 
-            # Either/Or
-            if result["either_or"]["ok"]:
-                st.success("Alle Entweder-oder Felder sind ausgefüllt")
-            else:
-                st.error("Fehler bei Entweder-oder Feldern")
-                st.dataframe(result["either_or"]["errors"])
+            with tab_required:
+                if result["required"]["ok"]:
+                    st.success("Alle Pflichtfelder ausgefüllt")
+                else:
+                    st.error("Fehler bei Pflichtfeldern")
+                    st.dataframe(result["required"]["errors"])
+
+            with tab_conditional:
+                if result["conditional"]["ok"]:
+                    st.success("Alle bedingte Pflichtfelder sind ausgefüllt")
+                else:
+                    st.error("Fehler bei bedingten Pflichtfeldern")
+                    st.dataframe(result["conditional"]["errors"])
+
+            with tab_either_or:
+                if result["either_or"]["ok"]:
+                    st.success("Alle Entweder-Oder Pflichtfelder sind ausgefüllt")
+                else:
+                    st.error("Fehler bei Entweder-Oder Pflichtfeldern")
+                    st.dataframe(result["either_or"]["errors"])
   
 
 
