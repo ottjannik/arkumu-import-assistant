@@ -20,12 +20,19 @@ def validate_dataframe(df: pd.DataFrame, rules: dict) -> dict:
 
     # Hilfsfunktion: betroffene Spalten + ID extrahieren + Fehlerbeschreibung
     def extract_error_rows(rows_df, cols, description):
-        error_df = rows_df.copy()
-        if "Projekt_ID" in df.columns:
-            error_df = error_df[["Projekt_ID"] + cols]
-        else:
-            error_df = error_df[cols]
+        """
+        Gibt nur die ID-Spalte (Projekt_ID oder erste Spalte) + Fehlerbeschreibung zurück.
+        """
+        if rows_df.empty:
+            return pd.DataFrame()  # nichts zu tun
+
+        # ID-Spalte bestimmen
+        id_col = "Projekt_ID" if "Projekt_ID" in rows_df.columns else rows_df.columns[0]
+
+        # Nur ID + Fehlerbeschreibung behalten
+        error_df = rows_df[[id_col]].copy()
         error_df["Fehlerbeschreibung"] = description
+
         return error_df
 
     # -------------------
