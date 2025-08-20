@@ -2,8 +2,6 @@
 
 arkumu.nrw Import Assistant ist eine Streamlit-Webanwendung, die Institutionen dabei unterstützt, ihre Metadaten vor dem Import auf arkumu.nrw zu überprüfen.
 
-Die App stellt sicher, dass exportierte Metadaten vollständig, konsistent und valide sind, bevor sie auf arkumu.nrw hochgeladen werden.
-
 ## Installation
 ```bash
 # Repository klonen
