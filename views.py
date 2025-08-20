@@ -25,6 +25,8 @@ def render_overview_tab(named_dfs, validation_targets):
     Args:
         named_dfs (dict): Dictionary mit DataFrames für die verschiedenen Metadaten.
         validation_targets (dict): Dictionary mit den Validierungszielen, enthält z.B. Dateinamen.
+    Returns:
+        None
     """
     st.header("Übersicht")
     st.write("Hier findest du eine Übersicht über den Inhalt der hochgeladenen Metadaten.")
@@ -58,6 +60,11 @@ def render_validation_tab(named_dfs, validation_targets):
     """
     Rendert den Tab für die Pflichtfeldprüfung.
     Nutzt die Validierungsregeln aus der Config und zeigt Ergebnisse in Expandern.
+    Args:
+        named_dfs (dict): Dictionary mit DataFrames für die verschiedenen Metadaten.
+        validation_targets (dict): Dictionary mit den Validierungszielen, enthält z.B. Dateinamen.
+    Returns:
+        None
     """
 
     st.header("Pflichtfeldprüfung")
@@ -88,23 +95,23 @@ def render_validation_tab(named_dfs, validation_targets):
         with st.expander(f"{status_icon} {filename}", expanded=False):
             # Required
             if result["required"]["ok"]:
-                st.success("Alle Pflichtspalten erfüllt ✅")
+                st.success("Alle Pflichtfelder ausgefüllt ✅")
             else:
-                st.error("Fehler bei Pflichtspalten")
+                st.error("Fehler bei Pflichtfeldern")
                 st.dataframe(result["required"]["errors"])
 
             # Conditional
             if result["conditional"]["ok"]:
-                st.success("Alle Conditional-Regeln erfüllt ✅")
+                st.success("Alle sich bedingende Felder sind ausgefüllt ✅")
             else:
-                st.error("Fehler bei Conditional-Regeln")
+                st.error("Fehler bei sich bedingenden Feldern")
                 st.dataframe(result["conditional"]["errors"])
 
             # Either/Or
             if result["either_or"]["ok"]:
-                st.success("Alle Either/Or-Regeln erfüllt ✅")
+                st.success("Alle Entweder-oder Felder sind ausgefüllt ✅")
             else:
-                st.error("Fehler bei Either/Or-Regeln")
+                st.error("Fehler bei Entweder-oder Feldern")
                 st.dataframe(result["either_or"]["errors"])
   
 
