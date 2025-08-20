@@ -16,6 +16,7 @@ from utils import (
 from views import (
     render_overview_tab,
     render_validation_tab,
+    render_csv_view_tab,
 #     render_projects_tab,
 #     render_files_tab
 )
@@ -88,7 +89,7 @@ if uploaded_files:
 # 3. Tabs und deren Inhalte
 # ============================================================
 
-    tabs = st.tabs(["Übersicht", "Pflichtfeldprüfung", "XX", "XX"])
+    tabs = st.tabs(["Übersicht", "Pflichtfeldprüfung", "CSV-Dateien", "XX"])
 
 # ------------------------------------------------------------
 # 3.1 Übersichts-Tab (views.py / render_overview_tab)
@@ -105,6 +106,16 @@ if uploaded_files:
 
     with tabs[1]:
         render_validation_tab(named_dfs, validation_targets)
+
+
+
+# ------------------------------------------------------------
+# 3.2 CSV-Dateien-Tab (views.py / render_csv_view_tab)
+# ------------------------------------------------------------
+
+    with tabs[2]:
+        render_csv_view_tab(named_dfs, validation_targets)
+
 
 
 

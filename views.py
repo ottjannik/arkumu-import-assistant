@@ -46,15 +46,6 @@ def render_overview_tab(named_dfs, validation_targets):
         st.metric("Informationsträger", len(named_dfs["physmedien_informationstraeger"]), border=True)
         st.metric("Physische Objekte", len(named_dfs["physischesobjekt"]), border=True)
 
-    st.divider()
-
-    # Übersicht der hochgeladenen Dateien
-    st.subheader("CSV-Dateien")
-    st.write("Hier findest du eine Übersicht über die hochgeladenen CSV-Dateien und deren Inhalt.")
-    for df_key, df in named_dfs.items():
-        filename = validation_targets[df_key]["filename"]
-        with st.expander(f"**{filename}** ({len(df)} Zeilen, {len(df.columns)} Spalten)", expanded=False):
-            st.dataframe(df)
 
 def render_validation_tab(named_dfs, validation_targets):
     """
@@ -131,14 +122,25 @@ def render_validation_tab(named_dfs, validation_targets):
                     st.error("Fehler bei Entweder-Oder Pflichtfeldern")
                     st.dataframe(result["either_or"]["errors"])
   
+def render_csv_view_tab(named_dfs, validation_targets):
+    """
+    Rendert den Tab für die CSV-Ansicht.
+    Zeigt die hochgeladenen CSV-Dateien in einem DataFrame an.
+    Args:
+        named_dfs (dict): Dictionary mit DataFrames für die verschiedenen Metadaten.
+        validation_targets (dict): Dictionary mit den Validierungszielen, enthält z.B. Dateinamen.
+    Returns:
+        None
+    """
+    st.header("CSV-Dateien ")
+    st.write("Hier kannst du die hochgeladenen CSV-Dateien einsehen.")
+
+    for df_key, df in named_dfs.items():
+        filename = validation_targets[df_key]["filename"]
+        with st.expander(f"**{filename}** ({len(df)} Zeilen, {len(df.columns)} Spalten)", expanded=False):
+            st.dataframe(df)
 
 
-
-
-
-
-    # check_required_columns_short(df_projekte, required_columns["projekte"], "00_Projekte.csv")
-    # check_required_columns_short(df_akteurinnen, required_columns["akteurinnen"], "03_Personen_Akteurinnen.csv")
 
 # def render_projects_tab(df_projekte, df_akteurinnen):
 #     st.subheader("Projekte")
