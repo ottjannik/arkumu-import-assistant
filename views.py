@@ -90,7 +90,7 @@ def render_validation_tab(named_dfs, validation_targets):
             result["conditional"]["ok"],
             result["either_or"]["ok"]
         ])
-        status_icon = "🟢" if overall_ok else "🔴"
+        status_icon = "✅" if overall_ok else "❌"
 
         with st.expander(f"{status_icon} {filename}", expanded=False):
             # Required
@@ -102,7 +102,7 @@ def render_validation_tab(named_dfs, validation_targets):
 
             # Conditional
             if result["conditional"]["ok"]:
-                st.success("Alle sich bedingende Felder sind ausgefüllt")
+                st.success("Alle sich bedingenden Felder sind ausgefüllt")
             else:
                 st.error("Fehler bei sich bedingenden Feldern")
                 st.dataframe(result["conditional"]["errors"])
