@@ -66,7 +66,7 @@
     },
     "kreuz_projekte_akteurinnen": {
       "filename": "02_Kreuz_Projekte_Personen.csv",
-      "required": [],
+      "required": ["AS_ID", "AS_ID", "AS_Proj_ID", "AS_Taetigkeit", "UUID"],
       "conditional": [],
       "either_or": []
     },
@@ -106,7 +106,7 @@
     },
     "keywords": {
       "filename": "08_Keywords.csv",
-      "required": [],
+      "required": ["Keyword_ID", "Wikidata_QID", "Keyword_eng", "Keyword_deu", "UUID"],
       "conditional": [],
       "either_or": []
     },
