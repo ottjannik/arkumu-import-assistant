@@ -81,16 +81,25 @@ def validate_dataframe(df: pd.DataFrame, rules: dict) -> dict:
     # -------------------
     # Either/Or prüfen
     # -------------------
+
     either_or_rules = rules.get("either_or", [])
     either_or_errors = []
+
     for rule in either_or_rules:
         cols = rule.get("columns", [])
-        missing_rows = df[df[cols].isnull().all(axis=1)]
+
+        # prüft pro Zeile: sind ALLE relevanten Spalten leer oder NaN?
+        missing_rows = df[df[cols].apply(
+            lambda row: all((pd.isna(v) or str(v).strip() == "") for v in row),
+            axis=1
+        )]
+
         if not missing_rows.empty:
             either_or_errors.append(extract_error_rows(
                 missing_rows, cols,
                 f"Mindestens eine der Spalten {', '.join(cols)} muss ausgefüllt sein"
             ))
+
     if either_or_errors:
         result["either_or"]["ok"] = False
         result["either_or"]["errors"] = pd.concat(either_or_errors, ignore_index=True)

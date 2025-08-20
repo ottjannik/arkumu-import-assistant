@@ -61,6 +61,11 @@ def render_validation_tab(named_dfs, validation_targets):
     """
 
     st.header("Pflichtfeldprüfung")
+    st.write("Die App prüft die hochgeladenen CSV-Dateien Kompatibilität mit den Arkumu-Importvorgaben. " \
+    "Dabei wird unterschieden zwischen:" \
+    "- Einfachen Pflichtfeldern, die immer ausgefüllt sein müssen" \
+    "- Sich bedingenden Feldern (Conditional-Regeln) (Wenn das eine Feld ausgefüllt, muss ein anderes auch ausgefüllt sein)" \
+    "- Entweder-Oder Feldern (Either-Or) (Entweder das eine oder das andere Feld muss ausgefüllt sein.")
 
     validation_results = {}
 
@@ -85,21 +90,21 @@ def render_validation_tab(named_dfs, validation_targets):
             if result["required"]["ok"]:
                 st.success("Alle Pflichtspalten erfüllt ✅")
             else:
-                st.error("Fehler bei Pflichtspalten ❌")
+                st.error("Fehler bei Pflichtspalten")
                 st.dataframe(result["required"]["errors"])
 
             # Conditional
             if result["conditional"]["ok"]:
                 st.success("Alle Conditional-Regeln erfüllt ✅")
             else:
-                st.error("Fehler bei Conditional-Regeln ❌")
+                st.error("Fehler bei Conditional-Regeln")
                 st.dataframe(result["conditional"]["errors"])
 
             # Either/Or
             if result["either_or"]["ok"]:
                 st.success("Alle Either/Or-Regeln erfüllt ✅")
             else:
-                st.error("Fehler bei Either/Or-Regeln ❌")
+                st.error("Fehler bei Either/Or-Regeln")
                 st.dataframe(result["either_or"]["errors"])
   
 
