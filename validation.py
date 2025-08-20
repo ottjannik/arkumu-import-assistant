@@ -72,7 +72,7 @@ def validate_dataframe(df: pd.DataFrame, rules: dict) -> dict:
                 if not missing_rows.empty:
                     conditional_errors.append(extract_error_rows(
                         missing_rows, [if_col, then_col],
-                        f"Wenn {if_col} ausgefüllt ist, muss {then_col} ebenfalls ausgefüllt sein"
+                        f"{if_col} ausgefüllt, aber {then_col} leer"
                     ))
     if conditional_errors:
         result["conditional"]["ok"] = False
