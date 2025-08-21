@@ -1,45 +1,57 @@
-# # stats.py
-# import streamlit as st
-# import plotly.graph_objects as go
-# import pandas as pd
-# import os
-# from collections import Counter
+# ============================================================
+# stats.py
+# Diese Datei enthält Funktionen zur Analyse und Visualisierung von Statistiken
+# ============================================================
 
-# # Funktion zum Plotten der Dateiendungsverteilung
-# def plot_file_extension_distribution(df_media):
-#     st.subheader("Dateiendungen")
 
-#     if "Dateipfad_absolut" not in df_media.columns:
-#         st.error("Die Spalte 'Dateipfad_absolut' fehlt in der Datei.")
-#         return
 
-#     # Dateiendungen extrahieren
-#     file_extensions = df_media["Dateipfad_absolut"].dropna().apply(
-#         lambda x: os.path.splitext(x)[-1].lower().lstrip(".")
-#     )
+import streamlit as st
+import pandas as pd
+import os
+from collections import Counter
 
-#     # Medienkategorien definieren
-#     video_exts = {"mp4", "mov", "avi", "mkv", "wmv", "flv", "mpeg", "webm"}
-#     image_exts = {"jpg", "jpeg", "png", "gif", "tiff", "bmp", "webp"}
+# Funktion zum Plotten der Dateiendungsverteilung
+def plot_file_extension_distribution(df_media):
+    """Zeigt die Verteilung der Dateiendungen in den Medien-Daten an.
+    Args:
+        df_media (pd.DataFrame): DataFrame mit den Medien-Daten, muss die Spalte 'Dateipfad_absolut' enthalten. 
+    Returns:
+        None
+    """
 
-#     # Filteroption
-#     filter_option = st.selectbox("Medien-Typ filtern", ["Alle", "Nur Videos", "Nur Bilder"])
+    if "Dateipfad_absolut" not in df_media.columns:
+        st.error("Die Spalte 'Dateipfad_absolut' fehlt in der Datei.")
+        return
 
-#     if filter_option == "Nur Videos":
-#         file_extensions = file_extensions[file_extensions.isin(video_exts)]
-#     elif filter_option == "Nur Bilder":
-#         file_extensions = file_extensions[file_extensions.isin(image_exts)]
+    # Dateiendungen extrahieren
+    file_extensions = df_media["Dateipfad_absolut"].dropna().apply(
+        lambda x: os.path.splitext(x)[-1].lower().lstrip(".")
+    )
 
-#     # Häufigkeit zählen
-#     extension_counts = Counter(file_extensions)
-#     if not extension_counts:
-#         st.warning("Keine Dateien für den gewählten Filter gefunden.")
-#         return
+    # Medienkategorien definieren
+    video_exts = {"mp4", "mov", "avi", "mkv", "wmv", "flv", "mpeg", "webm"}
+    image_exts = {"jpg", "jpeg", "png", "gif", "tiff", "bmp", "webp"}
 
-#     ext_df = pd.DataFrame.from_dict(extension_counts, orient="index", columns=["Anzahl"])
+    # Filteroption
+    filter_option = st.selectbox("Medien-Typ filtern", ["Alle", "Nur Videos", "Nur Bilder"])
 
-#     # Balkendiagramm anzeigen
-#     st.bar_chart(ext_df)
+    if filter_option == "Nur Videos":
+        file_extensions = file_extensions[file_extensions.isin(video_exts)]
+    elif filter_option == "Nur Bilder":
+        file_extensions = file_extensions[file_extensions.isin(image_exts)]
+
+    # Häufigkeit zählen
+    extension_counts = Counter(file_extensions)
+    if not extension_counts:
+        st.warning("Keine Dateien für den gewählten Filter gefunden.")
+        return
+
+    ext_df = pd.DataFrame.from_dict(extension_counts, orient="index", columns=["Anzahl"])
+
+    # Balkendiagramm anzeigen
+    st.bar_chart(ext_df)
+    with st.expander("Details zu den Dateiendungen", expanded=False):
+        st.dataframe(ext_df.sort_values(by="Anzahl", ascending=False).reset_index().rename(columns={"index": "Dateiendung"}))
 
 # def plot_projekt_nr_donut(df_projekte):
 #     total = len(df_projekte)

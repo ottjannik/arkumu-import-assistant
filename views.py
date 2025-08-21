@@ -10,10 +10,10 @@ from validation import (
     validate_dataframe
 )
 
-# # from stats import (
-#     # plot_projekt_nr_donut,
-# #     plot_file_extension_distribution
-# #)
+from stats import (
+    # plot_projekt_nr_donut,
+    plot_file_extension_distribution
+)
 
 
 import streamlit as st
@@ -45,6 +45,12 @@ def render_overview_tab(named_dfs, validation_targets):
         st.metric("Digitale Objekte", len(named_dfs["media_digitale_objekte"]), border=True)
         st.metric("Informationsträger", len(named_dfs["physmedien_informationstraeger"]), border=True)
         st.metric("Physische Objekte", len(named_dfs["physischesobjekt"]), border=True)
+
+    st.divider()
+
+    st.subheader("Dateiendungen")
+    st.write("Hier kannst du die hochgeladenen CSV-Dateien einsehen.")
+    plot_file_extension_distribution(named_dfs["media_digitale_objekte"])
 
 
 def render_validation_tab(named_dfs, validation_targets):
