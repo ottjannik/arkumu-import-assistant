@@ -1,4 +1,8 @@
 {
+  "description": "KHM Import Configuration",
+  "version": "1.0",
+  "last_updated": "2023-10-01",
+
   "required_files": [
     "00_Projekte.csv",
     "01a_Kreuz_Projekt_Grundereignis.csv",
@@ -27,10 +31,10 @@
     "projekte": {
       "filename": "00_Projekte.csv",
       "required": [
-        "Projekt_ID", 
-        "Originaltitel", 
-        "_Beschreibung_verkettet", 
-        "Projektart_calc", 
+        "Projekt_ID",
+        "Originaltitel",
+        "_Beschreibung_verkettet",
+        "Projektart_calc",
         "_Projekte_Export::Projektkategorien_arkumu",
         "Fächergruppe",
         "Projekt_UUID"
@@ -65,7 +69,10 @@
     },
     "kreuz_projekt_grundereignis": {
       "filename": "01a_Kreuz_Projekt_Grundereignis.csv",
-      "required": ["Projekt_ID", "Projekt_UUID"],
+      "required": [
+        "Projekt_ID",
+        "Projekt_UUID"
+      ],
       "conditional": [],
       "either_or": []
     },
@@ -83,36 +90,61 @@
         }
       ],
       "either_or": [
-        {"columns": ["Entstehungsjahr", "Jahr der Fertigstellung"]}
+        {
+          "columns": ["Entstehungsjahr", "Jahr der Fertigstellung"]
+        }
       ]
     },
     "kreuz_projekte_akteurinnen": {
       "filename": "02_Kreuz_Projekte_Personen.csv",
-      "required": ["AS_ID", "AS_Pers_ID", "AS_Proj_ID", "AS_Taetigkeit", "UUID"],
+      "required": [
+        "AS_ID",
+        "AS_Pers_ID",
+        "AS_Proj_ID",
+        "AS_Taetigkeit",
+        "UUID"
+      ],
       "conditional": [],
       "either_or": []
     },
     "akteurinnen": {
       "filename": "03_Personen_Akteurinnen.csv",
-      "required": ["PE_ID", "Name_gesamt_natürlicheReihenfolge", "UUID"],
+      "required": [
+        "PE_ID",
+        "Name_gesamt_natürlicheReihenfolge",
+        "UUID"
+      ],
       "conditional": [],
       "either_or": []
     },
     "kreuz_betreuende_projekte": {
       "filename": "04_Kreuz_Betreuende_Projekte.csv",
-      "required": ["Kreuz_Lehrende_Proj_ID_pk", "Proj_ID_fk", "PE_ID_fk", "_Exportvariablen_arkumu::Rolle", "UUID"],
+      "required": [
+        "Kreuz_Lehrende_Proj_ID_pk",
+        "Proj_ID_fk",
+        "PE_ID_fk",
+        "_Exportvariablen_arkumu::Rolle",
+        "UUID"
+      ],
       "conditional": [],
       "either_or": []
     },
     "betreuende": {
       "filename": "05_PersonenBetreuende.csv",
-      "required": ["PE_ID", "Name_gesamt_natürlicheReihenfolge", "UUID"],
+      "required": [
+        "PE_ID",
+        "Name_gesamt_natürlicheReihenfolge",
+        "UUID"
+      ],
       "conditional": [],
       "either_or": []
     },
     "kreuz_projekte_auszeichnungen": {
       "filename": "06a_Kreuz_Projekte_Auszeichnungen.csv",
-      "required": ["Ausz_Proj_ID", "UUID"],
+      "required": [
+        "Ausz_Proj_ID",
+        "UUID"
+      ],
       "conditional": [],
       "either_or": []
     },
@@ -127,7 +159,9 @@
       ],
       "conditional": [],
       "either_or": [
-        {"columns": ["Ausz_Anfang", "Ausz_Ende"]}
+        {
+          "columns": ["Ausz_Anfang", "Ausz_Ende"]
+        }
       ]
     },
     "kreuz_projekte_keywords": {
@@ -138,7 +172,13 @@
     },
     "keywords": {
       "filename": "08_Keywords.csv",
-      "required": ["Keyword_ID", "Wikidata_QID", "Keyword_eng", "Keyword_deu", "UUID"],
+      "required": [
+        "Keyword_ID",
+        "Wikidata_QID",
+        "Keyword_eng",
+        "Keyword_deu",
+        "UUID"
+      ],
       "conditional": [],
       "either_or": []
     },
