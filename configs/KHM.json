@@ -19,6 +19,8 @@
     "10_PhysMedien_Informationstraeger.csv",
     "11_Kreuz_DigitaleObjekte_Proj.csv",
     "12_Media_DigitaleObjekte.csv",
+    "13a_Kreuztabelle_Track_Projekt.csv",
+    "13b_Track_DigitaleObjekte.csv",
     "16_Kreuz_Events_Projekte.csv",
     "17_Events_weitereEreignisse.csv",
     "18_Kreuz_Projekte_EquipmentSoftware.csv",
@@ -166,7 +168,12 @@
     },
     "kreuz_projekte_keywords": {
       "filename": "07_Kreuz_Projekte_Keywords.csv",
-      "required": [],
+      "required": [
+        "Kreuz_Projekte_Keywords_ID",
+        "Proj_ID_fk",
+        "Keyword_ID_fk",
+        "UUID"
+      ],
       "conditional": [],
       "either_or": []
     },
@@ -184,13 +191,23 @@
     },
     "kreuz_projekte_informationstraeger": {
       "filename": "09_Kreuz_Projekte_Informationsträger.csv",
-      "required": [],
+      "required": [
+        "Kreuz_PhysMedien_Proj_ID_pk",
+        "Proj_ID_fk",
+        "PhysMedien_ID_fk",
+        "UUID"
+      ],
       "conditional": [],
       "either_or": []
     },
     "physmedien_informationstraeger": {
       "filename": "10_PhysMedien_Informationstraeger.csv",
-      "required": [],
+      "required": [
+        "PhysMedien_ID",
+        "Signatur",
+        "Medienformat",
+        "UUID"
+      ],
       "conditional": [],
       "either_or": []
     },
@@ -226,31 +243,65 @@
     },
     "events": {
       "filename": "17_Events_weitereEreignisse.csv",
-      "required": [],
+      "required": [
+        "Event_ID",
+        "Eventname",
+        "Ereignistyp",
+        "Ort",
+        "UUID"
+      ],
       "conditional": [],
-      "either_or": []
+      "either_or": [
+        {
+          "columns": ["Eventanfangsdatum", "EventEnddatum"]
+        }
+      ]
     },
     "kreuz_projekte_equipmentsoftware": {
       "filename": "18_Kreuz_Projekte_EquipmentSoftware.csv",
-      "required": [],
+      "required": [
+        "Kreuz_Projekte_Equipment_ID",
+        "Proj_ID_fk",
+        "Equipment_ID_fk",
+        "UUID"
+      ],
       "conditional": [],
       "either_or": []
     },
     "equipmentundsoftware": {
       "filename": "19_Equipment_und_Software.csv",
-      "required": [],
+      "required": [
+        "Equipment_ID",
+        "Equipmentart_fk",
+        "Equipment_deu",
+        "Equipment_eng",
+        "UUID"
+      ],
       "conditional": [],
       "either_or": []
     },
     "equipmentart": {
       "filename": "20_Equipmentart.csv",
-      "required": [],
+      "required": [
+        "Equipmentart_ID",
+        "Equipmentart_deu",
+        "Equipmentart_eng",
+        "UUID"
+      ],
       "conditional": [],
-      "either_or": []
+      "either_or": [
+        {
+          "columns": ["Wikidata_QID", "GND_ID", "AAT_ID"]
+        }
+      ]
     },
     "physischesobjekt": {
       "filename": "21_PhysischesObjekt.csv",
-      "required": [],
+      "required": [
+        "Projekt_ID",
+        "Material_Titel_calc",
+        "Projekt_UUID"
+      ],
       "conditional": [],
       "either_or": []
     }
