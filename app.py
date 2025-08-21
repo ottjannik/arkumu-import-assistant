@@ -131,6 +131,3 @@ if uploaded_files:
     #         conditional_required_columns,
     #         validation_targets
     #     )
-
-    # else:
-    #     st.info("Diese Anwendung überprüft die hochgeladenen CSV-Dateien auf Vollständigkeit und Korrektheit.")
