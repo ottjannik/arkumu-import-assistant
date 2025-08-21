@@ -7,7 +7,8 @@
     "03_Personen_Akteurinnen.csv",
     "04_Kreuz_Betreuende_Projekte.csv",
     "05_PersonenBetreuende.csv",
-    "06_Auszeichnungen_Projekte.csv",
+    "06a_Kreuz_Projekte_Auszeichnungen.csv",
+    "06b_Auszeichnungen.csv",
     "07_Kreuz_Projekte_Keywords.csv",
     "08_Keywords.csv",
     "09_Kreuz_Projekte_Informationsträger.csv",
@@ -30,7 +31,7 @@
         "Originaltitel", 
         "_Beschreibung_verkettet", 
         "Projektart_calc", 
-        "_Projekte_Exportinfos::Projektkategorien_arkumu",
+        "_Projekte_Export::Projektkategorien_arkumu",
         "Fächergruppe",
         "Projekt_UUID"
       ],
@@ -109,12 +110,18 @@
       "conditional": [],
       "either_or": []
     },
+    "kreuz_projekte_auszeichnungen": {
+      "filename": "06a_Kreuz_Projekte_Auszeichnungen.csv",
+      "required": ["Ausz_Proj_ID", "UUID"],
+      "conditional": [],
+      "either_or": []
+    },
     "auszeichnungen": {
-      "filename": "06_Auszeichnungen_Projekte.csv",
+      "filename": "06b_Auszeichnungen.csv",
       "required": [
         "Ausz_ID",
         "Ausz_Proj_ID",
-        "_Exportvariablen_arkumu::Ereignistyp",
+        "_globale_Exportvariablen_arkumu::Ereignistyp",
         "Ausz_Name",
         "UUID"
       ],
