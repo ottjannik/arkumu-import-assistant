@@ -131,24 +131,26 @@ Gleichzeitig trägt die Anwendung zur Umsetzung der FAIR-Prinzipien bei und verd
 # -------------------
 conditional_rules = rules.get("conditional", [])
 conditional_errors = []
-
 for rule in conditional_rules:
     if_col = rule.get("if_filled")
     then_cols = rule.get("then_required", [])
-
     if if_col in df.columns:
         for then_col in then_cols:
+            if then_col not in df.columns:
+                conditional_errors.append(pd.DataFrame({"Fehlende_Spalte": [then_col], "Fehlerbeschreibung": ["Spalte fehlt"]}))
+                continue
             missing_rows = df[
                 df[if_col].notna() & (df[if_col].astype(str).str.strip() != "") &
                 (df[then_col].isna() | (df[then_col].astype(str).str.strip() == ""))
             ]
             if not missing_rows.empty:
-                conditional_errors.append(
-                    extract_error_rows(
-                        missing_rows,
-                        [if_col, then_col],
-                        f"{if_col} ausgefüllt, aber {then_col} leer"
-                    )
-                )
+                conditional_errors.append(extract_error_rows(
+                    missing_rows, [if_col, then_col],
+                    f"{if_col} ausgefüllt, aber {then_col} leer"
+                ))
+if conditional_errors:
+    result["conditional"]["ok"] = False
+    result["conditional"]["errors"] = pd.concat(conditional_errors, ignore_index=True)
+
 ```
 
