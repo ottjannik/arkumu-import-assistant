@@ -44,7 +44,7 @@ Nach dieser vorbereitenden Validierung werden die Metadaten von den Projektbetei
 
 Die Verarbeitung und Archivierung multimedialer Forschungs- und Kunstbestände erfordert eine hohe Datenqualität, um deren langfristige Verfügbarkeit und Nachnutzbarkeit sicherzustellen. Fehlende Pflichtangaben, uneinheitliche Schreibweisen oder inkonsistente Verknüpfungen führen schnell zu Inkompatibilitäten, die den Importprozess behindern oder Nacharbeiten erforderlich machen.
 
-Zur Sicherstellung von Konsistenz und Anschlussfähigkeit wurden in arkumu.nrw [verbindliche Pflichtfelder](https://docs.arkumu.nrw/ressourcen/entitaeten-und-attribute-des-datenmodells) sowie ein [gemeinsames Datenmodell](https://docs.arkumu.nrw/ressourcen/einfuehrung-in-das-datenmodell.html) definiert. Die Überprüfung der Einhaltung dieser Vorgaben ist ein klassischer Anwendungsfall der Datenvalidierung, die als Teil des übergeordneten Datenqualitätsmanagements verstanden wird. Dabei umfasst die Validierung nicht nur die formale Prüfung auf ausgefüllte Felder, sondern auch die semantische Kontrolle von Abhängigkeiten und Konditionalitäten (z. B. „Wenn ein Projekt einen Projekttitel hat, muss auch eine Sprachauszeichnung gemäß ISO-Standard vorliegen“).
+Zur Sicherstellung von Konsistenz und Anschlussfähigkeit wurden in arkumu.nrw [verbindliche Pflichtfelder](https://docs.arkumu.nrw/ressourcen/entitaeten-und-attribute-des-datenmodells) sowie ein [gemeinsames Datenmodell](https://docs.arkumu.nrw/ressourcen/einfuehrung-in-das-datenmodell.html) definiert. Die Überprüfung der Einhaltung dieser Vorgaben ist ein klassischer Anwendungsfall der Datenvalidierung, die als Teil des übergeordneten Datenqualitätsmanagements verstanden wird. Dabei umfasst die Validierung nicht nur die formale Prüfung auf ausgefüllte Felder, sondern auch die semantische Kontrolle von Abhängigkeiten und Konditionalitäten (z. B. „Wenn ein Projekt einen Projekttitel hat, muss auch eine Sprachauszeichnung des Projekttitels vorliegen“).
 
 Für die technische Umsetzung existieren im Bereich der Datenvalidierung bereits verschiedene Ansätze und Tools, etwa Schema-Validierungen für XML oder JSON, Prüfroutinen in Datenbankmanagementsystemen oder Validierungsframeworks wie OpenRefine für tabellarische Daten. Im Kontext von arkumu.nrw reicht jedoch kein generisches Werkzeug aus, da die zu verarbeitenden Metadaten spezifischen fachlichen und strukturellen Anforderungen unterliegen, die durch ein maßgeschneidertes Validierungssystem abgedeckt werden müssen.
 
@@ -54,43 +54,11 @@ Die theoretische Grundlage der App orientiert sich zudem an den FAIR-Prinzipien 
 
 ## 3. Projektbeschreibung und Umsetzung
 
-Im Rahmen der Arbeit wurde mit dem **arkumu.nrw Import Assistant** eine leichtgewichtige Web-Anwendung entwickelt, die den Validierungsprozess der Metadaten unterstützt und Projektbeteiligten eine einfache Möglichkeit zur Überprüfung ihrer CSV-Exporte bietet. Die App wurde in Python programmiert und nutzt das Framework **Streamlit**, das eine schnelle Entwicklung interaktiver Weboberflächen mit geringem technischem Aufwand ermöglicht.
+Im Rahmen der Arbeit wurde mit dem **arkumu.nrw Import Assistant** eine leichtgewichtige Web-Anwendung entwickelt, die den Validierungsprozess der Metadaten unterstützt. Sie bietet Projektbeteiligten eine einfache Möglichkeit, die aus den Hochschularchiven exportierten CSV-Dateien auf Vollständigkeit, Konsistenz und Validität zu prüfen. Die App wurde in Python programmiert und nutzt das Framework **Streamlit**, das eine schnelle Entwicklung interaktiver Weboberflächen ermöglicht.
 
-Die Software folgt einer modularen Struktur:
-- Die zentrale Steuerung erfolgt über die Datei `app.py`, in der die Benutzeroberfläche und die Ablaufsteuerung definiert sind.
-- Wiederverwendbare Funktionen zur Datenverarbeitung befinden sich in `utils.py`.
-- Die Validierungslogik, also die Überprüfung der Pflichtfelder und konditionalen Abhängigkeiten, ist in `validation.py` gekapselt.
-- Die visuelle Darstellung und Aufbereitung der Ausgaben wird in `views.py` organisiert.
+Nach der Profilauswahl, bei der Nutzer:innen die jeweils geltenden Validierungsregeln laden, erfolgt der Upload der CSV-Dateien. Anschließend überprüft die Anwendung, ob alle erforderlichen Dateien vorhanden sind und ob die Pflichtfelder korrekt ausgefüllt wurden. Konditionale Abhängigkeiten zwischen Feldern werden automatisch geprüft, sodass beispielsweise beim Ausfüllen eines Originaltitels auch das entsprechende Sprachfeld berücksichtigt wird. Die Ergebnisse werden sowohl in einer kompakten Übersicht als auch in einer detaillierten tabellarischen Darstellung ausgegeben. Dabei können die Daten nicht direkt in der App bearbeitet werden, um die Konsistenz der Originalquellen sicherzustellen.
 
-Darüber hinaus ermöglichen Konfigurationsdateien im JSON-Format die Definition projektspezifischer Profile (z. B. für die KHM) sowie die Ablage der Validierungsregeln. Ein Beispiel für eine minimale JSON-Konfiguration ist in **Anhang A.1** dargestellt. Die vollständigen Profile können über [das Repositorium](https://github.com/ottjannik/arkumu-import-assistant) eingesehen werden.
-
-Die Validierung selbst erfolgt über klar strukturierte Funktionen, die in `validation.py` implementiert sind. Die zentrale Funktion `validate_dataframe` übernimmt die Prüfung der Daten auf Basis der definierten Regeln. Eine exemplarische Anwendung dieser Funktion für **Conditional Rules** ist in **Anhang A.2** dargestellt. Sie zeigt, wie Abhängigkeiten zwischen Feldern überprüft werden: Ist ein bestimmtes Feld ausgefüllt (z. B. *Originaltitel*), so wird automatisch gefordert, dass abhängige Felder ebenfalls befüllt sind (z. B. *Originaltitel_Sprache*). Auf diese Weise lassen sich semantische Beziehungen zwischen Feldern abbilden und typische Fehlerquellen bei der Datenübertragung frühzeitig erkennen.
-
-Die Validierungslogik unterscheidet dabei mehrere Regeltypen, die in den JSON-Profilen hinterlegt sind:  
-
-- **Required:** klassische Pflichtfelder, die in jeder Zeile ausgefüllt sein müssen (z. B. `Projekt_ID`, `Originaltitel`).  
-- **Conditional:** konditionale Abhängigkeiten, bei denen das Ausfüllen eines Feldes automatisch weitere Felder erforderlich macht (z. B. wenn ein *Originaltitel* vorhanden ist, muss auch die *Originaltitel_Sprache* angegeben werden).  
-- **Either/Or:** alternative Pflichtfelder, bei denen mindestens eines von mehreren Feldern befüllt sein muss (z. B. Angabe eines *Anfangsdatums* oder eines *Enddatums*).
-
-Durch diese mehrstufige Regelstruktur kann die App die spezifischen Anforderungen des arkumu.nrw-Datenmodells direkt auf die hochgeladenen CSV-Dateien anwenden. Jede Datei wird Zeile für Zeile überprüft, und eventuelle Verstöße gegen die definierten Regeln werden für die Nutzer:innen sichtbar gemacht. So stellt die App sicher, dass die exportierten Daten aus den Hochschularchiven bereits vor dem Import in arkumu.nrw vollständig, konsistent und anschlussfähig sind.
-
-
-
-
-
-
-
-
-Die Funktionalität der Anwendung umfasst mehrere aufeinanderfolgende Schritte:
-1. **Profilwahl:** Nutzer:innen wählen ein Profil, das die jeweils geltenden Validierungsregeln lädt.  
-2. **Dateiupload:** Anschließend werden die für das Profil erforderlichen CSV-Dateien hochgeladen.  
-3. **Prüfung auf Vollständigkeit:** Die App kontrolliert, ob alle benötigten Dateien vorhanden sind und ob die darin enthaltenen Pflichtfelder ausgefüllt wurden.  
-4. **Validierung von Abhängigkeiten:** Konditionale Beziehungen zwischen Feldern werden überprüft (z. B. bestimmte Rollen bei bestimmten Ereignistypen).  
-5. **Ausgabe:** Das Ergebnis der Prüfung wird in zwei Modi bereitgestellt:
-   - **Kurzfassung:** klare Erfolgsmeldung oder Fehlerhinweis je Datei.  
-   - **Detailansicht:** tabellarische Übersicht, die fehlende oder ungültige Werte präzise aufzeigt.
-
-**Wichtig:** CSV-Dateien können innerhalb der App nicht bearbeitet werden. Änderungen müssen in der Ursprungsdatenbank vorgenommen werden, da dort die Originaldaten gespeichert sind. Eine Bearbeitung direkt in den CSV-Dateien würde das Problem nur lokal ändern und beim nächsten Export würden die Fehler erneut auftreten. Die App dient daher ausschließlich der Anzeige, an welchen Stellen Pflichtfelder fehlen oder inkorrekt ausgefüllt sind, um eine gezielte Korrektur in der Originaldatenquelle zu ermöglichen.
+Die Softwarestruktur ist modular aufgebaut: `app.py` steuert die Benutzeroberfläche und den Ablauf, während `utils.py` wiederverwendbare Funktionen zur Datenverarbeitung bereitstellt. Die Validierungslogik ist in `validation.py` gekapselt, die visuelle Aufbereitung der Ergebnisse erfolgt über `views.py`. Projektspezifische Profile und die Validierungsregeln werden in JSON-Dateien hinterlegt, ein Beispiel hierfür ist in **Anhang A.1** dargestellt. Die zentrale Funktion `validate_dataframe` überprüft die Daten zeilenweise und wendet dabei die drei Regeltypen **Required**, **Conditional** und **Either/Or** an. Auf diese Weise wird sichergestellt, dass die exportierten Daten bereits vor dem Import in arkumu.nrw vollständig, konsistent und anschlussfähig sind.
 
 ---
 
