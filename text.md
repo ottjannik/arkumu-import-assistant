@@ -1,7 +1,7 @@
 # arkumu.nrw Import Assistant  
 *Theoretische Ausarbeitung zur Praxisarbeit*
 
-[Repositorium](https://github.com/ottjannik/arkumu-import-assistant)
+GitHub Repositorium: [https://github.com/ottjannik/arkumu-import-assistant](https://github.com/ottjannik/arkumu-import-assistant)
 
 ---
 
