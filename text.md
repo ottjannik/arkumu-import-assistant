@@ -1,5 +1,5 @@
 # arkumu.nrw Import Assistant  
-*Theoretische Ausarbeitung zur Praxisarbeit*
+*Theoretische Ausarbeitung zur Praxisarbeit im Rahmen des Zertifikatskurses Data Librarian am ZBIW der TH Köln (2025/2025)*
 
 GitHub Repositorium: [https://github.com/ottjannik/arkumu-import-assistant](https://github.com/ottjannik/arkumu-import-assistant)
 
