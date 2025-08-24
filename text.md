@@ -7,7 +7,7 @@ GitHub Repositorium: [https://github.com/ottjannik/arkumu-import-assistant](http
 
 # Inhaltsverzeichnis
 
-- [Abstract](#abstract)
+- [Zusammenfassung](#zusammenfassung)
 1. [Einleitung und Kontext](#1-einleitung-und-kontext)
 2. [Hintergrund und theoretische grundlagen](#2-hintergrund-und-theoretische-grundlagen)
 3. [Projektbeschreibung und umsetzung](#3-projektbeschreibung-und-umsetzung)
@@ -22,7 +22,7 @@ GitHub Repositorium: [https://github.com/ottjannik/arkumu-import-assistant](http
 
 ---
 
-## Abstract
+## Zusammenfassung
 
 Die Arbeit stellt den **arkumu.nrw Import Assistant** vor, eine in Python entwickelte Anwendung zur Validierung von Metadaten im Rahmen des Projekts arkumu.nrw. Die App überprüft aus Hochschularchiven exportierte CSV-Dateien auf Vollständigkeit, Konsistenz und Validität und stellt sie in einer benutzerfreundlichen Oberfläche dar. Damit ermöglicht sie eine effiziente Vorprüfung der Datenqualität und unterstützt die Anschlussfähigkeit an das arkumu.nrw-Datenmodell.
 
