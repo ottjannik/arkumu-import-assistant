@@ -9,10 +9,10 @@ GitHub Repositorium: [https://github.com/ottjannik/arkumu-import-assistant](http
 
 - [Zusammenfassung](#zusammenfassung)
 1. [Einleitung und Kontext](#1-einleitung-und-kontext)
-2. [Hintergrund und theoretische grundlagen](#2-hintergrund-und-theoretische-grundlagen)
-3. [Projektbeschreibung und umsetzung](#3-projektbeschreibung-und-umsetzung)
+2. [Hintergrund und theoretische Grundlagen](#2-hintergrund-und-theoretische-grundlagen)
+3. [Projektbeschreibung und Umsetzung](#3-projektbeschreibung-und-umsetzung)
 4. [Ergebnisse](#4-ergebnisse)
-5. [Diskussion und kritische reflexion](#5-diskussion-und-kritische-reflexion)
+5. [Diskussion und kritische Reflexion](#5-diskussion-und-kritische-reflexion)
 6. [Fazit](#6-fazit)
 - [Literaturverzeichnis](#literaturverzeichnis)
 - [Anhang](#anhang)
