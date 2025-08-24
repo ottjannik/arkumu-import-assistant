@@ -7,18 +7,20 @@ GitHub Repositorium: [https://github.com/ottjannik/arkumu-import-assistant](http
 
 # Inhaltsverzeichnis
 
-- Abstract
-- 1. Einleitung und Kontext
-- 2. Hintergrund und theoretische Grundlagen
-- 3. Projektbeschreibung und Umsetzung
-- 4. Ergebnisse
-- 5. Diskussion und kritische Reflexion
-- 6. Fazit
-- Literaturverzeichnis
-- Anhang
-  - A.1 JSON-Beispielkonfiguration
-  - A.2 Code-Auszug `validation.py`
-  - A.3 Screenshots der Anwendung
+- [Abstract](#abstract)
+
+1. [Einleitung und Kontext](#1-einleitung-und-kontext)
+2. [Hintergrund und theoretische grundlagen](#2-hintergrund-und-theoretische-grundlagen)
+3. [Projektbeschreibung und umsetzung](#3-projektbeschreibung-und-umsetzung)
+4. [Ergebnisse](#4-ergebnisse)
+5. [Diskussion und kritische reflexion](#5-diskussion-und-kritische-reflexion)
+6. [Fazit](#6-fazit)
+
+- [Literaturverzeichnis](#literaturverzeichnis)
+- [Anhang](#anhang)
+  - [A.1 JSON-Beispielkonfiguration](#a1-json-beispielkonfiguration)
+  - [A.2 Code-Auszug `validationpy`](#a2-code-auszug-validationpy)
+  - [A.3 Screenshots der anwendung](#a3-screenshots-der-anwendung)
 
 ---
 
