@@ -49,7 +49,7 @@ def render_overview_tab(named_dfs, validation_targets):
     st.divider()
 
     st.subheader("Dateiendungen")
-    st.write("Hier kannst du die hochgeladenen CSV-Dateien einsehen.")
+    st.write("Verteilung der Dateiendungen in den digitalen Objekten")
     plot_file_extension_distribution(named_dfs["media_digitale_objekte"])
 
 
