@@ -103,12 +103,14 @@ Durch den modularen Aufbau und die Nutzung von JSON-Konfigurationsdateien für P
 - Unterstützung nur für CSV-Dateien.  
 - Keine automatische Fehlerkorrektur, nur Validierung.  
 - Abhängigkeit von korrekt gepflegten JSON-Konfigurationsdateien.
+- Benötigt als File-Upload noch vollständige CSV Datenpakete
 
 **Nächste Schritte:**
 - Erweiterung für weitere Profile (z. B. HfMT).  
 - Integration automatischer Korrekturvorschläge.  
 - Anbindung an institutionelle Datenrepositorien.  
 - Mehrsprachigkeit (Deutsch/Englisch UI).
+- Verarbeitung einzelner CSV-Dateien, statt ganze CSV-Exportpakete zu fordern
 
 ---
 
