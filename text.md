@@ -17,8 +17,8 @@ GitHub Repositorium: [https://github.com/ottjannik/arkumu-import-assistant](http
 - [Literaturverzeichnis](#literaturverzeichnis)
 - [Anhang](#anhang)
   - [A.1 JSON-Beispielkonfiguration](#a1-json-beispielkonfiguration)
-  - [A.2 Code-Auszug `validationpy`](#a2-code-auszug-validationpy)
-  - [A.3 Screenshots der anwendung](#a3-screenshots-der-anwendung)
+  - [A.2 Code-Auszug `validation.py`](#a2-code-auszug-validationpy)
+  - [A.3 Screenshots der Anwendung](#a3-screenshots-der-anwendung)
 
 ---
 
