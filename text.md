@@ -134,6 +134,7 @@ Gleichzeitig trägt die Anwendung zur Umsetzung der FAIR-Prinzipien bei und verd
 # Conditional prüfen
 # -------------------
 conditional_rules = rules.get("conditional", [])
+onditional_errors = []
 
 for rule in conditional_rules:
     if_col = rule.get("if_filled")
