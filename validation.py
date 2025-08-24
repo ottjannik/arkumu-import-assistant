@@ -133,7 +133,7 @@ def validate_dataframe(df: pd.DataFrame, rules: dict) -> dict:
         if not missing_rows.empty:
             either_or_errors.append(extract_error_rows(
                 missing_rows, cols,
-                f"Mindestens eine der Spalten {', '.join(cols)} muss ausgefüllt sein"
+                f"Entweder {' oder '.join(cols)} muss ausgefüllt sein"
             ))
 
     if either_or_errors:
