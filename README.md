@@ -73,8 +73,8 @@ streamlit run app.py
 3.	Prüfung auf Vollständigkeit: Die App überprüft, ob alle erforderlichen Dateien vorhanden sind und ob Pflichtfelder ausgefüllt sind.
 4.	Validierung von Abhängigkeiten: Konditionale Beziehungen zwischen Feldern werden geprüft.
 5.	Ausgabe: Ergebnisse werden in zwei Modi dargestellt:
-	•	Kurzfassung: zeigt den Status jeder Datei.
-	•	Detailansicht: tabellarische Übersicht fehlender oder inkorrekter Werte.
+        - Kurzfassung: zeigt den Status jeder Datei.    
+        - Detailansicht: tabellarische Übersicht fehlender oder inkorrekter Werte.
 
 Hinweis: CSV-Dateien können innerhalb der App nicht bearbeitet werden. Änderungen müssen in der Originaldatenquelle erfolgen.
 
@@ -82,9 +82,9 @@ Hinweis: CSV-Dateien können innerhalb der App nicht bearbeitet werden. Änderun
 
 ## Validierung
 Die Validierung erfolgt über klar strukturierte Funktionen in validation.py. Die zentrale Funktion validate_dataframe prüft die CSV-Dateien auf Basis der definierten Regeln:
-	•	Required: klassische Pflichtfelder, die in jeder Zeile ausgefüllt sein müssen (z. B. Projekt_ID, Originaltitel).
-	•	Conditional: konditionale Abhängigkeiten, bei denen das Ausfüllen eines Feldes automatisch weitere Felder erforderlich macht (z. B. wenn ein Originaltitel vorhanden ist, muss auch die Originaltitel_Sprache angegeben werden).
-	•	Either/Or: alternative Pflichtfelder, bei denen mindestens eines von mehreren Feldern befüllt sein muss (z. B. Angabe eines Anfangsdatums oder eines Enddatums).
+- Required: klassische Pflichtfelder, die in jeder Zeile ausgefüllt sein müssen (z. B. Projekt_ID, Originaltitel).
+- Conditional: konditionale Abhängigkeiten, bei denen das Ausfüllen eines Feldes automatisch weitere Felder erforderlich macht (z. B. wenn ein Originaltitel vorhanden ist, muss auch die Originaltitel_Sprache angegeben werden).
+- Either/Or: alternative Pflichtfelder, bei denen mindestens eines von mehreren Feldern befüllt sein muss (z. B. Angabe eines Anfangsdatums oder eines Enddatums).
 
 Diese mehrstufige Regelstruktur erlaubt es, die heterogenen Anforderungen des arkumu.nrw-Datenmodells präzise abzubilden. Während einfache Pflichtfeldprüfungen nur die formale Vollständigkeit sicherstellen, tragen Conditional- und Either/Or-Regeln wesentlich dazu bei, die inhaltliche Konsistenz der Daten zu sichern und typische Fehlerquellen frühzeitig sichtbar zu machen.
 
