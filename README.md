@@ -28,6 +28,7 @@ arkumu.nrw Import Assistant ist eine Streamlit-Webanwendung, die Institutionen d
 
 Die Anwendung ist modular aufgebaut:
 
+```
 arkumu-import-assistant/
 ├─ app.py            # Hauptanwendung und Benutzeroberfläche
 ├─ validation.py     # Validierungslogik für CSV-Dateien
@@ -38,7 +39,7 @@ arkumu-import-assistant/
 ├─ requirements.txt  # Python-Abhängigkeiten
 ├─ README.md         # Projektbeschreibung, Installations- und Nutzungsanleitung
 └─ Licence.md        # Lizenzinformationen
-
+```
 
 ---
 
