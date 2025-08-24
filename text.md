@@ -77,6 +77,10 @@ Durch den modularen Aufbau und die Nutzung von JSON-Konfigurationsdateien für P
 ---
 
 ## 5. Diskussion und kritische Reflexion
+Die Entwicklung des Tools verlief insgesamt erfolgreich. Besonders positiv war die schnelle Umsetzbarkeit mit Streamlit, das eine ansprechende Oberfläche bei vergleichsweise geringem Aufwand ermöglicht. Auch die Nutzung von JSON-Konfigurationsdateien hat sich als sinnvoll erwiesen, da dadurch institutionelle Anpassungen leicht vorgenommen werden können.  
+
+Dennoch bestehen Einschränkungen. Aktuell unterstützt das Tool nur CSV-Dateien und bietet keine Möglichkeit, erkannte Fehler automatisch zu korrigieren. Eine weitere Herausforderung besteht in der Abhängigkeit von korrekt gepflegten Konfigurationsdateien: Fehler in den JSON-Profilen können zu fehlerhaften Prüfungen führen.  
+
 **Erfolge:**
 - Schnelle Umsetzung dank Streamlit.  
 - Intuitive Bedienbarkeit über die GUI.  
@@ -130,7 +134,7 @@ Gleichzeitig trägt die Anwendung zur Umsetzung der FAIR-Prinzipien bei und verd
 # Conditional prüfen
 # -------------------
 conditional_rules = rules.get("conditional", [])
-conditional_errors = []
+
 for rule in conditional_rules:
     if_col = rule.get("if_filled")
     then_cols = rule.get("then_required", [])
@@ -148,9 +152,6 @@ for rule in conditional_rules:
                     missing_rows, [if_col, then_col],
                     f"{if_col} ausgefüllt, aber {then_col} leer"
                 ))
-if conditional_errors:
-    result["conditional"]["ok"] = False
-    result["conditional"]["errors"] = pd.concat(conditional_errors, ignore_index=True)
 
 ```
 
