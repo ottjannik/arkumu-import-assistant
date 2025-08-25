@@ -66,15 +66,15 @@ def render_validation_tab(named_dfs, validation_targets):
 
 
     st.header("Pflichtfeldprüfung")
-    st.markdown("""
-    Die App prüft die hochgeladenen CSV-Dateien auf Kompatibilität mit dem [arkumu.nrw Datenmodell](https://docs.arkumu.nrw/technische-dokumentation/datenmodell.html).  
-    Dabei wird unterschieden zwischen:
+    st.info("""
+    Die App prüft CSV-Dateien auf **Vollständigkeit** und das Erfüllen der **Pflichtfelder**.  
+    Die CSV-Dateien können hier nur **eingesehen** werden.  
+    Änderungen an den Daten müssen in der **Quelldatenbank** erfolgen.  
 
-    - **Einfache Pflichtfelder**
-    - **Bedingte Pflichtfelder**
-    - **Entweder-Oder Pflichtfelder**
+    **Legende:**  
+    🟢 = alle Prüfungen bestanden  
+    🔴 = es gibt Fehler / unvollständige Felder
     """)
-
     validation_results = {}
 
     # Validation durchführen
@@ -107,8 +107,6 @@ def render_validation_tab(named_dfs, validation_targets):
                 f"{icon_either_or} Entweder-Oder Pflichtelder",
                 f"{'📄'} CSV-Datei anzeigen"
             ])
-
-            
 
             with tab_required:
                 if result["required"]["ok"]:
