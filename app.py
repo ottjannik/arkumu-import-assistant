@@ -89,7 +89,7 @@ if uploaded_files:
 # 3. Tabs und deren Inhalte
 # ============================================================
 
-    tabs = st.tabs(["Übersicht", "Pflichtfeldprüfung", "CSV-Dateien", "XX"])
+    tabs = st.tabs(["Übersicht", "Pflichtfeldprüfung", "CSV-Dateien"])
 
 # ------------------------------------------------------------
 # 3.1 Übersichts-Tab (views.py / render_overview_tab)
