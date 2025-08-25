@@ -16,7 +16,7 @@ from utils import (
 from views import (
     render_overview_tab,
     render_validation_tab,
-    render_csv_view_tab,
+    # render_csv_view_tab,
 #     render_projects_tab,
 #     render_files_tab
 )
@@ -113,8 +113,8 @@ if uploaded_files:
 # 3.2 CSV-Dateien-Tab (views.py / render_csv_view_tab)
 # ------------------------------------------------------------
 
-    with tabs[2]:
-        render_csv_view_tab(named_dfs, validation_targets)
+    # with tabs[2]:
+    #     render_csv_view_tab(named_dfs, validation_targets)
 
 
 
