@@ -30,15 +30,16 @@ Die Anwendung ist modular aufgebaut:
 
 ```
 arkumu-import-assistant/
+├─ .streamlit/       # Streamlit-Konfiguration (z. B. config.toml für Theme)
 ├─ app.py            # Hauptanwendung und Benutzeroberfläche
-├─ validation.py     # Validierungslogik für CSV-Dateien
-├─ utils.py          # Wiederverwendbare Funktionen zur Datenverarbeitung
-├─ views.py          # Darstellung und Aufbereitung der Prüfergebnisse
-├─ configs/          # JSON-Profile und Validierungsregeln (z. B. KHM.json, HfMT.json)
-├─ .streamlit/       # Streamlit-Konfiguration (z. B. config.toml für Theme)
+├─ configs/          # JSON-Profile und Validierungsregeln (z. B. KHM.json, HfMT.json)
+├─ licence.md        # Lizenzinformationen
+├─ readme.md         # Projektbeschreibung, Installations- und Nutzungsanleitung
 ├─ requirements.txt  # Python-Abhängigkeiten
-├─ README.md         # Projektbeschreibung, Installations- und Nutzungsanleitung
-└─ Licence.md        # Lizenzinformationen
+├─ stats.py          # Visualisierung von Statistiken
+├─ utils.py          # Wiederverwendbare Funktionen zur Datenverarbeitung
+├─ validation.py     # Validierungslogik für CSV-Dateien
+└─ views.py          # Darstellung und Aufbereitung der Prüfergebnisse
 ```
 
 ---
