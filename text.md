@@ -98,6 +98,7 @@ Dennoch bestehen Einschränkungen. Aktuell unterstützt das Tool nur CSV-Dateien
 - Anbindung an institutionelle Datenrepositorien.  
 - Mehrsprachigkeit (Deutsch/Englisch UI).
 - Verarbeitung einzelner CSV-Dateien, statt ganze CSV-Exportpakete zu fordern
+- Auch Inhalt (z.B. Dateitypen) der einzelnen Felder prüfen und nicht nur ob Felder ausgefüllt sind
 
 ---
 
