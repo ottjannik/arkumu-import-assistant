@@ -101,11 +101,14 @@ def render_validation_tab(named_dfs, validation_targets):
 
         with st.expander(f"{overall_icon} {filename}", expanded=False):
             # Tabs mit Icons in den Labels
-            tab_required, tab_conditional, tab_either_or = st.tabs([
+            tab_required, tab_conditional, tab_either_or, tab_csv = st.tabs([
                 f"{icon_required} Pflichtfelder",
                 f"{icon_conditional} Bedingte Pflichtfelder",
-                f"{icon_either_or} Entweder-Oder Pflichtelder"
+                f"{icon_either_or} Entweder-Oder Pflichtelder",
+                f"{'📄'} CSV-Datei anzeigen"
             ])
+
+            
 
             with tab_required:
                 if result["required"]["ok"]:
@@ -127,24 +130,28 @@ def render_validation_tab(named_dfs, validation_targets):
                 else:
                     st.error("Fehler bei Entweder-Oder Pflichtfeldern")
                     st.dataframe(result["either_or"]["errors"])
-  
-def render_csv_view_tab(named_dfs, validation_targets):
-    """
-    Rendert den Tab für die CSV-Ansicht.
-    Zeigt die hochgeladenen CSV-Dateien in einem DataFrame an.
-    Args:
-        named_dfs (dict): Dictionary mit DataFrames für die verschiedenen Metadaten.
-        validation_targets (dict): Dictionary mit den Validierungszielen, enthält z.B. Dateinamen.
-    Returns:
-        None
-    """
-    st.header("CSV-Dateien ")
-    st.write("Hier kannst du die hochgeladenen CSV-Dateien einsehen.")
 
-    for df_key, df in named_dfs.items():
-        filename = validation_targets[df_key]["filename"]
-        with st.expander(f"**{filename}** ({len(df)} Zeilen, {len(df.columns)} Spalten)", expanded=False):
-            st.dataframe(df)
+            with tab_csv:
+                st.info(f"Ansicht: **{filename}**")
+                st.dataframe(named_dfs[df_key])
+  
+# def render_csv_view_tab(named_dfs, validation_targets):
+#     """
+#     Rendert den Tab für die CSV-Ansicht.
+#     Zeigt die hochgeladenen CSV-Dateien in einem DataFrame an.
+#     Args:
+#         named_dfs (dict): Dictionary mit DataFrames für die verschiedenen Metadaten.
+#         validation_targets (dict): Dictionary mit den Validierungszielen, enthält z.B. Dateinamen.
+#     Returns:
+#         None
+#     """
+#     st.header("CSV-Dateien ")
+#     st.write("Hier kannst du die hochgeladenen CSV-Dateien einsehen.")
+
+#     for df_key, df in named_dfs.items():
+#         filename = validation_targets[df_key]["filename"]
+#         with st.expander(f"**{filename}** ({len(df)} Zeilen, {len(df.columns)} Spalten)", expanded=False):
+#             st.dataframe(df)
 
 
 
