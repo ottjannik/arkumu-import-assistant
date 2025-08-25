@@ -94,7 +94,7 @@ Diese mehrstufige Regelstruktur erlaubt es, die heterogenen Anforderungen des ar
 
 ---
 
-## Beispieldatenn für Tests
+## Beispieldaten für Tests
 
 Um die Funktionalität der App auch ohne Zugriff auf die realen Metadaten zu testen, wurden Beispiel-CSV-Dateien bereitgestellt. Diese Dateien enthalten **anonymisierte Blinddaten** und spiegeln die Struktur des KHM-Profils wider.
 
