@@ -91,6 +91,21 @@ Diese mehrstufige Regelstruktur erlaubt es, die heterogenen Anforderungen des ar
 
 ---
 
+## Beispiel-Daten für Tests
+
+Um die Funktionalität der App auch ohne Zugriff auf die realen Metadaten zu testen, wurden Beispiel-CSV-Dateien bereitgestellt. Diese Dateien enthalten **anonymisierte Blinddaten** und spiegeln die Struktur der KHM-Profile wider.
+
+Die Testdaten befinden sich im Verzeichnis:
+```
+sample-data/KHM/
+```
+
+Jede CSV-Datei entspricht einer der für das KHM-Profil erwarteten Tabellen und kann direkt über die App hochgeladen und validiert werden. So lässt sich der gesamte Workflow der App ausprobieren.
+
+> Hinweis: Die Daten sind **synthetisch** und enthalten keinerlei reale personenbezogene Informationen.
+
+---
+
 ## Beispiel für JSON-Konfiguration
 
 Die JSON-Dateien befinden sich im Ordner configs/ und definieren die zu prüfenden Felder:
