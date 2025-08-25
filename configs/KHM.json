@@ -125,7 +125,7 @@
         "Kreuz_Lehrende_Proj_ID_pk",
         "Proj_ID_fk",
         "PE_ID_fk",
-        "_Exportvariablen_arkumu::Rolle",
+        "_globale_Exportvariablen_arkumu::Rolle",
         "UUID"
       ],
       "conditional": [],
