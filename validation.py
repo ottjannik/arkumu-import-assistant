@@ -124,16 +124,27 @@ def validate_dataframe(df: pd.DataFrame, rules: dict) -> dict:
     for rule in either_or_rules:
         cols = rule.get("columns", [])
 
-        # Prüft pro Zeile: sind alle relevanten Spalten leer?
-        missing_rows = df[df[cols].apply(
-            lambda row: all((pd.isna(v) or str(v).strip() == "") for v in row),
-            axis=1
-        )]
+        # Filtere nur existierende Spalten
+        existing_cols = [c for c in cols if c in df.columns]
+        if not existing_cols:
+            # Wenn keine Spalte vorhanden ist, kann man direkt einen Fehler erzeugen
+            either_or_errors.append(pd.DataFrame({
+                "Fehlende_Spalte": cols,
+                "Fehlerbeschreibung": ["Keine der angegebenen Spalten vorhanden"]
+            }))
+            continue
 
-        if not missing_rows.empty:
+        # prüft pro Zeile: sind ALLE relevanten Spalten leer oder NaN?
+        missing_rows = df[existing_cols].apply(
+            lambda row: all(pd.isna(v) or str(v).strip() == "" for v in row),
+            axis=1
+        )
+
+        if missing_rows.any():
             either_or_errors.append(extract_error_rows(
-                missing_rows, cols,
-                f"Entweder {' oder '.join(cols)} muss ausgefüllt sein"
+                df[missing_rows],
+                existing_cols,
+                f"Mindestens eine der Spalten {', '.join(existing_cols)} muss ausgefüllt sein"
             ))
 
     if either_or_errors:
