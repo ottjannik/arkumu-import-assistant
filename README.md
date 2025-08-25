@@ -35,9 +35,10 @@ arkumu-import-assistant/
 ├─ configs/               # JSON-Profile und Validierungsregeln (z. B. KHM.json, HfMT.json)
 ├─ sample-data/           # Anonymisierte Beispieldaten für Tests (z. B. KHM)
 │  └─ KHM/
+├─ .gitignore             # Legt fest, welche Dateien und Ordner Git ignorieren soll
 ├─ app.py                 # Hauptanwendung und Benutzeroberfläche
-├─ licence.md             # Lizenzinformationen
-├─ readme.md              # Projektbeschreibung, Installations- und Nutzungsanleitung
+├─ LICENCE.md             # Lizenzinformationen
+├─ README.md              # Projektbeschreibung, Installations- und Nutzungsanleitung
 ├─ requirements.txt       # Python-Abhängigkeiten
 ├─ stats.py               # Visualisierung von Statistiken
 ├─ utils.py               # Wiederverwendbare Funktionen zur Datenverarbeitung
