@@ -11,7 +11,7 @@ arkumu.nrw Import Assistant ist eine Streamlit-Webanwendung, die Institutionen d
 - [Installation](#installation)
 - [Starten der App](#starten-der-app)
 - [Funktionsweise](#funktionsweise)
-- [Beispieldaten für Tests](#beispieldatenn-für-tests)
+- [Beispieldaten für Tests](#beispieldaten-für-tests)
 - [Beispiel für JSON-Konfiguration](#beispiel-für-json-konfiguration)
 - [Lizenz](#lizenz)
 
