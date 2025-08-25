@@ -1,0 +1,6 @@
+TR_ID;Dateipfad_absolut;Dateiname_Kurz;TR_Type_Kurz;TR_Sprache;Media::Dateipfad_kurz;TR_AenderungsTS;__SQL_TS_LastModified;_TS_Created;__SQL_TS_Created;TR_UUID
+401;/mnt/media/tr1.mp3;tr1.mp3;Audio;DE;file1.mov;2024-08-25T10:45:00;2024-08-25T10:45:00;2024-08-20T09:45:00;2024-08-20T09:45:00;uuid-tr-001
+402;/mnt/media/tr2.mp3;tr2.mp3;Audio;EN;file2.mov;2024-08-25T11:45:00;2024-08-25T11:45:00;2024-08-20T10:45:00;2024-08-20T10:45:00;uuid-tr-002
+403;/mnt/media/tr3.mp3;tr3.mp3;Audio;DE;file3.mov;2024-08-25T12:45:00;2024-08-25T12:45:00;2024-08-20T11:45:00;2024-08-20T11:45:00;uuid-tr-003
+404;/mnt/media/tr4.mp3;tr4.mp3;Audio;EN;file4.mov;2024-08-25T13:45:00;2024-08-25T13:45:00;2024-08-20T12:45:00;2024-08-20T12:45:00;uuid-tr-004
+405;/mnt/media/tr5.mp3;tr5.mp3;Audio;DE;file5.mov;2024-08-25T14:45:00;2024-08-25T14:45:00;2024-08-20T13:45:00;2024-08-20T13:45:00;uuid-tr-005

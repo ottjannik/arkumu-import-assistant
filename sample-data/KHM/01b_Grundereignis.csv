@@ -1,0 +1,6 @@
+Projekt_ID;_Projekte_Export::EreignisHerstellung_DeutscherName;arkumu_Ereignistyp;Entstehungsjahr;Jahr der Fertigstellung;_Projekte_Export::Entstehungs_und_Produktionsland_verkettet;_EreignisHerstellungBeschreibung_verkettet;Pr_AenderungsTS;SQL_Pr_AenderungsTS;Pr_ErstellungsTS;SQL_Pr_ErstellungsTS;Projekt_UUID
+1;Dreh in Berlin;Produktion;2018;2019;Deutschland;Innen- und Außendrehs in Berlin;2024-05-01 12:30:00;2024-05-01 12:30:00;2018-03-10 09:15:00;2018-03-10 09:15:00;uuid-101
+2;Aufnahme in Köln;Postproduktion;2020;2021;Deutschland;Tonstudioarbeit und Schnitt;2024-06-12 14:00:00;2024-06-12 14:00:00;2020-07-22 11:00:00;2020-07-22 11:00:00;uuid-102
+3;Festivalpräsentation Paris;Aufführung;2021;2021;Frankreich;Premiere beim Kurzfilmfestival;2024-07-20 08:45:00;2024-07-20 08:45:00;2021-09-05 10:30:00;2021-09-05 10:30:00;uuid-103
+4;Drehbuchentwicklung Hamburg;Konzeption;2017;2017;Deutschland;Workshops mit Studierenden;2024-08-02 16:20:00;2024-08-02 16:20:00;2017-01-15 14:00:00;2017-01-15 14:00:00;uuid-104
+5;Gastspiel Wien;Aufführung;2019;2019;Österreich;Gastspiel im Stadttheater Wien;2024-09-10 17:50:00;2024-09-10 17:50:00;2019-11-18 19:00:00;2019-11-18 19:00:00;uuid-105

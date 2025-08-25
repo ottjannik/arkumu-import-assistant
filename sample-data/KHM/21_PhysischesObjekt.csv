@@ -1,0 +1,6 @@
+Projekte::Projekt_ID;Projekte::Material_Titel_calc;Projekte::Material_Beschreibung_calc;Projekte::Masse_Umfang_Dimension;Projekte::Material_QIDs_calc;Projekte::Pr_AenderungsTS;Projekte::SQL_Pr_AenderungsTS;Projekte::Pr_ErstellungsTS;Projekte::SQL_Pr_ErstellungsTS;Projekte::Projekt_UUID
+1;Gemälde A;Öl auf Leinwand;100x150cm;Q5001;2024-08-25T10:00:00;2024-08-25T10:00:00;2024-08-20T09:00:00;2024-08-20T09:00:00;uuid-pr-001
+2;Skulptur B;Bronze;200x50x50cm;Q5002;2024-08-25T11:00:00;2024-08-25T11:00:00;2024-08-20T10:00:00;2024-08-20T10:00:00;uuid-pr-002
+3;Fotografie C;Digitaldruck;30x40cm;Q5003;2024-08-25T12:00:00;2024-08-25T12:00:00;2024-08-20T11:00:00;2024-08-20T11:00:00;uuid-pr-003
+4;Installation D;Mixed Media;500x300x200cm;Q5004;2024-08-25T13:00:00;2024-08-25T13:00:00;2024-08-20T12:00:00;2024-08-20T12:00:00;uuid-pr-004
+5;Zeichnung E;Bleistift auf Papier;50x70cm;Q5005;2024-08-25T14:00:00;2024-08-25T14:00:00;2024-08-20T13:00:00;2024-08-20T13:00:00;uuid-pr-005
