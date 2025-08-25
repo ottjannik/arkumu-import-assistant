@@ -29,7 +29,7 @@ def render_overview_tab(named_dfs, validation_targets):
         None
     """
     st.header("Übersicht")
-    st.write("Hier findest du eine Übersicht über den Inhalt der hochgeladenen Metadaten.")
+    st.info("Hier findest du eine Übersicht über den Inhalt der hochgeladenen Metadaten.")
 
     col1, col2, col3 = st.columns(3)
     with col1:
@@ -49,7 +49,7 @@ def render_overview_tab(named_dfs, validation_targets):
     st.divider()
 
     st.subheader("Dateiendungen")
-    st.write("Verteilung der Dateiendungen in den digitalen Objekten")
+    st.info("Hier siehst du die Verteilung der Dateiendungen der digitalen Objekte.")
     plot_file_extension_distribution(named_dfs["media_digitale_objekte"])
 
 
@@ -67,7 +67,7 @@ def render_validation_tab(named_dfs, validation_targets):
 
     st.header("Pflichtfeldprüfung")
     st.info("""
-    Die App prüft CSV-Dateien auf **Vollständigkeit** und das Erfüllen der **Pflichtfelder**.  
+    Die App prüft die hochgeladenen CSV-Dateien auf **Vollständigkeit** und das Erfüllen der **Pflichtfelder**.  
     Die CSV-Dateien können hier nur **eingesehen** werden.  
     Änderungen an den Daten müssen in der **Quelldatenbank** erfolgen.  
 
