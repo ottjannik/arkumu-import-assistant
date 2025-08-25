@@ -11,6 +11,7 @@ arkumu.nrw Import Assistant ist eine Streamlit-Webanwendung, die Institutionen d
 - [Installation](#installation)
 - [Starten der App](#starten-der-app)
 - [Funktionsweise](#funktionsweise)
+- [Beispieldaten für Tests](#beispieldatenn-für-tests)
 - [Beispiel für JSON-Konfiguration](#beispiel-für-json-konfiguration)
 - [Lizenz](#lizenz)
 
@@ -91,9 +92,9 @@ Diese mehrstufige Regelstruktur erlaubt es, die heterogenen Anforderungen des ar
 
 ---
 
-## Beispiel-Daten für Tests
+## Beispieldatenn für Tests
 
-Um die Funktionalität der App auch ohne Zugriff auf die realen Metadaten zu testen, wurden Beispiel-CSV-Dateien bereitgestellt. Diese Dateien enthalten **anonymisierte Blinddaten** und spiegeln die Struktur der KHM-Profile wider.
+Um die Funktionalität der App auch ohne Zugriff auf die realen Metadaten zu testen, wurden Beispiel-CSV-Dateien bereitgestellt. Diese Dateien enthalten **anonymisierte Blinddaten** und spiegeln die Struktur des KHM-Profils wider.
 
 Die Testdaten befinden sich im Verzeichnis:
 ```
