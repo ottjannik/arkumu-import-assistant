@@ -127,10 +127,9 @@ def validate_dataframe(df: pd.DataFrame, rules: dict) -> dict:
         # Filtere nur existierende Spalten
         existing_cols = [c for c in cols if c in df.columns]
         if not existing_cols:
-            # Wenn keine Spalte vorhanden ist, kann man direkt einen Fehler erzeugen
             either_or_errors.append(pd.DataFrame({
                 "Fehlende_Spalte": cols,
-                "Fehlerbeschreibung": ["Keine der angegebenen Spalten vorhanden"]
+                "Fehlerbeschreibung": ["Spalte fehlt"] * len(cols)
             }))
             continue
 
