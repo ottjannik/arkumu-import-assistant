@@ -253,7 +253,7 @@
       "conditional": [],
       "either_or": [
         {
-          "columns": ["Eventanfangsdatum", "EventEnddatum"]
+          "columns": ["Eventanfangsdatum_ISO", "EventEnddatum_ISO"]
         }
       ]
     },
