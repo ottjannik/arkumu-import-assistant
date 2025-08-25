@@ -13,6 +13,7 @@ arkumu.nrw Import Assistant ist eine Streamlit-Webanwendung, die Institutionen d
 - [Funktionsweise](#funktionsweise)
 - [Beispieldaten für Tests](#beispieldaten-für-tests)
 - [Beispiel für JSON-Konfiguration](#beispiel-für-json-konfiguration)
+- [Beteiligte](#beteiligte)
 - [Lizenz](#lizenz)
 
 ---
@@ -134,6 +135,11 @@ Die JSON-Dateien befinden sich im Ordner configs/ und definieren die zu prüfend
   }
 }
 ```
+
+--- 
+
+## Beteiligte
+- Jannik Ott – Entwicklung und Dokumentation
 
 --- 
 
