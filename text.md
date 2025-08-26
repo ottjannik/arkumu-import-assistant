@@ -24,7 +24,7 @@ GitHub Repositorium: [https://github.com/ottjannik/arkumu-import-assistant](http
 
 ## Zusammenfassung
 
-Die Arbeit stellt den **arkumu.nrw Import Assistant** vor, eine in Python entwickelte Anwendung zur Unterstützung der Datenprüfung im Rahmen des Projekts arkumu.nrw. Die App ermöglicht es, aus Hochschularchiven exportierte CSV-Dateien auf **Vollständigkeit** zu überprüfen und stellt die Ergebnisse in einer benutzerfreundlichen Oberfläche dar. Damit bietet die Anwendung eine erste, praxisnahe Unterstützung bei der Vorprüfung von Metadatenqualität, die perspektivisch zu einem vollwertigen Validierungswerkzeug ausgebaut werden kann.
+Die Arbeit stellt den **arkumu.nrw Import Assistant** vor, eine in Python entwickelte Anwendung zur Unterstützung der Datenprüfung im Rahmen des Projekts arkumu.nrw. Die App ermöglicht es, aus Hochschularchiven exportierte CSV-Dateien auf **Vollständigkeit** zu überprüfen und stellt die Ergebnisse in einer benutzerfreundlichen Oberfläche dar. Damit bietet die Anwendung eine erste, praxisnahe Unterstützung bei der Vorprüfung der Metadatenqualität, die perspektivisch zu einem umfassenderen Validierungswerkzeug weiterentwickelt werden kann.
 
 ---
 
@@ -36,7 +36,7 @@ Die fünf beteiligten Kunst- und Musikhochschulen verfügen über sehr unterschi
 
 Die App setzt an dem Punkt an, an dem die Daten aus den Hochschularchiven exportiert werden: Sie ermöglicht Projektbeteiligten, diese CSV-Dateien vorab auf ihre Übereinstimmung mit den **Pflichtfeld-Vorgaben** des arkumu.nrw-Datenmodells zu prüfen. Damit unterstützt sie eine erste Form der Qualitätssicherung, bevor die Daten in die zentrale Infrastruktur übernommen werden.
 
-Nach dieser vorbereitenden Prüfung werden die Metadaten von den Projektbeteiligten in eine vom **IT Center University of Cologne (ITCC)** entwickelte Django-Anwendung überführt und anschließend von dort an das Hochschulbibliothekszentrum sowie dessen Langzeitverfügbarkeitsstrukturen übergeben.  
+Nach dieser vorbereitenden Prüfung werden die Metadaten von den Projektbeteiligten in eine vom **IT Center University of Cologne (ITCC)** entwickelte Django-Anwendung überführt und anschließend von dort an das Hochschulbibliothekszentrum und dessen Langzeitverfügbarkeitsstrukturen übergeben.  
 
 Die App selbst ist somit nicht Teil des Importprozesses, sondern erfüllt die Funktion einer vorgeschalteten **Vorprüfung auf Vollständigkeit**.
 
@@ -51,9 +51,9 @@ Im Datenqualitätsmanagement werden drei Dimensionen unterschieden:
 - **Konsistenz**: die Daten sind widerspruchsfrei und Abhängigkeiten werden korrekt eingehalten.  
 - **Validität**: die Inhalte entsprechen den geforderten Standards und semantischen Regeln.  
 
-Während klassische Validierungsframeworks (z. B. XML-Schema, JSON-Schema, OpenRefine) generische Prüfungen ermöglichen, braucht arkumu.nrw ein maßgeschneidertes Werkzeug, da die Metadaten spezifische Anforderungen der Kunst- und Musikhochschulen erfüllen müssen.  
+Während klassische Validierungsframeworks (z. B. XML-Schema, JSON-Schema, OpenRefine) generische Prüfungen ermöglichen, braucht arkumu.nrw ein maßgeschneidertes Werkzeug, da die Metadaten spezifische Anforderungen des arkumu.nrw Datenmodells erfüllen müssen.  
 
-Die theoretische Grundlage der App orientiert sich an den FAIR-Prinzipien (Findable, Accessible, Interoperable, Reusable). Indem die App die Vollständigkeit prüft und mittelfristig um Konsistenz- und Validitätsprüfungen erweitert werden soll, trägt sie zur **Auffindbarkeit** und **Interoperabilität** bei und unterstützt langfristig die **Nachnutzbarkeit** der Bestände.
+Die theoretische Grundlage der App orientiert sich an den FAIR-Prinzipien (Findable, Accessible, Interoperable, Reusable). Indem die App die Vollständigkeit prüft und auf Erweiterbarkeit hin ausgelegt ist, trägt sie bereits heute zur **Auffindbarkeit** und **Interoperabilität** bei und kann zukünftig die **Nachnutzbarkeit** der Bestände noch stärker unterstützen.
 
 ---
 
@@ -63,41 +63,37 @@ Im Rahmen der Arbeit wurde mit dem **arkumu.nrw Import Assistant** eine leichtge
 
 Die App wurde in Python programmiert und nutzt das Framework **Streamlit**. Die Nutzer:innen wählen ein Validierungsprofil (JSON-basiert, siehe Anhang [A.1 JSON-Beispielkonfiguration](#a1-json-beispielkonfiguration)), laden die zugehörigen CSV-Dateien hoch, und die App prüft anschließend, ob alle erforderlichen Dateien vorhanden und die definierten Pflichtfelder ausgefüllt sind.  
 
-Die Ergebnisse werden in einer Übersicht und tabellarisch dargestellt. Eine direkte Bearbeitung der CSV-Dateien ist bewusst nicht möglich, um die Integrität der Quelldaten zu gewährleisten.  
+Die Ergebnisse werden in einer Übersicht tabellarisch dargestellt. Eine direkte Bearbeitung der CSV-Dateien ist bewusst nicht möglich, um die Integrität der Quelldaten zu gewährleisten.  
 
 Die aktuelle Version der App ist in zwei **Tabs** aufgeteilt:  
-- **Übersicht**: Zeigt Kennzahlen zu den hochgeladenen Metadaten (z. B. Anzahl Projekte, Akteur:innen, Objekte) sowie eine Visualisierung der Dateiendungen.  
+- **Übersicht**: Zeigt Kennzahlen zu den hochgeladenen Metadaten (z. B. Anzahl Projekte, Akteur:innen, Objekte) sowie eine Visualisierung der Dateiendungen.  
 - **Pflichtfeldprüfung**: Prüft die Vollständigkeit der Pflichtfelder und zeigt den Status jeder Datei in einer Ampel-Logik an.
 
 Die Software ist modular aufgebaut (`app.py`, `utils.py`, `validation.py`, `views.py`, `stats.py`). Validierungsregeln sind in JSON-Profilen abgelegt. Die zentrale Validierungsfunktion `validate_dataframe` prüft dabei unter anderem **Conditional Rules** wie im Anhang [A.2 Code-Auszug `validation.py`](#a2-code-auszug-validationpy) dargestellt.  
 
 Aktuell sind folgende Regeltypen implementiert:  
 - **Required Rules** (Pflichtfelder)  
-- **Conditional Rules** (abhängige Felder, z. B. Sprache muss angegeben sein, wenn ein Titel vorhanden ist)  
+- **Conditional Rules** (abhängige Felder, z. B. Sprache muss angegeben sein, wenn ein Titel vorhanden ist)  
 - **Either/Or Rules** (mindestens eines von mehreren Feldern muss ausgefüllt sein)  
-
-Konsistenz- und Validitätsprüfungen (z. B. Dublettenprüfung, Prüfung von Datentypen, semantische Abhängigkeiten) sind für künftige Versionen vorgesehen.
 
 ---
 
 ## 4. Ergebnisse
 
-Die aktuelle Version des **arkumu.nrw Import Assistant** leistet eine ausführliche Prüfung auf Vollständigkeit und unterstützt somit bereits jetzt maßgeblich den Exportprozess der Metadaten zu arkumu.nrw. Damit wird ein erster, wichtiger Schritt in der Qualitätssicherung abgedeckt. Konsistenz und Validität sind noch nicht Bestandteil der Implementierung, aber in der Architektur mitgedacht. Durch den **arkumu.nrw Import Assistant** erhalten Nutzer:innen eine visuelle Übersicht zum Status der Dateien und eine Detailansicht mit Hinweisen zu fehlenden Pflichtfeldern, sodass sich diese in den Quelldaten korrigieren lassen.
+Die aktuelle Version des **arkumu.nrw Import Assistant** leistet eine ausführliche Prüfung auf Vollständigkeit und unterstützt somit bereits jetzt maßgeblich den Exportprozess der Metadaten zu arkumu.nrw. Damit wird ein erster, wichtiger Schritt in der Qualitätssicherung abgedeckt. Durch den **arkumu.nrw Import Assistant** erhalten Nutzer:innen eine visuelle Übersicht zum Status der Dateien und eine Detailansicht mit Hinweisen zu fehlenden Pflichtfeldern, sodass sich diese in den Quelldaten korrigieren lassen.  
 
 ---
 
 ## 5. Diskussion und kritische Reflexion
 
-**Erfolge:**
+**Erfolge:**  
 Die Entwicklung des arkumu.nrw Import Assistant war dank des Einsatzes von Streamlit bemerkenswert schnell umsetzbar. Die intuitive Benutzeroberfläche senkt die Einstiegshürde für Anwender:innen und erleichtert die Nutzung auch ohne ausgeprägte technische Vorkenntnisse. Durch den modularen Aufbau und die Nutzung von JSON-Konfigurationen ist die App flexibel anpassbar – etwa für verschiedene Hochschulen oder neue Anforderungen.
 
 **Einschränkungen:**  
-Derzeit sind wichtige Aspekte wie konsistente Beziehungsprüfungen oder inhaltliche Validierung (z. B. Formatprüfung, semantische Angemessenheit) sind nicht abgedeckt. Die Genauigkeit der Prüfung hängt außerdem stark vom korrekten Aufbau und der kontinuierlichen Pflege der JSON-Konfigurationsdateien ab – falsche oder unvollständige Regeldefinitionen können die Validierung verfälschen.
+Derzeit konzentriert sich die Anwendung auf die Prüfung von Vollständigkeit. Die Genauigkeit der Ergebnisse hängt stark vom korrekten Aufbau und der kontinuierlichen Pflege der JSON-Konfigurationsdateien ab – falsche oder unvollständige Regeldefinitionen können die Validierung verfälschen.
 
 **Nächste Schritte:**  
-Zukünftig sollte die App um Konsistenzprüfungen erweitert werden – etwa zur Identifikation von Dubletten und zur Kontrolle semantischer Abhängigkeiten. Auch Validitätsprüfungen könnten ergänzt werden. Solche Prüfungen sind essenziell, um Daten „fit for use“ zu machen – gemäß den Dimensionen der Datenqualität (Vollständigkeit, Konsistenz, Validität) wie sie in der Fachliteratur etabliert sind  ￼.
-
-Darüber hinaus wäre eine mehrsprachige Benutzeroberfläche (Deutsch/Englisch) hilfreich, um die Anwendung zugänglicher zu machen. Schließlich wäre eine Ausgabe von detaillierteren Prüfberichte und automatisierte Korrekturvorschlägen wertvolle Ergänzungen zur Steigerung der Datenqualität und Nutzerfreundlichkeit.
+Künftig könnten zusätzliche Prüfdimensionen ergänzt werden – etwa Konsistenzprüfungen (z. B. Dubletten, Abhängigkeiten) und Validitätsprüfungen (z. B. formale und semantische Standards). Ebenso denkbar sind eine mehrsprachige Benutzeroberfläche (Deutsch/Englisch), detailliertere Prüfberichte sowie automatisierte Korrekturvorschläge zur weiteren Steigerung der Datenqualität und Nutzerfreundlichkeit.
 
 ---
 
@@ -105,9 +101,7 @@ Darüber hinaus wäre eine mehrsprachige Benutzeroberfläche (Deutsch/Englisch) 
 
 Der **arkumu.nrw Import Assistant** ist ein praxisnahes Werkzeug, das aktuell eine **Vorprüfung auf Vollständigkeit** ermöglicht. Damit trägt er zur Verbesserung der Datenqualität vor dem Import in arkumu.nrw bei.  
 
-Die langfristige Zielsetzung bleibt der Ausbau zu einem umfassenden Validierungswerkzeug, das auch **Konsistenz** und **Validität** prüft. Erst in dieser Form erfüllt die App die vollständigen Anforderungen eines systematischen Datenqualitätsmanagements.  
-
-Die Anwendung zeigt aber schon jetzt, wie datenqualitative Anforderungen in einer benutzerfreundlichen Umgebung operationalisiert werden können und welche Rolle Tools dieser Art im Kontext von **FAIR Data** und **Data Librarianship** einnehmen können.
+Die langfristige Zielsetzung bleibt der Ausbau zu einem umfassenden Validierungswerkzeug, das zusätzlich **Konsistenz** und **Validität** abdeckt. Bereits jetzt zeigt die Anwendung, wie datenqualitative Anforderungen in einer benutzerfreundlichen Umgebung operationalisiert werden können und welche Rolle Tools dieser Art im Kontext von **FAIR Data** und **Data Librarianship** einnehmen können.
 
 ---
 
