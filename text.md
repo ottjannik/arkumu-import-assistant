@@ -61,58 +61,43 @@ Die theoretische Grundlage der App orientiert sich an den FAIR-Prinzipien (Finda
 
 Im Rahmen der Arbeit wurde mit dem **arkumu.nrw Import Assistant** eine leichtgewichtige Web-Anwendung entwickelt, die den Validierungsprozess unterstützt. Sie ermöglicht Projektbeteiligten, exportierte CSV-Dateien auf **Vollständigkeit** zu prüfen.  
 
-Die App wurde in Python programmiert und nutzt das Framework **Streamlit**. Die Nutzer:innen wählen ein Validierungsprofil (JSON-basiert), laden die zugehörigen CSV-Dateien hoch, und die App prüft anschließend:  
-- ob alle erforderlichen Dateien vorhanden sind,  
-- ob die definierten Pflichtfelder ausgefüllt wurden.  
+Die App wurde in Python programmiert und nutzt das Framework **Streamlit**. Die Nutzer:innen wählen ein Validierungsprofil (JSON-basiert, siehe Anhang [A.1 JSON-Beispielkonfiguration](#a1-json-beispielkonfiguration)), laden die zugehörigen CSV-Dateien hoch, und die App prüft anschließend, ob alle erforderlichen Dateien vorhanden und die definierten Pflichtfelder ausgefüllt sind.  
 
 Die Ergebnisse werden in einer Übersicht und tabellarisch dargestellt. Eine direkte Bearbeitung der CSV-Dateien ist bewusst nicht möglich, um die Integrität der Quelldaten zu gewährleisten.  
 
 Die aktuelle Version der App ist in zwei **Tabs** aufgeteilt:  
-- **Übersicht**: Zeigt eine Zusammenfassung der hochgeladenen Metadaten in Form von Kennzahlen (z. B. Anzahl Projekte, Akteur:innen, Objekte) sowie eine Visualisierung der Dateiendungen.  
+- **Übersicht**: Zeigt Kennzahlen zu den hochgeladenen Metadaten (z. B. Anzahl Projekte, Akteur:innen, Objekte) sowie eine Visualisierung der Dateiendungen.  
 - **Pflichtfeldprüfung**: Prüft die Vollständigkeit der Pflichtfelder und zeigt den Status jeder Datei in einer Ampel-Logik an.
 
-Die Software ist modular aufgebaut (`app.py`, `utils.py`, `validation.py`, `views.py`, `stats.py`). Validierungsregeln sind in JSON-Profilen abgelegt.  
+Die Software ist modular aufgebaut (`app.py`, `utils.py`, `validation.py`, `views.py`, `stats.py`). Validierungsregeln sind in JSON-Profilen abgelegt. Die zentrale Validierungsfunktion `validate_dataframe` prüft dabei unter anderem **Conditional Rules** wie im Anhang [A.2 Code-Auszug `validation.py`](#a2-code-auszug-validationpy) dargestellt.  
 
 Aktuell sind folgende Regeltypen implementiert:  
 - **Required Rules** (Pflichtfelder)  
-- **Conditional Rules** (Bedingungen, z. B. Sprache muss angegeben sein, wenn ein Titel vorhanden ist)  
+- **Conditional Rules** (abhängige Felder, z. B. Sprache muss angegeben sein, wenn ein Titel vorhanden ist)  
 - **Either/Or Rules** (mindestens eines von mehreren Feldern muss ausgefüllt sein)  
 
-Konsistenz- und Validitätsprüfungen (z. B. Dublettenprüfung, Prüfung von Datentypen, semantische Abhängigkeiten) sind für künftige Versionen vorgesehen.
+Konsistenz- und Validitätsprüfungen (z. B. Dublettenprüfung, Prüfung von Datentypen, semantische Abhängigkeiten) sind für künftige Versionen vorgesehen.
 
 ---
 
 ## 4. Ergebnisse
 
-Die aktuelle Version des **arkumu.nrw Import Assistant** leistet:  
-- **Vollständigkeit:** Prüfung, ob alle Dateien und Pflichtfelder vorhanden sind.  
-
-Damit wird ein erster, wichtiger Schritt in der Qualitätssicherung abgedeckt. Konsistenz und Validität sind noch nicht Bestandteil der Implementierung, aber in der Architektur mitgedacht.  
-
-Nutzer:innen erhalten eine visuelle Übersicht zum Status der Dateien und eine Detailansicht mit Hinweisen zu fehlenden Pflichtfeldern.
+Die aktuelle Version des **arkumu.nrw Import Assistant** leistet eine ausführliche Prüfung auf Vollständigkeit und unterstützt somit bereits jetzt maßgeblich den Exportprozess der Metadaten zu arkumu.nrw. Damit wird ein erster, wichtiger Schritt in der Qualitätssicherung abgedeckt. Konsistenz und Validität sind noch nicht Bestandteil der Implementierung, aber in der Architektur mitgedacht. Durch den **arkumu.nrw Import Assistant** erhalten Nutzer:innen eine visuelle Übersicht zum Status der Dateien und eine Detailansicht mit Hinweisen zu fehlenden Pflichtfeldern, sodass sich diese in den Quelldaten korrigieren lassen.
 
 ---
 
 ## 5. Diskussion und kritische Reflexion
 
-**Erfolge:**  
-- Schnelle Umsetzung dank Streamlit.  
-- Intuitive Bedienbarkeit.  
-- Modularer Aufbau und JSON-Konfigurationen für flexible Anpassbarkeit.  
-- Erste Implementierung einer automatisierten Pflichtfeldprüfung.  
+**Erfolge:**
+Die Entwicklung des arkumu.nrw Import Assistant war dank des Einsatzes von Streamlit bemerkenswert schnell umsetzbar. Die intuitive Benutzeroberfläche senkt die Einstiegshürde für Anwender:innen und erleichtert die Nutzung auch ohne ausgeprägte technische Vorkenntnisse. Durch den modularen Aufbau und die Nutzung von JSON-Konfigurationen ist die App flexibel anpassbar – etwa für verschiedene Hochschulen oder neue Anforderungen.
 
 **Einschränkungen:**  
-- Nur CSV-Dateien werden unterstützt.  
-- Keine Konsistenz- oder Validitätsprüfungen.  
-- Keine automatische Fehlerkorrektur.  
-- Abhängigkeit von korrekt gepflegten JSON-Profilen.  
+Derzeit sind wichtige Aspekte wie konsistente Beziehungsprüfungen oder inhaltliche Validierung (z. B. Formatprüfung, semantische Angemessenheit) sind nicht abgedeckt. Die Genauigkeit der Prüfung hängt außerdem stark vom korrekten Aufbau und der kontinuierlichen Pflege der JSON-Konfigurationsdateien ab – falsche oder unvollständige Regeldefinitionen können die Validierung verfälschen.
 
 **Nächste Schritte:**  
-- Erweiterung auf **Konsistenz- und Validitätsprüfungen** (z. B. Dubletten, kontrollierte Vokabulare, Datentypen).  
-- Unterstützung weiterer Datenquellen/Dateiformate.  
-- Anbindung an institutionelle Datenrepositorien.  
-- Mehrsprachigkeit (DE/EN).  
-- Detailliertere Berichte und Korrekturvorschläge.  
+Zukünftig sollte die App um Konsistenzprüfungen erweitert werden – etwa zur Identifikation von Dubletten und zur Kontrolle semantischer Abhängigkeiten. Auch Validitätsprüfungen könnten ergänzt werden. Solche Prüfungen sind essenziell, um Daten „fit for use“ zu machen – gemäß den Dimensionen der Datenqualität (Vollständigkeit, Konsistenz, Validität) wie sie in der Fachliteratur etabliert sind  ￼.
+
+Darüber hinaus wäre eine mehrsprachige Benutzeroberfläche (Deutsch/Englisch) hilfreich, um die Anwendung zugänglicher zu machen. Schließlich wäre eine Ausgabe von detaillierteren Prüfberichte und automatisierte Korrekturvorschlägen wertvolle Ergänzungen zur Steigerung der Datenqualität und Nutzerfreundlichkeit.
 
 ---
 
