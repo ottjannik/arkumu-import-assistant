@@ -73,7 +73,6 @@ required_columns = {key: val.get("required", []) for key, val in validation_targ
 conditional_required_columns = {key: val.get("conditional", []) for key, val in validation_targets.items()}
 either_or_columns = {key: val.get("either_or", []) for key, val in validation_targets.items()}
 
-
 # ------------------------------------------------------------
 # 2.2 Metadaten-Upload
 # ------------------------------------------------------------
@@ -86,7 +85,7 @@ if uploaded_files:
     named_dfs = extract_named_dataframes(dfs, validation_targets_list)
 
 # ============================================================
-# 3. Tabs und deren Inhalte
+# 3. Hauptseite (Tabs und deren Inhalte)
 # ============================================================
 
     tabs = st.tabs(["Übersicht", "Pflichtfeldprüfung"])
@@ -97,8 +96,6 @@ if uploaded_files:
 
     with tabs[0]:
         render_overview_tab(named_dfs, validation_targets)
-
-
 
 # ------------------------------------------------------------
 # 3.2 Validationsprüfung-Tab (views.py / render_validation_tab)
