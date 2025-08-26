@@ -106,28 +106,3 @@ if uploaded_files:
 
     with tabs[1]:
         render_validation_tab(named_dfs, validation_targets)
-
-
-
-# ------------------------------------------------------------
-# 3.2 CSV-Dateien-Tab (views.py / render_csv_view_tab)
-# ------------------------------------------------------------
-
-    # with tabs[2]:
-    #     render_csv_view_tab(named_dfs, validation_targets)
-
-
-
-
-    # with tabs[2]:
-    #     render_files_tab(
-    #         named_dfs["media"]
-    #     )
-
-    # with tabs[3]:
-    #     render_validation_tab(
-    #         dfs,
-    #         required_columns,
-    #         conditional_required_columns,
-    #         validation_targets
-    #     )
