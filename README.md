@@ -21,7 +21,8 @@ arkumu.nrw Import Assistant ist eine Streamlit-Webanwendung, die Institutionen d
 ## Ziel der App
 
 - Sicherstellung der **Datenqualität** vor dem Import in arkumu.nrw.
-- Bereitstellung einer **schnellen Übersicht** über die hochgeladenen Metadaten, einschließlich zentraler Kennzahlen (z. B. Projekte, Akteur:innen, Ereignisse) und **Visualisierung der Verteilung der Dateiendungen**, um Abweichungen oder fehlende Formate sofort zu erkennen.  
+- Bereitstellung einer **schnellen Übersicht** über die hochgeladenen Metadaten, einschließlich zentraler Kennzahlen (z. B. Projekte, Akteur:innen, Ereignisse)
+- **Visualisierung der Metadaten**, um Abweichungen oder Fehler sofort zu erkennen.  
 - Überprüfung von **Pflichtfeldern** (`Required`), **konditionalen Abhängigkeiten** (`Conditional`) und **alternativen Pflichtfeldern** (`Either/Or`).  
 - Erleichterung der **Fehleridentifikation**, sodass Probleme direkt in den Originaldatenquellen korrigiert werden können.  
 
