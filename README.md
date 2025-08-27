@@ -74,15 +74,11 @@ streamlit run app.py
 ---
 
 ## Funktionsweise
-1.	Profilwahl: Nutzer:innen wählen ein Profil, das die entsprechenden Validierungsregeln lädt.
-2.	Dateiupload: Anschließend werden die für das Profil erforderlichen CSV-Dateien hochgeladen.
-3.	Prüfung auf Vollständigkeit: Die App überprüft, ob alle erforderlichen Dateien vorhanden sind und ob Pflichtfelder ausgefüllt sind.
-4.	Validierung von Abhängigkeiten: Konditionale Beziehungen zwischen Feldern werden geprüft.
-5.	Ausgabe: Ergebnisse werden in zwei Modi dargestellt:
-        - Kurzfassung: zeigt den Status jeder Datei.    
-        - Detailansicht: tabellarische Übersicht fehlender oder inkorrekter Werte.
-
-Hinweis: CSV-Dateien können innerhalb der App nicht bearbeitet werden. Änderungen müssen in der Originaldatenquelle erfolgen.
+1.	Profilwahl: Nutzer:innen wählen ein JSON-basiertes Profil, das festlegt, welche CSV-Dateien und Pflichtfelder für ein vollständiges Paket erforderlich sind.
+2.	Dateiupload: Hochladen der aus den Hochschularchiven exportierten CSV-Dateien.
+3.	Prüfung auf Vollständigkeit: Automatische Kontrolle, ob alle für das Profil benötigten Dateien vorhanden sind.
+4.	Übersicht & Metriken: Anzeige zentraler Kennzahlen (z. B. Anzahl der Projekte, Akteur:innen, Ereignisse) und Visualisierung der Dateiendungen zur schnellen Erkennung von Abweichungen.
+5.	Pflichtfeldprüfung: Ampelsystem zeigt auf einen Blick, welche Dateien vollständig sind („grün“) und wo Pflichtfelder fehlen oder fehlerhaft sind („rot“).
 
 ---
 
