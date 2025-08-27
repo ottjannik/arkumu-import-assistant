@@ -4,3 +4,13 @@ Equipment_ID;Wikidata_QID;Equipmentart_fk;Equipment_deu;Equipment_eng;Beschreibu
 203;Q1003;3;Lichtquelle;Lighting;LED-Lichtpanel für Studioproduktion;LED light panel for studio production;Hersteller C;2024-08-25T12:00:00;2024-08-25T12:00:00;2024-08-20T11:00:00;2024-08-20T11:00:00;uuid-eq-003
 204;Q1004;1;Kamera;Camera;Action-Kamera für Außenaufnahmen;Action camera for outdoor shooting;Hersteller D;2024-08-25T13:00:00;2024-08-25T13:00:00;2024-08-20T12:00:00;2024-08-20T12:00:00;uuid-eq-004
 205;Q1005;4;Stativ;Tripod;Robustes Kamera-Stativ;Sturdy camera tripod;Hersteller E;2024-08-25T14:00:00;2024-08-25T14:00:00;2024-08-20T13:00:00;2024-08-20T13:00:00;uuid-eq-005
+206;Q1006;2;Mikrofon;Microphone;Richtmikrofon für Außenaufnahmen;Shotgun microphone for outdoor recording;Hersteller F;2024-08-25T15:00:00;2024-08-25T15:00:00;2024-08-20T14:00:00;2024-08-20T14:00:00;uuid-eq-006
+207;Q1007;1;Kamera;Camera;4K-Kamera für Studioaufnahmen;4K camera for studio recording;Hersteller G;2024-08-25T15:30:00;2024-08-25T15:30:00;2024-08-20T14:30:00;2024-08-20T14:30:00;uuid-eq-007
+208;Q1008;3;Lichtquelle;Lighting;Softbox-Licht für Porträtaufnahmen;Softbox lighting for portrait photography;Hersteller H;2024-08-25T16:00:00;2024-08-25T16:00:00;2024-08-20T15:00:00;2024-08-20T15:00:00;uuid-eq-008
+209;Q1009;4;Stativ;Tripod;Leichtes Reisestativ;Lightweight travel tripod;Hersteller I;2024-08-25T16:30:00;2024-08-25T16:30:00;2024-08-20T15:30:00;2024-08-20T15:30:00;uuid-eq-009
+210;Q1010;2;Mikrofon;Microphone;USB-Mikrofon für Podcasts;USB microphone for podcasts;Hersteller J;2024-08-25T17:00:00;2024-08-25T17:00:00;2024-08-20T16:00:00;2024-08-20T16:00:00;uuid-eq-010
+211;Q1011;1;Kamera;Camera;Kompakte Kamera für Dokumentationen;Compact camera for documentaries;Hersteller K;2024-08-25T17:30:00;2024-08-25T17:30:00;2024-08-20T16:30:00;2024-08-20T16:30:00;uuid-eq-011
+212;Q1012;3;Lichtquelle;Lighting;Ringlicht für Nahaufnahmen;Ring light for close-up shots;Hersteller L;2024-08-25T18:00:00;2024-08-25T18:00:00;2024-08-20T17:00:00;2024-08-20T17:00:00;uuid-eq-012
+213;Q1013;4;Stativ;Tripod;Schwenkbares Kamerastativ;Pan-and-tilt tripod;Hersteller M;2024-08-25T18:30:00;2024-08-25T18:30:00;2024-08-20T17:30:00;2024-08-20T17:30:00;uuid-eq-013
+214;Q1014;2;Mikrofon;Microphone;Lavalier-Mikrofon für Interviews;Lavalier microphone for interviews;Hersteller N;2024-08-25T19:00:00;2024-08-25T19:00:00;2024-08-20T18:00:00;2024-08-20T18:00:00;uuid-eq-014
+215;Q1015;1;Kamera;Camera;DSLR-Kamera für Fotografie;DSLR camera for photography;Hersteller O;2024-08-25T19:30:00;2024-08-25T19:30:00;2024-08-20T18:30:00;2024-08-20T18:30:00;uuid-eq-015

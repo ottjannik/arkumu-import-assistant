@@ -4,3 +4,28 @@ Projekt_ID;_Projekte_Export::EreignisHerstellung_DeutscherName;arkumu_Ereignisty
 3;Festivalpräsentation Paris;Aufführung;2021;2021;Frankreich;Premiere beim Kurzfilmfestival;2024-07-20 08:45:00;2024-07-20 08:45:00;2021-09-05 10:30:00;2021-09-05 10:30:00;uuid-103
 4;Drehbuchentwicklung Hamburg;Konzeption;2017;2017;Deutschland;Workshops mit Studierenden;2024-08-02 16:20:00;2024-08-02 16:20:00;2017-01-15 14:00:00;2017-01-15 14:00:00;uuid-104
 5;Gastspiel Wien;Aufführung;2019;2019;Österreich;Gastspiel im Stadttheater Wien;2024-09-10 17:50:00;2024-09-10 17:50:00;2019-11-18 19:00:00;2019-11-18 19:00:00;uuid-105
+6;;2019;2020;Deutschland;Innenaufnahmen und Studioproduktion;2024-05-03 10:15:00;2024-05-03 10:15:00;2019-04-12 09:00:00;2019-04-12 09:00:00;uuid-106
+7;Postproduktion Berlin;Postproduktion;2020;2021;Deutschland;Schnitt und Tonbearbeitung;2024-05-05 11:45:00;2024-05-05 11:45:00;2020-08-01 14:30:00;2020-08-01 14:30:00;uuid-107
+8;Premiere London;Aufführung;2021;2021;Vereinigtes Königreich;Erstaufführung beim internationalen Festival;2024-05-07 09:30:00;2024-05-07 09:30:00;2021-10-10 18:00:00;2021-10-10 18:00:00;uuid-108
+9;Konzeptentwicklung Stuttgart;Konzeption;2018;2018;Deutschland;Workshops mit Regie und Team;2024-05-09 15:20:00;2024-05-09 15:20:00;2018-02-20 10:15:00;2018-02-20 10:15:00;uuid-109
+10;Gastspiel Zürich;Aufführung;2019;2019;Schweiz;Auftritt im Stadttheater Zürich;2024-05-11 16:50:00;2024-05-11 16:50:00;2019-12-05 19:30:00;2019-12-05 19:30:00;uuid-110
+11;Dreh Leipzig;Produktion;2020;2021;Deutschland;Innen- und Außenaufnahmen;2024-05-13 12:10:00;2024-05-13 12:10:00;2020-06-15 09:45:00;2020-06-15 09:45:00;uuid-111
+12;Postproduktion Hamburg;Postproduktion;2021;2022;Deutschland;Schnitt, Farbkorrektur, Ton;2024-05-15 14:00:00;2024-05-15 14:00:00;2021-07-22 11:30:00;2021-07-22 11:30:00;uuid-112
+13;;Aufführung;2022;2022;Italien;Festivalpräsentation;;;2022-09-12 20:00:00;2022-09-12 20:00:00;uuid-113
+14;Storyboard Entwicklung Köln;Konzeption;2019;2019;Deutschland;Workshops mit Team und Studierenden;2024-05-19 13:30:00;2024-05-19 13:30:00;2019-03-10 09:15:00;2019-03-10 09:15:00;uuid-114
+15;Gastspiel Paris;Aufführung;2020;2020;Frankreich;Gastspiel im Théatre National;2024-05-21 15:00:00;2024-05-21 15:00:00;2020-11-18 19:00:00;2020-11-18 19:00:00;uuid-115
+16;Dreh Frankfurt;Produktion;2018;2019;Deutschland;Innen- und Außendrehs;2024-05-23 12:45:00;2024-05-23 12:45:00;2018-05-12 09:30:00;2018-05-12 09:30:00;uuid-116
+17;Postproduktion Wien;Postproduktion;2019;2020;Österreich;Schnitt und Tonmischung;2024-05-25 14:20:00;2024-05-25 14:20:00;2019-08-10 11:00:00;2019-08-10 11:00:00;uuid-117
+18;Premiere Madrid;Aufführung;2021;2021;Spanien;Festivalpräsentation im Teatro Principal;2024-05-27 09:50:00;2024-05-27 09:50:00;2021-09-20 18:30:00;2021-09-20 18:30:00;uuid-118
+19;Dreh Berlin;Produktion;2022;2022;Deutschland;Innen- und Außendrehs in mehreren Stadtteilen;2024-05-29 13:15:00;2024-05-29 13:15:00;2022-06-12 10:00:00;2022-06-12 10:00:00;uuid-119
+20;Postproduktion München;Postproduktion;2021;2022;Deutschland;Farbkorrektur, Schnitt und Ton;2024-05-31 15:40:00;2024-05-31 15:40:00;2021-07-15 11:30:00;2021-07-15 11:30:00;uuid-120
+21;Premiere Amsterdam;Aufführung;2022;2022;Niederlande;Erstaufführung beim internationalen Kurzfilmfestival;2024-06-02 10:10:00;2024-06-02 10:10:00;2022-09-25 20:00:00;2022-09-25 20:00:00;uuid-121
+22;;Konzeption;2020;2020;Deutschland;Workshops mit Studierenden und Team;2024-06-04 13:25:00;2024-06-04 13:25:00;2020-04-15 09:30:00;2020-04-15 09:30:00;uuid-122
+23;Gastspiel London;Aufführung;2019;2019;Vereinigtes Königreich;Gastspiel im West End Theater;2024-06-06 16:00:00;2024-06-06 16:00:00;2019-12-05 19:15:00;2019-12-05 19:15:00;uuid-123
+24;Dreh Stuttgart;Produktion;2018;2019;Deutschland;Innen- und Außendrehs mit Studioproduktion;2024-06-08 11:45:00;2024-06-08 11:45:00;2018-05-22 09:00:00;2018-05-22 09:00:00;uuid-124
+25;Postproduktion Zürich;Postproduktion;2020;2021;Schweiz;Schnitt, Farbkorrektur und Ton;2024-06-10 14:30:00;2024-06-10 14:30:00;2020-08-20 11:00:00;2020-08-20 11:00:00;uuid-125
+26;Premiere Rom;Aufführung;2021;2021;Italien;Festivalpräsentation im Teatro Nazionale;2024-06-12 09:00:00;2024-06-12 09:00:00;2021-10-05 19:30:00;2021-10-05 19:30:00;uuid-126
+27;Drehbuchentwicklung Hamburg;Konzeption;2019;2019;Deutschland;Workshops mit Studierenden und Team;2024-06-14 15:15:00;2024-06-14 15:15:00;2019-03-10 10:00:00;2019-03-10 10:00:00;uuid-127
+28;Gastspiel Wien;Aufführung;2022;2022;Österreich;Gastspiel im Stadttheater Wien;2024-06-16 17:00:00;2024-06-16 17:00:00;2022-11-20 20:00:00;2022-11-20 20:00:00;uuid-128
+29;Dreh Leipzig;Produktion;2020;2021;Deutschland;Innen- und Außendrehs;2024-06-18 12:10:00;2024-06-18 12:10:00;2020-07-22 09:45:00;2020-07-22 09:45:00;uuid-129
+30;Postproduktion Hamburg;Postproduktion;2021;2022;Deutschland;Schnitt, Farbkorrektur, Ton;2024-06-20 14:00:00;2024-06-20 14:00:00;2021-08-22 11:30:00;2021-08-22 11:30:00;uuid-130

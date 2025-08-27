@@ -1,6 +1,6 @@
 Ausz_ID;Ausz_Proj_ID;_globale_Exportvariablen_arkumu::Ereignistyp;Ausz_Name;_Beschreibung_verkettet;Ausz_Anfang;Ausz_Ende;Ausz_AenderungsTS;SQL_AenderungsTS;_TS_Created;__SQL_TS_Created;UUID
 1;1;Herstellung;Projektstart;Beschreibung 1;2024;2025;2024-08-25T10:00:00;2024-08-25T10:00:00;2024-08-20T09:00:00;2024-08-20T09:00:00;uuid-ausz-001
-2;1;Herstellung;Projektmitte;Beschreibung 2;2024;2025;2024-08-25T11:00:00;2024-08-25T11:00:00;2024-08-20T10:00:00;2024-08-20T10:00:00;uuid-ausz-002
+2;1;Herstellung;Projektmitte;Beschreibung 2;;;2024-08-25T11:00:00;2024-08-25T11:00:00;2024-08-20T10:00:00;2024-08-20T10:00:00;uuid-ausz-002
 3;2;Herstellung;Projektende;Beschreibung 3;2023;2024;2024-08-25T12:00:00;2024-08-25T12:00:00;2024-08-20T11:00:00;2024-08-20T11:00:00;uuid-ausz-003
 4;2;Herstellung;Projektstart;Beschreibung 4;2023;2024;2024-08-25T13:00:00;2024-08-25T13:00:00;2024-08-20T12:00:00;2024-08-20T12:00:00;uuid-ausz-004
 5;3;Herstellung;Projektmitte;Beschreibung 5;2025;2026;2024-08-25T14:00:00;2024-08-25T14:00:00;2024-08-20T13:00:00;2024-08-20T13:00:00;uuid-ausz-005
