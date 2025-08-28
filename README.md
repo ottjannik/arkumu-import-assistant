@@ -58,9 +58,16 @@ arkumu-import-assistant/
 git clone https://github.com/ottjannik/arkumu-import-assistant
 cd arkumu-import-assistant
 
-# Virtuelle Umgebung (empfohlen)
+# Virtuelle Umgebung erstellen
 python -m venv venv
-source venv/bin/activate  # (oder venv\Scripts\activate auf Windows)
+
+# Aktivieren der virtuellen Umgebung:
+# Linux/macOS:
+source venv/bin/activate
+# Windows (PowerShell):
+venv\Scripts\Activate.ps1
+# Windows (cmd):
+venv\Scripts\activate.bat
 
 # Abhängigkeiten installieren
 pip install -r requirements.txt
