@@ -1,6 +1,6 @@
 # arkumu.nrw Import Assistant
 
-arkumu.nrw Import Assistant ist eine Streamlit-Webanwendung, die Institutionen dabei unterstützt, ihre Metadaten vor dem Import auf arkumu.nrw auf Vollständigkeit zu prüfen. Die App wurde im Rahmen der Praxisarbeit im Zertifikatskurs **Data Librarian 2024/2025** am ZBIW der TH Köln entwickelt.
+Der arkumu.nrw Import Assistant ist eine Streamlit-Webanwendung, die Institutionen dabei unterstützt, ihre Metadaten vor dem Import auf arkumu.nrw auf Vollständigkeit zu prüfen. Zusätzlich bietet die App Metriken und Visualisierungen, die einen schnellen Überblick über den Metadatenbestand ermöglichen und potenzielle Fehler sichtbar machen. Die App wurde im Rahmen der Praxisarbeit im Zertifikatskurs **Data Librarian 2024/2025** am ZBIW der TH Köln entwickelt.
 
 ---
 
