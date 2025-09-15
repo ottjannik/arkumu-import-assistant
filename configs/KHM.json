@@ -208,7 +208,6 @@
         "DAT_ID",
         "Dateipfad kurz",
         "Dateipfad_absolut",
-        "Pruefsumme_SHA256",
         "Dateityp_calc",
         "Erhaltungstyp_calc",
         "UUID"
