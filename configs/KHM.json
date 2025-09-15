@@ -35,10 +35,8 @@
       "required": [
         "Projekt_ID",
         "Originaltitel",
-        "_Beschreibung_verkettet",
         "Projektart_calc",
         "_Projekte_Export_Projektkategorien_arkumu",
-        "Fächergruppe",
         "Projekt_UUID"
       ],
       "conditional": [
@@ -218,21 +216,63 @@
       "conditional": [],
       "either_or": []
     },
-    "kreuz_projekte_media": {
-      "filename": "13_Kreuz_Projekte_Media.csv",
-      "required": [],
+    "previews": {
+      "filename": "12b_arkumu_previews.csv",
+      "required": [
+        "_arkumu_preview_UUID",
+        "Dateiname_arkumu_web",
+        "Dateipfad_absolut",
+        "_ist_arkumu_Preview",
+        "DAT_ID",
+        "UUID"
+      ],
       "conditional": [],
       "either_or": []
     },
-    "kreuz_projekte_events": {
-      "filename": "15_Kreuz_Projekte_Events.csv",
-      "required": [],
+    "vorschaubild": {
+      "filename": "12c_Vorschaubild.csv",
+      "required": [
+        "_arkumu_preview_UUID",
+        "_Projekte_Export_Projekt_ID",
+        "_Projekte_Export_Vorschaubild_DAT_ID",
+        "Dateiname_arkumu_web",
+        "Dateipfad_absolut",
+        "_globale_Exportvariablen_arkumu_Erhaltungstyp",
+        "_ist_arkumu_Preview",
+        "_ist_Vorschaubild",
+        "DAT_ID",
+        "UUID"
+      ],
+      "conditional": [],
+      "either_or": []
+    },
+    "kreuz_track_projekt": {
+      "filename": "13a_Kreuztabelle_Track_Projekt.csv",
+      "required": [
+        "Projekte_Projekt_ID",
+        "Track_TR_ID"
+      ],
+      "conditional": [],
+      "either_or": []
+    },
+    "track_digitaleobjekte": {
+      "filename": "13b_Track_DigitaleObjekte.csv",
+      "required": [
+        "Track_TR_ID",
+        "Track_Dateipfad_absolut",
+        ""
+      ],
       "conditional": [],
       "either_or": []
     },
     "kreuz_events_projekte": {
       "filename": "16_Kreuz_Events_Projekte.csv",
-      "required": [],
+      "required": [
+        "Kr_Einlad_ID",
+        "Kr_Proj_ID",
+        "Kr_Event_ID",
+        "UUID"
+      ],
       "conditional": [],
       "either_or": []
     },
