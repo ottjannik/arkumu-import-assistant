@@ -5,6 +5,7 @@
 # =============================================================
 
 import streamlit as st
+import io
 import time
 import pandas as pd
 
@@ -105,3 +106,25 @@ def extract_named_dataframes(dfs, validation_targets):
         if filename in dfs:
             named_dfs[df_key] = dfs[filename]
     return named_dfs
+
+def create_error_report(validation_results, validation_targets):
+    output = io.BytesIO()
+
+    with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
+        for df_key, result in validation_results.items():
+            filename = validation_targets[df_key]["filename"]
+
+            for check_type, check_result in result.items():
+                if check_result["ok"]:  
+                    # keine Fehler -> überspringen
+                    continue  
+
+                # Sheet-Namen zusammensetzen und auf 31 Zeichen begrenzen
+                sheet_name = f"{filename}_{check_type}"[:31]
+
+                check_result["errors"].to_excel(
+                    writer, sheet_name=sheet_name, index=False
+                )
+
+    output.seek(0)
+    return output
