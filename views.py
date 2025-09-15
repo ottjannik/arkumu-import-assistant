@@ -130,15 +130,6 @@ def render_validation_tab(named_dfs, validation_targets):
                     st.error("Fehler bei Pflichtfeldern")
                     df_errors = result["required"]["errors"]
                     st.dataframe(df_errors)
-                    
-                    # Download-Link für Fehler-CSV
-                    csv_errors = df_errors.to_csv(index=False).encode('utf-8')
-                    st.download_button(
-                        label="📥 Fehler als CSV herunterladen",
-                        data=csv_errors,
-                        file_name=f"{today}_{filename}_pflichtfelder_fehler.csv",
-                        mime="text/csv"
-                    )
 
             with tab_conditional:
                 if result["conditional"]["ok"]:
@@ -148,15 +139,6 @@ def render_validation_tab(named_dfs, validation_targets):
                     df_errors = result["conditional"]["errors"]
                     st.dataframe(df_errors)
 
-                    # Download-Link für Fehler-CSV
-                    csv_errors = df_errors.to_csv(index=False).encode('utf-8')
-                    st.download_button(
-                        label="📥 Fehler als CSV herunterladen",
-                        data=csv_errors,
-                        file_name=f"{today}_{filename}_conditional_fehler.csv",
-                        mime="text/csv"
-                    )
-
             with tab_either_or:
                 if result["either_or"]["ok"]:
                     st.success("Alle Entweder-Oder Pflichtfelder sind ausgefüllt")
@@ -164,15 +146,6 @@ def render_validation_tab(named_dfs, validation_targets):
                     st.error("Fehler bei Entweder-Oder Pflichtfeldern")
                     df_errors = result["either_or"]["errors"]
                     st.dataframe(df_errors)
-
-                    # Download-Link für Fehler-CSV
-                    csv_errors = df_errors.to_csv(index=False).encode('utf-8')
-                    st.download_button(
-                        label="📥 Fehler als CSV herunterladen",
-                        data=csv_errors,
-                        file_name=f"{today}_{filename}_either_or_fehler.csv",
-                        mime="text/csv"
-                    )
 
             with tab_csv:
                 st.info(f"Ansicht: **{filename}**")
