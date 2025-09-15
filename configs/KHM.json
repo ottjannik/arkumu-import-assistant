@@ -260,7 +260,11 @@
       "required": [
         "Track_TR_ID",
         "Track_Dateipfad_absolut",
-        ""
+        "Track_Dateiname_Kurz",
+        "Track_TR_Type_Kurz",
+        "Track_TR_Sprache",
+        "Dateipfad kurz",
+        "Track_TR_UUID"
       ],
       "conditional": [],
       "either_or": []
