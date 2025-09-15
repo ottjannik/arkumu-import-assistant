@@ -17,6 +17,8 @@
     "10_PhysMedien_Informationstraeger.csv",
     "11_Kreuz_DigitaleObjekte_Proj.csv",
     "12_Media_DigitaleObjekte.csv",
+    "12b_arkumu_previews.csv",
+    "12c_Vorschaubild.csv",
     "13a_Kreuztabelle_Track_Projekt.csv",
     "13b_Track_DigitaleObjekte.csv",
     "16_Kreuz_Events_Projekte.csv",
@@ -92,7 +94,7 @@
         "AS_ID",
         "AS_Pers_ID",
         "AS_Proj_ID",
-        "AS_Taetigkeit",
+        "AS_Taetigkeit_arkumu_Rolle",
         "UUID"
       ],
       "conditional": [],
@@ -102,8 +104,8 @@
       "filename": "03_Personen_Akteurinnen.csv",
       "required": [
         "PE_ID",
-        "Name_gesamt_natürlicheReihenfolge",
-        "UUID"
+        "Name_gesamt_natürlicheReihenfolge_calc_export",
+        "PE_UUID"
       ],
       "conditional": [],
       "either_or": []
@@ -124,8 +126,8 @@
       "filename": "05_PersonenBetreuende.csv",
       "required": [
         "PE_ID",
-        "Name_gesamt_natürlicheReihenfolge",
-        "UUID"
+        "Name_gesamt_natürlicheReihenfolge_calc_export",
+        "PE_UUID"
       ],
       "conditional": [],
       "either_or": []
@@ -135,7 +137,7 @@
       "required": [
         "Ausz_ID",
         "Ausz_Proj_ID",
-        "_globale_Exportvariablen_arkumu_Ereignistyp",
+        "_globale_Exportvariablen_arkumu_Ereignistyp_Auszeichnung",
         "Ausz_Name",
         "UUID"
       ],
@@ -193,13 +195,26 @@
     },
     "kreuz_digitale_objekte_proj": {
       "filename": "11_Kreuz_DigitaleObjekte_Proj.csv",
-      "required": [],
+      "required": [
+        "ID", 
+        "Projekt_ID", 
+        "DAT_ID",
+        "UUID"
+      ],
       "conditional": [],
       "either_or": []
     },
     "media_digitale_objekte": {
       "filename": "12_Media_DigitaleObjekte.csv",
-      "required": [],
+      "required": [
+        "DAT_ID",
+        "Dateipfad kurz",
+        "Dateipfad_absolut",
+        "Pruefsumme_SHA256",
+        "Dateityp_calc",
+        "Erhaltungstyp_calc",
+        "UUID"
+      ],
       "conditional": [],
       "either_or": []
     },
@@ -227,7 +242,6 @@
         "Event_ID",
         "Eventname",
         "Ereignistyp",
-        "Ort",
         "UUID"
       ],
       "conditional": [],
@@ -278,9 +292,9 @@
     "physischesobjekt": {
       "filename": "21_PhysischesObjekt.csv",
       "required": [
-        "Projekt_ID",
-        "Material_Titel_calc",
-        "Projekt_UUID"
+        "Projekte_Projekt_ID",
+        "Projekte_Material_Titel_calc",
+        "Projekte_Projekt_UUID"
       ],
       "conditional": [],
       "either_or": []
