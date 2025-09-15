@@ -116,7 +116,7 @@ def create_error_report(validation_results, validation_targets):
 
             for rule_name, res in result.items():
                 if not res["ok"]:  # nur Fehler speichern
-                    sheet_name = f"{df_key[:20]}_{rule_name}"  # Sheetname max. 31 Zeichen
+                    sheet_name = f"{filename[:20]}_{rule_name}"  # Sheetname max. 31 Zeichen
                     df_errors = res["errors"]
 
                     df_errors.to_excel(writer, sheet_name=sheet_name, index=False)
