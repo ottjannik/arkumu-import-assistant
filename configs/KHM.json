@@ -5,14 +5,12 @@
 
   "required_files": [
     "00_Projekte.csv",
-    "01a_Kreuz_Projekt_Grundereignis.csv",
-    "01b_Grundereignis.csv",
+    "01_Grundereignis.csv",
     "02_Kreuz_Projekte_Personen.csv",
     "03_Personen_Akteurinnen.csv",
     "04_Kreuz_Betreuende_Projekte.csv",
     "05_PersonenBetreuende.csv",
-    "06a_Kreuz_Projekte_Auszeichnungen.csv",
-    "06b_Auszeichnungen.csv",
+    "06_Auszeichnungen_Projekte.csv",
     "07_Kreuz_Projekte_Keywords.csv",
     "08_Keywords.csv",
     "09_Kreuz_Projekte_Informationsträger.csv",
@@ -37,7 +35,7 @@
         "Originaltitel",
         "_Beschreibung_verkettet",
         "Projektart_calc",
-        "_Projekte_Export::Projektkategorien_arkumu",
+        "_Projekte_Export_Projektkategorien_arkumu",
         "Fächergruppe",
         "Projekt_UUID"
       ],
@@ -69,20 +67,11 @@
       ],
       "either_or": []
     },
-    "kreuz_projekt_grundereignis": {
-      "filename": "01a_Kreuz_Projekt_Grundereignis.csv",
-      "required": [
-        "Projekt_ID",
-        "Projekt_UUID"
-      ],
-      "conditional": [],
-      "either_or": []
-    },
     "grundereignis": {
-      "filename": "01b_Grundereignis.csv",
+      "filename": "01_Grundereignis.csv",
       "required": [
         "Projekt_ID",
-        "_Projekte_Export::EreignisHerstellung_DeutscherName",
+        "_Projekte_Export_EreignisHerstellung_DeutscherName",
         "arkumu_Ereignistyp"
       ],
       "conditional": [
@@ -125,7 +114,7 @@
         "Kreuz_Lehrende_Proj_ID_pk",
         "Proj_ID_fk",
         "PE_ID_fk",
-        "_globale_Exportvariablen_arkumu::Rolle",
+        "_globale_Exportvariablen_arkumu_Rolle",
         "UUID"
       ],
       "conditional": [],
@@ -141,21 +130,12 @@
       "conditional": [],
       "either_or": []
     },
-    "kreuz_projekte_auszeichnungen": {
-      "filename": "06a_Kreuz_Projekte_Auszeichnungen.csv",
-      "required": [
-        "Ausz_Proj_ID",
-        "UUID"
-      ],
-      "conditional": [],
-      "either_or": []
-    },
     "auszeichnungen": {
-      "filename": "06b_Auszeichnungen.csv",
+      "filename": "06_Auszeichnungen_Projekte.csv",
       "required": [
         "Ausz_ID",
         "Ausz_Proj_ID",
-        "_globale_Exportvariablen_arkumu::Ereignistyp",
+        "_globale_Exportvariablen_arkumu_Ereignistyp",
         "Ausz_Name",
         "UUID"
       ],
