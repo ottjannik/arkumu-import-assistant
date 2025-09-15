@@ -114,17 +114,21 @@ def create_error_report(validation_results, validation_targets):
         for df_key, result in validation_results.items():
             filename = validation_targets[df_key]["filename"]
 
-            for check_type, check_result in result.items():
-                if check_result["ok"]:  
-                    # keine Fehler -> überspringen
-                    continue  
+            for rule_name, res in result.items():
+                if not res["ok"]:  # nur Fehler speichern
+                    sheet_name = f"{df_key[:20]}_{rule_name}"  # Sheetname max. 31 Zeichen
+                    df_errors = res["errors"]
 
-                # Sheet-Namen zusammensetzen und auf 31 Zeichen begrenzen
-                sheet_name = f"{filename}_{check_type}"[:31]
+                    df_errors.to_excel(writer, sheet_name=sheet_name, index=False)
 
-                check_result["errors"].to_excel(
-                    writer, sheet_name=sheet_name, index=False
-                )
+                    # Worksheet holen und Spaltenbreite anpassen
+                    worksheet = writer.sheets[sheet_name]
+                    for i, col in enumerate(df_errors.columns):
+                        max_len = max(
+                            df_errors[col].astype(str).map(len).max(),
+                            len(str(col))
+                        ) + 2  # etwas Puffer
+                        worksheet.set_column(i, i, max_len)
 
     output.seek(0)
     return output
