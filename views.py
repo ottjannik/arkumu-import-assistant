@@ -5,16 +5,19 @@
 
 import streamlit as st
 import pandas as pd
+import datetime as dt
 
 from validation import (
     validate_dataframe
 )
 
 from stats import (
-    # plot_projekt_nr_donut,
     plot_file_extension_distribution
 )
 
+from utils import (
+    create_error_report
+)
 
 import streamlit as st
 
@@ -77,12 +80,24 @@ def render_validation_tab(named_dfs, validation_targets):
     """)
     validation_results = {}
 
-    # Validation durchführen
+    # 1. Validation durchführen
     for df_key, df in named_dfs.items():
         rules = validation_targets[df_key]
         validation_results[df_key] = validate_dataframe(df, rules)
 
-    # Ergebnisse pro Datei darstellen
+    # 2. Fehlerbericht erstellen und Download-Button anbieten
+    error_report = create_error_report(validation_results, validation_targets)
+    today = dt.date.today().strftime("%Y-%m-%d")
+    st.download_button(
+        label="Gesamten Fehlerbericht herunterladen",
+        data=error_report,
+        file_name=f"{today}_validierungsfehler.xlsx",
+        type="primary",
+        icon="📥",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+
+    # 3. Ergebnisse pro Datei darstellen
     for df_key, result in validation_results.items():
         filename = validation_targets[df_key]["filename"]
 
@@ -113,21 +128,51 @@ def render_validation_tab(named_dfs, validation_targets):
                     st.success("Alle Pflichtfelder ausgefüllt")
                 else:
                     st.error("Fehler bei Pflichtfeldern")
-                    st.dataframe(result["required"]["errors"])
+                    df_errors = result["required"]["errors"]
+                    st.dataframe(df_errors)
+                    
+                    # Download-Link für Fehler-CSV
+                    csv_errors = df_errors.to_csv(index=False).encode('utf-8')
+                    st.download_button(
+                        label="📥 Fehler als CSV herunterladen",
+                        data=csv_errors,
+                        file_name=f"{today}_{filename}_pflichtfelder_fehler.csv",
+                        mime="text/csv"
+                    )
 
             with tab_conditional:
                 if result["conditional"]["ok"]:
                     st.success("Alle bedingte Pflichtfelder sind ausgefüllt")
                 else:
                     st.error("Fehler bei bedingten Pflichtfeldern")
-                    st.dataframe(result["conditional"]["errors"])
+                    df_errors = result["conditional"]["errors"]
+                    st.dataframe(df_errors)
+
+                    # Download-Link für Fehler-CSV
+                    csv_errors = df_errors.to_csv(index=False).encode('utf-8')
+                    st.download_button(
+                        label="📥 Fehler als CSV herunterladen",
+                        data=csv_errors,
+                        file_name=f"{today}_{filename}_conditional_fehler.csv",
+                        mime="text/csv"
+                    )
 
             with tab_either_or:
                 if result["either_or"]["ok"]:
                     st.success("Alle Entweder-Oder Pflichtfelder sind ausgefüllt")
                 else:
                     st.error("Fehler bei Entweder-Oder Pflichtfeldern")
-                    st.dataframe(result["either_or"]["errors"])
+                    df_errors = result["either_or"]["errors"]
+                    st.dataframe(df_errors)
+
+                    # Download-Link für Fehler-CSV
+                    csv_errors = df_errors.to_csv(index=False).encode('utf-8')
+                    st.download_button(
+                        label="📥 Fehler als CSV herunterladen",
+                        data=csv_errors,
+                        file_name=f"{today}_{filename}_either_or_fehler.csv",
+                        mime="text/csv"
+                    )
 
             with tab_csv:
                 st.info(f"Ansicht: **{filename}**")
