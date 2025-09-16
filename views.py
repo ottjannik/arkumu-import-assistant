@@ -114,7 +114,21 @@ def render_validation_tab(named_dfs, validation_targets):
         icon_conditional = "🟢" if result["conditional"]["ok"] else "🔴"
         icon_either_or = "🟢" if result["either_or"]["ok"] else "🔴"
 
-        with st.expander(f"{overall_icon} {filename}", expanded=False):
+        # Anzahl Fehler für jeweilige Datei berechnen
+        error_count = sum([
+            0 if result["required"]["ok"] else len(result["required"]["errors"]),
+            0 if result["conditional"]["ok"] else len(result["conditional"]["errors"]),
+            0 if result["either_or"]["ok"] else len(result["either_or"]["errors"]),
+        ])
+
+        # Expander-Label mit Fehleranzahl
+        if error_count == 0:
+            expander_label = f"{overall_icon} {filename}"
+        else:
+            expander_label = f"{overall_icon} {filename} ({error_count} Fehler)"
+
+        # Expander für jede Datei
+        with st.expander(expander_label, expanded=False):
             # Tabs mit Icons in den Labels
             tab_required, tab_conditional, tab_either_or, tab_csv = st.tabs([
                 f"{icon_required} Pflichtfelder",
@@ -127,7 +141,8 @@ def render_validation_tab(named_dfs, validation_targets):
                 if result["required"]["ok"]:
                     st.success("Alle Pflichtfelder ausgefüllt")
                 else:
-                    st.error("Fehler bei Pflichtfeldern")
+                    required_errors = len(result["required"]["errors"])
+                    st.error(f"{required_errors} Fehler bei Pflichtfeldern")
                     df_errors = result["required"]["errors"]
                     st.dataframe(df_errors)
 
@@ -135,7 +150,8 @@ def render_validation_tab(named_dfs, validation_targets):
                 if result["conditional"]["ok"]:
                     st.success("Alle bedingte Pflichtfelder sind ausgefüllt")
                 else:
-                    st.error("Fehler bei bedingten Pflichtfeldern")
+                    conditional_errors = len(result["conditional"]["errors"])
+                    st.error(f"{conditional_errors} Fehler bei bedingten Pflichtfeldern")
                     df_errors = result["conditional"]["errors"]
                     st.dataframe(df_errors)
 
@@ -143,62 +159,11 @@ def render_validation_tab(named_dfs, validation_targets):
                 if result["either_or"]["ok"]:
                     st.success("Alle Entweder-Oder Pflichtfelder sind ausgefüllt")
                 else:
-                    st.error("Fehler bei Entweder-Oder Pflichtfeldern")
+                    either_or_errors = len(result["either_or"]["errors"])
+                    st.error(f"{either_or_errors} Fehler bei Entweder-Oder Pflichtfeldern")
                     df_errors = result["either_or"]["errors"]
                     st.dataframe(df_errors)
 
             with tab_csv:
                 st.info(f"Ansicht: **{filename}**")
                 st.dataframe(named_dfs[df_key])
-  
-# def render_csv_view_tab(named_dfs, validation_targets):
-#     """
-#     Rendert den Tab für die CSV-Ansicht.
-#     Zeigt die hochgeladenen CSV-Dateien in einem DataFrame an.
-#     Args:
-#         named_dfs (dict): Dictionary mit DataFrames für die verschiedenen Metadaten.
-#         validation_targets (dict): Dictionary mit den Validierungszielen, enthält z.B. Dateinamen.
-#     Returns:
-#         None
-#     """
-#     st.header("CSV-Dateien ")
-#     st.write("Hier kannst du die hochgeladenen CSV-Dateien einsehen.")
-
-#     for df_key, df in named_dfs.items():
-#         filename = validation_targets[df_key]["filename"]
-#         with st.expander(f"**{filename}** ({len(df)} Zeilen, {len(df.columns)} Spalten)", expanded=False):
-#             st.dataframe(df)
-
-
-
-# def render_projects_tab(df_projekte, df_akteurinnen):
-#     st.subheader("Projekte")
-#     st.write("Hier findest du verschiedene Statistiken zu den hochgeladenen Metadaten der Projekte.")
-#     col1, col2, col3 = st.columns(3)
-
-#     with col1:
-#         st.metric("Anzahl Projekte", len(df_projekte), border=True)
-#     with col2:
-#         projekte_mit_nr = df_projekte["Projekt_Nr"].value_counts().sum()
-#         st.metric("Projekte mit Projektnummer", projekte_mit_nr, border=True)
-#         plot_projekt_nr_donut(df_projekte)
-#     with col3:
-#         projekte_ohne_nr = df_projekte["Projekt_Nr"].isna().sum()
-#         st.metric("Projekte ohne Projektnummer", projekte_ohne_nr, border=True)
-
-
-
-
-
-# def render_files_tab(df_media):
-#     st.subheader("Dateien")
-#     col1, col2 = st.columns(2)
-
-#     with col1:
-#         st.metric("Anzahl Dateien", len(df_media), border=True)
-#     with col2:
-#         st.metric("Anzahl Dateien", len(df_media), border=True)
-
-#     plot_file_extension_distribution(df_media)
-
-#     st.divider()
