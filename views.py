@@ -66,8 +66,6 @@ def render_validation_tab(named_dfs, validation_targets):
     Returns:
         None
     """
-
-
     st.header("Pflichtfeldprüfung")
     st.markdown("""
     Die App prüft die hochgeladenen CSV-Dateien auf **Vollständigkeit** und das Erfüllen der **Pflichtfelder**.  
