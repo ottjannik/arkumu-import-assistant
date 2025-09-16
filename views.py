@@ -84,17 +84,32 @@ def render_validation_tab(named_dfs, validation_targets):
         rules = validation_targets[df_key]
         validation_results[df_key] = validate_dataframe(df, rules)
 
+    
+    # Gesamtanzahl Fehler über alle Dateien
+    total_errors = sum(
+        len(res["required"]["errors"]) +
+        len(res["conditional"]["errors"]) +
+        len(res["either_or"]["errors"]) +
+        len(res["duplicates"]["errors"])
+        for res in validation_results.values()
+    )
+
     # 2. Fehlerbericht erstellen und Download-Button anbieten
+    st.divider()
+    st.metric("Gesamtanzahl Fehler", total_errors, border=True)
+
     error_report = create_error_report(validation_results, validation_targets)
     today = dt.date.today().strftime("%Y-%m-%d")
     st.download_button(
-        label="Gesamten Fehlerbericht herunterladen",
+        label="📄 Gesamten Fehlerbericht herunterladen",
         data=error_report,
         file_name=f"{today}_validierungsfehler.xlsx",
         type="primary",
-        icon="📥",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        use_container_width=True
     )
+
+    st.divider()
 
     # 3. Ergebnisse pro Datei darstellen
     for df_key, result in validation_results.items():
