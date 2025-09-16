@@ -140,11 +140,7 @@
         "UUID"
       ],
       "conditional": [],
-      "either_or": [
-        {
-          "columns": ["Ausz_Anfang", "Ausz_Ende"]
-        }
-      ]
+      "either_or": []
     },
     "kreuz_projekte_keywords": {
       "filename": "07_Kreuz_Projekte_Keywords.csv",
@@ -288,11 +284,7 @@
         "UUID"
       ],
       "conditional": [],
-      "either_or": [
-        {
-          "columns": ["Eventanfangsdatum_ISO", "EventEnddatum_ISO"]
-        }
-      ]
+      "either_or": []
     },
     "kreuz_projekte_equipmentsoftware": {
       "filename": "18_Kreuz_Projekte_EquipmentSoftware.csv",
