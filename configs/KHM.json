@@ -208,7 +208,6 @@
         "DAT_ID",
         "Dateipfad kurz",
         "Dateipfad_absolut",
-        "Pruefsumme_SHA256",
         "Dateityp_calc",
         "Erhaltungstyp_calc",
         "UUID"
@@ -250,7 +249,7 @@
       "filename": "13a_Kreuztabelle_Track_Projekt.csv",
       "required": [
         "Projekte_Projekt_ID",
-        "Track_TR_ID"
+        "TR_ID"
       ],
       "conditional": [],
       "either_or": []
@@ -258,13 +257,13 @@
     "track_digitaleobjekte": {
       "filename": "13b_Track_DigitaleObjekte.csv",
       "required": [
-        "Track_TR_ID",
-        "Track_Dateipfad_absolut",
-        "Track_Dateiname_Kurz",
-        "Track_TR_Type_Kurz",
-        "Track_TR_Sprache",
-        "Dateipfad kurz",
-        "Track_TR_UUID"
+        "TR_ID",
+        "Dateipfad_absolut",
+        "Dateiname_Kurz",
+        "TR_Type_Kurz",
+        "TR_Sprache",
+        "Media_Dateipfad kurz",
+        "TR_UUID"
       ],
       "conditional": [],
       "either_or": []
