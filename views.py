@@ -35,9 +35,10 @@ def render_overview_tab(named_dfs, validation_targets, selected_profile):
     st.header("Übersicht")
     st.markdown("Hier findest du eine Übersicht über den Inhalt der hochgeladenen Metadaten.")
 
-
+    # -------------------
+    # KHM Overview-Tab
+    # -------------------
     if selected_profile == "KHM":
-        st.info("Du hast das Profil **KHM** ausgewählt. Die Statistiken unten beziehen sich auf die KHM-spezifischen Metadaten.")
         col1, col2, col3 = st.columns(3)
         with col1:
             st.metric("Projekte", len(named_dfs["projekte"]), border=True)
@@ -59,11 +60,26 @@ def render_overview_tab(named_dfs, validation_targets, selected_profile):
         st.markdown("Hier siehst du die Verteilung der Dateiendungen der digitalen Objekte.")
         plot_file_extension_distribution(named_dfs["media_digitale_objekte"])
     
-    
+    # -------------------
+    # HfMT Tonbandarchiv Overview-Tab
+    # -------------------
     elif selected_profile == "HfMT Tonbandarchiv":
-        st.info("Du hast das Profil **HfMT Tonbandarchiv** ausgewählt")
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.metric("Projekte", len(named_dfs["projekte"]), border=True)
+            st.metric("Ereignisse", len(named_dfs["events"]), border=True)
+        with col2:
+            st.metric("Akteur:innen", len(named_dfs["akteurinnen"]), border=True)
+            st.metric("Körperschaften", len(named_dfs["koerperschaften"]), border=True)
+        with col3:
+            st.metric("Digitale Objekte", len(named_dfs["digitalesobjekt"]), border=True)
+            st.metric("Informationsträger", len(named_dfs["informationstraeger"]), border=True)
 
+        st.divider()
 
+        st.subheader("Dateiendungen")
+        st.markdown("Hier siehst du die Verteilung der Dateiendungen der digitalen Objekte.")
+        plot_file_extension_distribution(named_dfs["digitalesobjekt"])
 
 
 def render_validation_tab(named_dfs, validation_targets):
