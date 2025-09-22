@@ -121,7 +121,6 @@
         "Dateipfad_absolut",
         "Entstehung",
         "Erhaltungstyp",
-        "Pruefsumme_SHA256",
         "_arkumu_Lizenzstatus",
         "_ist_arkumu_Preview",
         "UUID"
@@ -145,7 +144,7 @@
       "required": [
         "Kreuz_Projekt_Oberwerk_ID_pk",
         "HFMT_Werk_ID_fk",
-        "MedienforHFMT_Werk_ID_2_fkmat",
+        "HFMT_Werk_ID_2_fk",
         "Beziehung",
         "UUID"
       ],
