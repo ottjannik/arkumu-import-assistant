@@ -40,7 +40,8 @@ st.title('📁 arkumu.nrw Import Assistant')
 
 profiles = {
     "KHM": "configs/khm.json",
-    "HfMT (nicht verfügbar)": "configs/hfmt.json"
+    "HfMT Tonbandarchiv": "configs/hfmt_tonbandarchiv.json",
+    "HfMT 2 (nicht verfügbar)": "configs/HfMT_2.json"
 }
 
 st.sidebar.header("📤 Metadaten-Upload")
@@ -52,7 +53,7 @@ selected_profile = st.sidebar.selectbox(
     "Datenquelle:",
     options=profiles.keys(),
     index=0,
-    help="HfMT wird angezeigt, ist aber aktuell nicht auswählbar"
+    help="HfMT 2 wird angezeigt, ist aber aktuell nicht auswählbar"
 )
 
 if selected_profile not in available_profiles:
@@ -95,7 +96,7 @@ if uploaded_files:
 # ------------------------------------------------------------
 
     with tabs[0]:
-        render_overview_tab(named_dfs, validation_targets)
+        render_overview_tab(named_dfs, validation_targets, selected_profile)
 
 # ------------------------------------------------------------
 # 3.2 Validationsprüfung-Tab (views.py / render_validation_tab)
