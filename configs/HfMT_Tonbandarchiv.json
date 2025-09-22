@@ -1,0 +1,156 @@
+{
+  "required_files": [
+    "00_hfm_Projekte.csv",
+    "01_hfm_Kreuz_Projekt_Ereignis.csv",
+    "02_hfm_Ereignis.csv",
+    "03_hfm_Kreuz_Ereignis_Akteure.csv",
+    "04_hfm_Akteurin.csv",
+    "05_hfm_Kreuz_Ereignis_Koerperschaften.csv",
+    "06_hfm_Koerperschaften.csv",
+    "07_hfm_Kreuz_Ereignis_DigitalesObjekt.csv",
+    "08_hfm_Digitales_Objekt.csv",
+    "09_hfm_Informationstraeger.csv",
+    "10_hfm_Kreuz_Projekt_Oberwerk.csv"
+  ],
+
+  "validation_targets": {
+    "projekte": {
+      "filename": "00_hfm_Projekte.csv",
+      "required": [
+        "HFMT_Werk_ID",
+        "Bevorzugter Titel",
+        "Bevorzugter Titel Sprachauszeichnung",
+        "Projektart_calc",
+        "Projektkategorie",
+        "_Exportvariablen_arkumu_Rechtsstatus",
+        "Einliefernde Hochschule",
+        "UUID"
+      ],
+      "conditional": [
+        {
+          "if_filled": "Alternativer Titel",
+          "then_required": ["Alternativer Titel Sprachauszeichnung"]
+        },
+        {
+          "if_filled": "Bevorzugter Untertitel",
+          "then_required": ["Bevorzugter Untertitel Sprachauszeichnung"]
+        }
+      ],
+      "either_or": []
+    },
+    "kreuz_projekt_ereignis": {
+      "filename": "01_hfm_Kreuz_Projekt_Ereignis.csv",
+      "required": [
+        "Kreuz_Projekt_Ereignis_ID_pk",
+        "HFMT_Werk_ID_fk",
+        "Ereignis_Nr_fk",
+        "UUID"
+      ],
+      "conditional": [],
+      "either_or": []
+    },
+    "ereignis": {
+      "filename": "02_hfm_Ereignis.csv",
+      "required": [
+        "EreignisNr",
+        "Ereignis_DeutscherName",
+        "Ereignistyp"
+      ],
+      "conditional": [],
+      "either_or": []
+    },
+    "kreuz_ereignis_akteure": {
+      "filename": "03_hfm_Kreuz_Ereignis_Akteure.csv",
+      "required": [
+        "Kreuz_Ereignis_Akteurin_ID_pk",
+        "Ereignis_Nr_fk",
+        "HFMT_Akteur_ID_fk",
+        "UUID"
+      ],
+      "conditional": [],
+      "either_or": []
+    },
+    "akteure": {
+      "filename": "04_hfm_Akteurin.csv",
+      "required": [
+        "HFMT_Akteur_ID",
+        "Akteurin_Name",
+        "UUID"
+      ],
+      "conditional": [],
+      "either_or": []
+    },
+    "kreuz_ereignis_koerperschaften": {
+      "filename": "05_hfm_Kreuz_Ereignis_Koerperschaften.csv",
+      "required": [
+        "Kreuz_Ereignis_Koerperschaft_ID_pk",
+        "Ereignis_Nr_fk",
+        "HFMT_Koerperschaft_ID_fk",
+        "Rolle",
+        "UUID"
+      ],
+      "conditional": [],
+      "either_or": []
+    },
+    "koerperschaften": {
+      "filename": "06_hfm_Koerperschaften.csv",
+      "required": [
+        "HfMT_Körperschaft_ID",
+        "Koerperschaft_Name",
+        "UUID"
+      ],
+      "conditional": [],
+      "either_or": []
+    },
+    "kreuz_ereignis_digitalesobjekt": {
+      "filename": "07_hfm_Kreuz_Ereignis_DigitalesObjekt.csv",
+      "required": [
+        "Kreuz_Ereignis_DigitalesObjekt_ID_pk",
+        "Ereignis_Nr_fk",
+        "DigitalesObjekt_ID_fk",
+        "UUID"
+      ],
+      "conditional": [],
+      "either_or": []
+    },
+    "digitalesobjekt": {
+      "filename": "08_hfm_Digitales_Objekt.csv",
+      "required": [
+        "DigitalesObjekt_ID_pk",
+        "Digitales Objekt_Dateiname",
+        "Dateipfad_absolut",
+        "Entstehung",
+        "Erhaltungstyp",
+        "Pruefsumme_SHA256",
+        "_arkumu_Lizenzstatus",
+        "_ist_arkumu_Preview",
+        "UUID"
+      ],
+      "conditional": [],
+      "either_or": []
+    },
+    "informationstraeger": {
+      "filename": "09_hfm_Informationstraeger.csv",
+      "required": [
+        "Informationstraeger_ID_pk",
+        "Informationsträger_Externe InventarSignaturnummer",
+        "Informationsträger_Informationsträgertyp",
+        "UUID"
+      ],
+      "conditional": [],
+      "either_or": []
+    },
+    "kreuz_projekt_oberwerk": {
+      "filename": "10_hfm_Kreuz_Projekt_Oberwerk.csv",
+      "required": [
+        "Kreuz_Projekt_Oberwerk_ID_pk",
+        "HFMT_Werk_ID_fk",
+        "MedienforHFMT_Werk_ID_2_fkmat",
+        "Beziehung",
+        "UUID"
+      ],
+      "conditional": [],
+      "either_or": []
+    }
+  }
+}
