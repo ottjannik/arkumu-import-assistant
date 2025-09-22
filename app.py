@@ -16,9 +16,6 @@ from utils import (
 from views import (
     render_overview_tab,
     render_validation_tab,
-    # render_csv_view_tab,
-#     render_projects_tab,
-#     render_files_tab
 )
 from validation import validate_dataframe
 

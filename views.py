@@ -7,19 +7,9 @@ import streamlit as st
 import pandas as pd
 import datetime as dt
 
-from validation import (
-    validate_dataframe
-)
-
-from stats import (
-    plot_file_extension_distribution
-)
-
-from utils import (
-    create_error_report
-)
-
-import streamlit as st
+from validation import validate_dataframe
+from stats import plot_file_extension_distribution
+from utils import create_error_report
 
 def render_overview_tab(named_dfs, validation_targets, selected_profile):
     """Rendert den Übersichts-Tab der Anwendung mit grundlegenden Statistiken
