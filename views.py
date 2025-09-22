@@ -21,39 +21,49 @@ from utils import (
 
 import streamlit as st
 
-def render_overview_tab(named_dfs, validation_targets):
+def render_overview_tab(named_dfs, validation_targets, selected_profile):
     """Rendert den Übersichts-Tab der Anwendung mit grundlegenden Statistiken
     und einer Kurzversion der hochgeladenen CSV-Dateien.
 
     Args:
         named_dfs (dict): Dictionary mit DataFrames für die verschiedenen Metadaten.
         validation_targets (dict): Dictionary mit den Validierungszielen, enthält z.B. Dateinamen.
+        selected_profile (str): Das aktuell ausgewählte Profil/die Datenquelle.
     Returns:
         None
     """
     st.header("Übersicht")
     st.markdown("Hier findest du eine Übersicht über den Inhalt der hochgeladenen Metadaten.")
 
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.metric("Projekte", len(named_dfs["projekte"]), border=True)
-        st.metric("Auszeichnungen", len(named_dfs["auszeichnungen"]), border=True)
-        len_all_events = len(named_dfs["events"]) + len(named_dfs["grundereignis"])
-        st.metric("Ereignisse (Grundereignis + Events)", len_all_events, border=True)
-    with col2:
-        st.metric("Akteur:innen", len(named_dfs["akteurinnen"]), border=True)
-        st.metric("Keywords", len(named_dfs["keywords"]), border=True)
-        st.metric("Equipment & Software", len(named_dfs["equipmentundsoftware"]), border=True)
-    with col3:
-        st.metric("Digitale Objekte", len(named_dfs["media_digitale_objekte"]), border=True)
-        st.metric("Informationsträger", len(named_dfs["physmedien_informationstraeger"]), border=True)
-        st.metric("Physische Objekte", len(named_dfs["physischesobjekt"]), border=True)
 
-    st.divider()
+    if selected_profile == "KHM":
+        st.info("Du hast das Profil **KHM** ausgewählt. Die Statistiken unten beziehen sich auf die KHM-spezifischen Metadaten.")
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.metric("Projekte", len(named_dfs["projekte"]), border=True)
+            st.metric("Auszeichnungen", len(named_dfs["auszeichnungen"]), border=True)
+            len_all_events = len(named_dfs["events"]) + len(named_dfs["grundereignis"])
+            st.metric("Ereignisse (Grundereignis + Events)", len_all_events, border=True)
+        with col2:
+            st.metric("Akteur:innen", len(named_dfs["akteurinnen"]), border=True)
+            st.metric("Keywords", len(named_dfs["keywords"]), border=True)
+            st.metric("Equipment & Software", len(named_dfs["equipmentundsoftware"]), border=True)
+        with col3:
+            st.metric("Digitale Objekte", len(named_dfs["media_digitale_objekte"]), border=True)
+            st.metric("Informationsträger", len(named_dfs["physmedien_informationstraeger"]), border=True)
+            st.metric("Physische Objekte", len(named_dfs["physischesobjekt"]), border=True)
 
-    st.subheader("Dateiendungen")
-    st.markdown("Hier siehst du die Verteilung der Dateiendungen der digitalen Objekte.")
-    plot_file_extension_distribution(named_dfs["media_digitale_objekte"])
+        st.divider()
+
+        st.subheader("Dateiendungen")
+        st.markdown("Hier siehst du die Verteilung der Dateiendungen der digitalen Objekte.")
+        plot_file_extension_distribution(named_dfs["media_digitale_objekte"])
+    
+    
+    elif selected_profile == "HfMT Tonbandarchiv":
+        st.info("Du hast das Profil **HfMT Tonbandarchiv** ausgewählt")
+
+
 
 
 def render_validation_tab(named_dfs, validation_targets):
