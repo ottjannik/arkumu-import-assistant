@@ -49,7 +49,7 @@
       "conditional": [],
       "either_or": []
     },
-    "ereignis": {
+    "events": {
       "filename": "02_hfm_Ereignis.csv",
       "required": [
         "EreignisNr",
@@ -70,7 +70,7 @@
       "conditional": [],
       "either_or": []
     },
-    "akteure": {
+    "akteurinnen": {
       "filename": "04_hfm_Akteurin.csv",
       "required": [
         "HFMT_Akteur_ID",
