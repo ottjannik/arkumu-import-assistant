@@ -35,6 +35,7 @@
       "required": [
         "Projekt_ID",
         "Originaltitel",
+        "arkumu_Auswahl",
         "Projektart_calc",
         "_Projekte_Export_Projektkategorien_arkumu",
         "Projekt_UUID"
